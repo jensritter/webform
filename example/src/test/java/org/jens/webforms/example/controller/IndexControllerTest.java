@@ -102,20 +102,6 @@ public class IndexControllerTest extends MyMockRunner {
 
     }
 
-
-    @Test
-    public void testSecurredNoAuth() throws Exception {
-        mockMvc.perform(get("/secured-junit"))
-            .andExpect(redirectedUrlPattern("**/login"));
-    }
-
-    @Test
-    @WithMockUser
-    public void testSecurredMissingPermissions() throws Exception {
-        mockMvc.perform(get("/secured-junit"))
-            .andExpect(status().is4xxClientError());
-    }
-
     @Test
     @WithMockUser(authorities = "JUNIT")
     public void testSecurredWithPermissions() throws Exception {

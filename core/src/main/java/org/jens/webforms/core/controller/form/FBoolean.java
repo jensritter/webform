@@ -6,11 +6,11 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 /**
  * @author Jens Ritter on 29/08/2021.
  */
-public class FBoolean extends Control {
-    @JsonIgnore
+public class FBoolean extends ElementControl {
+
     private String inlineTitle;
 
-    public FBoolean(String label) {
+    private FBoolean(String label) {
         super(FormType.FormBoolean, label);
     }
 
@@ -19,7 +19,14 @@ public class FBoolean extends Control {
         this.inlineTitle = inlinetitle;
     }
 
+    @JsonIgnore
     public String getInlineTitle() {return inlineTitle;}
 
     public void setInlineTitle(String inlineTitle) {this.inlineTitle = inlineTitle;}
+
+    @Override
+    ElementForm buildForm(ElementForm element) {
+        element.setInlinetitle(inlineTitle);
+        return element;
+    }
 }

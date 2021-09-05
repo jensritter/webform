@@ -5,7 +5,7 @@ import org.jens.webforms.core.controller.form.FBoolean;
 import org.jens.webforms.core.controller.form.FComboBox;
 import org.jens.webforms.core.controller.form.FDate;
 import org.jens.webforms.core.controller.form.FString;
-import org.jens.webforms.core.controller.form.JsonResponse;
+import org.jens.webforms.core.controller.form.JsonForm;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -32,18 +32,21 @@ public class MainController {
 
     @GetMapping("/api/form")
     @ResponseBody
-    public JsonResponse schema() {
+    public JsonForm schema() {
         FComboBox orte = new FComboBox("Orte");
+        orte.setDescription("description-1");
         orte.addValues(Arrays.asList(
             "Hannover", "Goslar", "Bad Tölz", "Hamburg"
         ));
 
-        JsonResponse response = new JsonResponse();
-        response.add("name", new FString("Name", true));
-        response.add("vorname", new FString("Vorname"));
-        response.add("strasse", new FString("Straße"));
-        response.add("birthday", new FDate("Geburtstag"));
-        response.add("heute", new FBoolean("Ist es heute", "ja/nein"));
+        JsonForm response = new JsonForm();
+        response.add("name", new FString("Name")
+            .setRequired(true).setDescription("description-2")
+        );
+        response.add("vorname", new FString("Vorname").setDescription("description-3"));
+        response.add("strasse", new FString("Straße").setDescription("description-4"));
+        response.add("birthday", new FDate("Geburtstag").setDescription("description-5"));
+        response.add("heute", new FBoolean("Ist es heute", "ja/nein").setDescription("description-6"));
         response.add("ort", orte);
 
         return response;
@@ -53,7 +56,6 @@ public class MainController {
     @ResponseBody
     public FormObject postMapping(FormObject obj, BindingResult bindingResult) {
         logger.info("{}", obj);
-
         return obj;
     }
 

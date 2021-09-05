@@ -42,7 +42,11 @@ class MainControllerTest extends MyMockRunner {
         String required = IOHelper.getStringFromClasspath(this, "api.json", StandardCharsets.UTF_8);
         JsonNode requiredNodes = mapper.readTree(required);
 
-        assertThat(requiredNodes).isEqualTo(currentNodes);
+        assertThat(
+            mapper.writerWithDefaultPrettyPrinter().writeValueAsString(requiredNodes)
+        ).isEqualTo(
+            mapper.writerWithDefaultPrettyPrinter().writeValueAsString(currentNodes)
+        );
 
     }
 

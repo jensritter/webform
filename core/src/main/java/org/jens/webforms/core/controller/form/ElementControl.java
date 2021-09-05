@@ -1,6 +1,5 @@
 package org.jens.webforms.core.controller.form;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonValue;
 
 /**
@@ -13,18 +12,20 @@ import com.fasterxml.jackson.annotation.JsonValue;
  *
  * @author Jens Ritter on 29/08/2021.
  */
-public class Control {
+public abstract class ElementControl {
     // https://github.com/jsonform/jsonform/wiki#common-schema-properties
-    private FormType type;
+    private final FormType type;
+
     private String title;
     private boolean required;
     private String description;
 
-    @JsonIgnore
-    private String displayName;
-
+    /**
+     * Mögliche Formate.
+     *
+     * @see <a href="https://github.com/jsonform/jsonform/wiki#schema-supported">https://github.com/jsonform/jsonform/wiki#schema-supported</a>
+     */
     public enum FormType {
-        // https://github.com/jsonform/jsonform/wiki#schema-supported
         FormString("string"),
         FormNumber("number"),
         FormInteger("integer"),
@@ -44,38 +45,39 @@ public class Control {
         }
     }
 
-    public Control() {}
 
-    public Control(FormType type, String title) {
+    protected ElementControl(FormType type, String label) {
         this.type = type;
-        this.title = title;
-        this.description = RandomValues.randomDesc();
+        this.title = label;
     }
 
-    public Control(FormType type, String title, boolean required) {
-        this.type = type;
-        this.title = title;
-        this.required = required;
-        this.description = RandomValues.randomDesc();
-    }
+    /**
+     * Creates an ElementForm for the Control
+     *
+     * @param element Default-Element
+     * @return modified Element
+     */
+    ElementForm buildForm(ElementForm element) {return element;}
 
     public FormType getType() {return type;}
 
-    public void setType(FormType type) {this.type = type;}
-
     public String getTitle() {return title;}
 
-    public void setTitle(String title) {this.title = title;}
+    public void setTitle(String titleValue) {
+        this.title = titleValue;
+    }
 
     public boolean isRequired() {return required;}
 
-    public void setRequired(boolean required) {this.required = required;}
-
-    public String getDisplayName() {return displayName;}
-
-    public void setDisplayName(String displayName) {this.displayName = displayName;}
+    public ElementControl setRequired(boolean required) {
+        this.required = required;
+        return this;
+    }
 
     public String getDescription() {return description;}
 
-    public void setDescription(String description) {this.description = description;}
+    public ElementControl setDescription(String description) {
+        this.description = description;
+        return this;
+    }
 }
