@@ -3,8 +3,6 @@ package org.jens.webforms.core.controller.form;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonValue;
 
-import java.util.UUID;
-
 /**
  * https://jsonform.github.io/jsonform/playground/index.html?example=schema-basic
  * https://github.com/jsonform/jsonform
@@ -51,14 +49,14 @@ public class Control {
     public Control(FormType type, String title) {
         this.type = type;
         this.title = title;
-        this.description = UUID.randomUUID().toString();
+        this.description = RandomValues.randomDesc();
     }
 
     public Control(FormType type, String title, boolean required) {
         this.type = type;
         this.title = title;
         this.required = required;
-        this.description = UUID.randomUUID().toString();
+        this.description = RandomValues.randomDesc();
     }
 
     public FormType getType() {return type;}
