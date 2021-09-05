@@ -54,8 +54,8 @@
       "key": "strasse"
     },
     {
-      "key": "birthday",
-      "type": "date"
+      "type": "date",
+      "key": "birthday"
     },
     {
       "key": "heute",

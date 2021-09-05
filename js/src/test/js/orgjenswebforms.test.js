@@ -56,7 +56,7 @@ beforeEach(() => {
 
 function loadJsonText() {
     const fs = require("fs");
-    const txt = fs.readFileSync("src/test/js/api.json");
+    const txt = fs.readFileSync("../example/src/test/resources/org/jens/webforms/example/controller/api.json");
     expect(txt).toContain(125); // ascii f. {
     return txt;
 }
