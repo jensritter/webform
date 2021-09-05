@@ -1,7 +1,7 @@
 {
   "name": "webforms-js",
   "version": "1.0.0",
-  "description": "Notwendiges JS",
+  "description": "required JS for html page",
   "repository": {
     "type": "git",
     "url": "git@github.com:jensritter/webforms.git"
@@ -20,16 +20,16 @@
       "<rootDir>/src/test/setup/jest-config-fail-always.js"
     ],
     "testResultsProcessor": "jest-junit",
+    "reporters": [
+      "default",
+      "jest-junit"
+    ],
     "collectCoverage": true,
     "coverageReporters": [
       "text",
       "cobertura"
     ],
-    "coverageDirectory": "target/coverage",
-    "reporters": [
-      "default",
-      "jest-junit"
-    ]
+    "coverageDirectory": "target/coverage"
   },
   "jest-junit": {
     "outputDirectory": "target/surefire-reports",

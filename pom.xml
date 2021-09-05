@@ -7,6 +7,7 @@
         <groupId>org.jens</groupId>
         <artifactId>masterpom</artifactId>
         <version>2.9-SNAPSHOT</version>
+        <relativePath />
     </parent>
 
     <groupId>org.jens.webforms</groupId>
