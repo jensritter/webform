@@ -1,5 +1,6 @@
 package org.jens.webforms.core.controller.form;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.ArrayList;
@@ -17,16 +18,18 @@ import java.util.Map.Entry;
 public class JsonForm {
     private final Map<String, ElementControl> schema = new LinkedHashMap<>();
 
+    private String titleSubmit = "Submit";
+
     @JsonProperty("form")
-    public List<ElementForm> getForm() {
-        List<ElementForm> result = new ArrayList<>();
+    public List<ElementFormAbstract> getForm() {
+        List<ElementFormAbstract> result = new ArrayList<>();
 
         for(Entry<String, ElementControl> entry : schema.entrySet()) {
             final ElementForm element = new ElementForm(entry.getKey()); // entry.getValue().getTitle()
             ElementForm elementForm = entry.getValue().buildForm(element);
             result.add(elementForm);
         }
-        result.add(ElementForm.submit("Submit"));
+        result.add(ElementFormButton.submit(titleSubmit));
         return result;
     }
 
@@ -48,4 +51,8 @@ public class JsonForm {
         this.schema.put(name, control);
     }
 
+    @JsonIgnore
+    public String getTitleSubmit() {return titleSubmit;}
+
+    public void setTitleSubmit(String titleSubmit) {this.titleSubmit = titleSubmit;}
 }

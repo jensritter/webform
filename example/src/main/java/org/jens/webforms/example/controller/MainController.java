@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.Arrays;
+import java.util.List;
 
 /**
  * @author Jens Ritter on 29/08/2021.
@@ -33,21 +34,19 @@ public class MainController {
     @GetMapping("/api/form")
     @ResponseBody
     public JsonForm schema() {
-        FComboBox orte = new FComboBox("Orte");
-        orte.setDescription("description-1");
-        orte.addValues(Arrays.asList(
+        List<String> orte = Arrays.asList(
             "Hannover", "Goslar", "Bad Tölz", "Hamburg"
-        ));
+        );
+
 
         JsonForm response = new JsonForm();
-        response.add("name", new FString("Name")
-            .setRequired(true).setDescription("description-2")
-        );
+        response.setTitleSubmit("Submit");
+        response.add("name", new FString("Name").setDescription("description-2").setRequired(true));
         response.add("vorname", new FString("Vorname").setDescription("description-3"));
         response.add("strasse", new FString("Straße").setDescription("description-4"));
         response.add("birthday", new FDate("Geburtstag").setDescription("description-5"));
         response.add("heute", new FBoolean("Ist es heute", "ja/nein").setDescription("description-6"));
-        response.add("ort", orte);
+        response.add("ort", new FComboBox("Orte", orte).setDescription("description-1"));
 
         return response;
     }
