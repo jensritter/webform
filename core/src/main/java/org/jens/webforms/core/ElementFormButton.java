@@ -7,6 +7,7 @@ import com.fasterxml.jackson.annotation.JsonValue;
 /**
  * Form-Buttons
  * https://github.com/jsonform/jsonform/wiki#fields-buttonss
+ * https://github.com/jsonform/jsonform/wiki#group-of-buttons-the-actions-type
  *
  * @author Jens Ritter on 05/09/2021.
  */

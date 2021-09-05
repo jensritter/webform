@@ -1,5 +1,6 @@
 package org.jens.webforms.core;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.Collection;
@@ -12,8 +13,9 @@ import java.util.Map;
  *
  * @author Jens Ritter on 29/08/2021.
  */
-public class FComboBox extends ElementControl {
+public class FComboBox extends ElementSchema {
     private final Map<String, String> values = new LinkedHashMap<>();
+    private boolean viewAsRadios;
 
     public FComboBox(String label) {
         super(FormType.FormString, label);
@@ -36,6 +38,9 @@ public class FComboBox extends ElementControl {
     @Override
     ElementForm buildForm(ElementForm element) {
         element.setTitleMaps(values);
+        if(viewAsRadios) {
+            element.setType("radios");
+        }
         return element;
     }
 
@@ -66,4 +71,11 @@ public class FComboBox extends ElementControl {
         return this;
     }
 
+    @JsonIgnore
+    boolean isViewAsRadios() {return viewAsRadios;}
+
+    public FComboBox setViewAsRadios(boolean viewAsRadios) {
+        this.viewAsRadios = viewAsRadios;
+        return this;
+    }
 }

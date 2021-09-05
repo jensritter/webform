@@ -13,7 +13,8 @@ import java.util.Map;
  * Json-Pojo für JsonForm
  * <p>
  * https://github.com/jsonform/jsonform/wiki#common-field-properties
- * https://github.com/jsonform/jsonform/wiki#a-number-the-range-type
+ * https://github.com/jsonform/jsonform/wiki#set-of-fields-the-fieldset-type
+ * https://github.com/jsonform/jsonform/wiki#generic-group-the-section-type
  *
  * @author Jens Ritter on 05/09/2021.
  * @see JsonForm

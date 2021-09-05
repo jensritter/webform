@@ -6,7 +6,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 /**
  * @author Jens Ritter on 29/08/2021.
  */
-public class FBoolean extends ElementControl {
+public class FBoolean extends ElementSchema {
 
     private String inlineTitle;
 

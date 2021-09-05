@@ -20,7 +20,7 @@ import org.jetbrains.annotations.Nullable;
  */
 @SuppressWarnings("NegativelyNamedBooleanVariable")
 @JsonInclude(Include.NON_NULL)
-public abstract class ElementControl {
+public abstract class ElementSchema {
 
     private final FormType type;
 
@@ -65,7 +65,7 @@ public abstract class ElementControl {
     }
 
 
-    protected ElementControl(FormType type, String label) {
+    protected ElementSchema(FormType type, String label) {
         this.type = type;
         this.title = label;
     }
@@ -102,14 +102,14 @@ public abstract class ElementControl {
 
     public boolean isRequired() {return required != null;}
 
-    public ElementControl setRequired(boolean required) {
+    public ElementSchema setRequired(boolean required) {
         this.required = required ? Boolean.TRUE : null;
         return this;
     }
 
     public String getDescription() {return description;}
 
-    public ElementControl setDescription(String description) {
+    public ElementSchema setDescription(String description) {
         this.description = description;
         return this;
     }
@@ -117,7 +117,7 @@ public abstract class ElementControl {
     @JsonIgnore
     public boolean isNotitle() {return notitle;}
 
-    public ElementControl setNotitle(boolean notitle) {
+    public ElementSchema setNotitle(boolean notitle) {
         this.notitle = notitle;
         return this;
     }
@@ -125,7 +125,7 @@ public abstract class ElementControl {
     @JsonIgnore
     public String getHtmlClass() {return htmlClass;}
 
-    public ElementControl setHtmlClass(String htmlClass) {
+    public ElementSchema setHtmlClass(String htmlClass) {
         this.htmlClass = htmlClass;
         return this;
     }
@@ -133,7 +133,7 @@ public abstract class ElementControl {
     @JsonIgnore
     public String getFieldHtmlClass() {return fieldHtmlClass;}
 
-    public ElementControl setFieldHtmlClass(String fieldHtmlClass) {
+    public ElementSchema setFieldHtmlClass(String fieldHtmlClass) {
         this.fieldHtmlClass = fieldHtmlClass;
         return this;
     }
@@ -141,7 +141,7 @@ public abstract class ElementControl {
     @JsonIgnore
     public String getPrepend() {return prepend;}
 
-    public ElementControl setPrepend(String prepend) {
+    public ElementSchema setPrepend(String prepend) {
         this.prepend = prepend;
         return this;
     }
@@ -149,7 +149,7 @@ public abstract class ElementControl {
     @JsonIgnore
     public String getPlaceholder() {return placeholder;}
 
-    public ElementControl setPlaceholder(String placeholder) {
+    public ElementSchema setPlaceholder(String placeholder) {
         this.placeholder = placeholder;
         return this;
     }
@@ -157,7 +157,7 @@ public abstract class ElementControl {
     @JsonIgnore
     public boolean isDisabled() {return disabled;}
 
-    public ElementControl setDisabled(boolean disabled) {
+    public ElementSchema setDisabled(boolean disabled) {
         this.disabled = disabled;
         return this;
     }
@@ -165,7 +165,7 @@ public abstract class ElementControl {
     @JsonIgnore
     public boolean isReadonly() {return readonly;}
 
-    public ElementControl setReadonly(boolean readonly) {
+    public ElementSchema setReadonly(boolean readonly) {
         this.readonly = readonly;
         return this;
     }

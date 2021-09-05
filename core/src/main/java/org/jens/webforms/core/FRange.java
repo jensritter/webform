@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 /**
  * @author Jens Ritter on 05/09/2021.
  */
-public class FRange extends ElementControl {
+public class FRange extends ElementSchema {
     private int minimum;
     private int maximum;
 
