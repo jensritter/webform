@@ -2,6 +2,8 @@ package org.jens.webforms.core;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -16,9 +18,18 @@ import java.util.Map.Entry;
  * @author Jens Ritter on 29/08/2021.
  */
 public class JsonForm {
+    private final ObjectMapper objectMapper = new ObjectMapper();
     private final Map<String, ElementSchema> schema = new LinkedHashMap<>();
 
     private String titleSubmit = "Submit";
+
+    public String toString() {
+        try {
+            return objectMapper.writeValueAsString(this);
+        } catch(JsonProcessingException e) {
+            return "{\"error\": \"" + e + "\"}";
+        }
+    }
 
     @JsonProperty("form")
     public List<ElementFormAbstract> getForm() {

@@ -2,7 +2,16 @@
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <body>
 
-<div th:fragment="scripts">
+<div th:fragment="inline">
+    <script type="text/javascript" th:src="@{/webjars/underscore/underscore-min.js}"></script>
+    <script type="text/javascript" th:src="@{/webjars/JSV/lib/jsv.js}"></script>
+    <script type="text/javascript" th:src="@{/webjars/jsonform/lib/jsonform.js}"></script>
+    <script th:inline="javascript">
+        var jsonform = [(${jsonform})];
+    </script>
+</div>
+
+<div th:fragment="ajax">
     <script type="text/javascript" th:src="@{/webjars/underscore/underscore-min.js}"></script>
     <script type="text/javascript" th:src="@{/webjars/JSV/lib/jsv.js}"></script>
     <script type="text/javascript" th:src="@{/webjars/jsonform/lib/jsonform.js}"></script>
