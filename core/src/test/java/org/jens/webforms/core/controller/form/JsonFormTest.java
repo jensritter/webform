@@ -33,8 +33,7 @@ class JsonFormTest {
             "  \"schema\" : {\n" +
             "    \"name\" : {\n" +
             "      \"type\" : \"string\",\n" +
-            "      \"title\" : \"Name\",\n" +
-            "      \"required\" : false\n" +
+            "      \"title\" : \"Name\"\n" +
             "    }\n" +
             "  },\n" +
             "  \"form\" : [ {\n" +

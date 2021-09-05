@@ -3,8 +3,11 @@ package org.jens.webforms.core;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonValue;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.Optional;
 
 /**
  * Basis-Pojo für alle Element
@@ -20,7 +23,7 @@ import org.jetbrains.annotations.Nullable;
  */
 @SuppressWarnings("NegativelyNamedBooleanVariable")
 @JsonInclude(Include.NON_NULL)
-public abstract class ElementSchema {
+public abstract class ElementSchema<T> {
 
     private final FormType type;
 
@@ -28,7 +31,10 @@ public abstract class ElementSchema {
     private String title;
     @Nullable
     private Boolean required;
+    @Nullable
     private String description;
+    @Nullable
+    private String defaultValue;
 
     /* form-properties */
     private boolean notitle;
@@ -89,6 +95,9 @@ public abstract class ElementSchema {
         return element;
     }
 
+    public abstract ElementSchema<T> setValue(@Nullable T value);
+
+
     public FormType getType() {return type;}
 
     public String getTitle() {return title;}
@@ -102,14 +111,14 @@ public abstract class ElementSchema {
 
     public boolean isRequired() {return required != null;}
 
-    public ElementSchema setRequired(boolean required) {
+    public ElementSchema<T> setRequired(boolean required) {
         this.required = required ? Boolean.TRUE : null;
         return this;
     }
 
-    public String getDescription() {return description;}
+    public @Nullable String getDescription() {return description;}
 
-    public ElementSchema setDescription(String description) {
+    public ElementSchema<T> setDescription(String description) {
         this.description = description;
         return this;
     }
@@ -117,7 +126,7 @@ public abstract class ElementSchema {
     @JsonIgnore
     public boolean isNotitle() {return notitle;}
 
-    public ElementSchema setNotitle(boolean notitle) {
+    public ElementSchema<T> setNotitle(boolean notitle) {
         this.notitle = notitle;
         return this;
     }
@@ -125,7 +134,7 @@ public abstract class ElementSchema {
     @JsonIgnore
     public String getHtmlClass() {return htmlClass;}
 
-    public ElementSchema setHtmlClass(String htmlClass) {
+    public ElementSchema<T> setHtmlClass(String htmlClass) {
         this.htmlClass = htmlClass;
         return this;
     }
@@ -133,7 +142,7 @@ public abstract class ElementSchema {
     @JsonIgnore
     public String getFieldHtmlClass() {return fieldHtmlClass;}
 
-    public ElementSchema setFieldHtmlClass(String fieldHtmlClass) {
+    public ElementSchema<T> setFieldHtmlClass(String fieldHtmlClass) {
         this.fieldHtmlClass = fieldHtmlClass;
         return this;
     }
@@ -141,7 +150,7 @@ public abstract class ElementSchema {
     @JsonIgnore
     public String getPrepend() {return prepend;}
 
-    public ElementSchema setPrepend(String prepend) {
+    public ElementSchema<T> setPrepend(String prepend) {
         this.prepend = prepend;
         return this;
     }
@@ -149,7 +158,7 @@ public abstract class ElementSchema {
     @JsonIgnore
     public String getPlaceholder() {return placeholder;}
 
-    public ElementSchema setPlaceholder(String placeholder) {
+    public ElementSchema<T> setPlaceholder(String placeholder) {
         this.placeholder = placeholder;
         return this;
     }
@@ -157,7 +166,7 @@ public abstract class ElementSchema {
     @JsonIgnore
     public boolean isDisabled() {return disabled;}
 
-    public ElementSchema setDisabled(boolean disabled) {
+    public ElementSchema<T> setDisabled(boolean disabled) {
         this.disabled = disabled;
         return this;
     }
@@ -165,8 +174,16 @@ public abstract class ElementSchema {
     @JsonIgnore
     public boolean isReadonly() {return readonly;}
 
-    public ElementSchema setReadonly(boolean readonly) {
+    public ElementSchema<T> setReadonly(boolean readonly) {
         this.readonly = readonly;
+        return this;
+    }
+
+    @JsonProperty("default")
+    public @Nullable String getDefaultValue() {return defaultValue;}
+
+    protected ElementSchema<T> setDefaultValue(Optional<T> opt) {
+        this.defaultValue = opt.map(Object::toString).orElse(null);
         return this;
     }
 }

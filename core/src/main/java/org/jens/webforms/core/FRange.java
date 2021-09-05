@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 /**
  * @author Jens Ritter on 05/09/2021.
  */
-public class FRange extends ElementSchema {
+public class FRange extends FInteger {
     private int minimum;
     private int maximum;
 
@@ -13,7 +13,7 @@ public class FRange extends ElementSchema {
     private boolean formIndicator;
 
     protected FRange(String label) {
-        super(FormType.FormInteger, label);
+        super(label);
     }
 
     public int getMinimum() {return minimum;}

@@ -2,18 +2,20 @@ package org.jens.webforms.core;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.Optional;
 
 /**
  * https://github.com/jsonform/jsonform/wiki#selection-fields
  *
  * @author Jens Ritter on 29/08/2021.
  */
-public class FComboBox extends ElementSchema {
+public class FComboBox extends ElementSchema<String> {
     private final Map<String, String> values = new LinkedHashMap<>();
     private boolean viewAsRadios;
 
@@ -42,6 +44,12 @@ public class FComboBox extends ElementSchema {
             element.setType("radios");
         }
         return element;
+    }
+
+    @Override
+    public ElementSchema<String> setValue(@Nullable String value) {
+        setDefaultValue(Optional.ofNullable(value));
+        return this;
     }
 
     private static Map<String, String> buildWithIndex(Collection<String> werte) {

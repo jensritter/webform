@@ -28,11 +28,19 @@ class FStringTest {
         value.buildForm(form);
 
 
-        String schema = objectWriter.writeValueAsString(value);
-        assertThat(schema).isEqualTo("");
+        String schema = objectWriter.writeValueAsString(value)
+            .replace("\r", "");
 
-        String formJson = objectWriter.writeValueAsString(form);
-        assertThat(formJson).isEqualTo("");
+        assertThat(schema).isEqualTo("{\n" +
+            "  \"type\" : \"string\",\n" +
+            "  \"title\" : \"label\"\n" +
+            "}");
+
+        String formJson = objectWriter.writeValueAsString(form)
+            .replace("\r", "");
+        assertThat(formJson).isEqualTo("{\n" +
+            "  \"key\" : \"name\"\n" +
+            "}");
     }
 
 }
