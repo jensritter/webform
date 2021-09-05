@@ -192,7 +192,126 @@ describe("integration-tests", () => {
 
                 });
         });
+
+        test("html-form is correctly build", () => {
+            return webform.build("formid", "/form/api")
+                .then(() => {
+                    const form = document.getElementById("formid");
+                    expect(form).not.toBeNull();
+
+                    const jsdiv = form.lastElementChild;
+                    expect(jsdiv).not.toBeNull();
+
+                    for (const formgroup of jsdiv.children) {
+
+                        if (formgroup.tagName === "INPUT") {
+                            expect(formgroup.type).toBe("submit");
+                            expect(formgroup.value).toBe("Submit");
+                            expect(formgroup.className).toBe("btn btn-primary ");
+                        } else {
+                            let hit = false;
+                            if (formgroup.classList.contains("jsonform-error-name")) {
+                                hit = expectTextField(formgroup, "text", "name", "Name", "description-2", true);
+                            }
+                            if (formgroup.classList.contains("jsonform-error-vorname")) {
+                                hit = expectTextField(formgroup, "text", "vorname", "Vorname", "description-3", false);
+                            }
+                            if (formgroup.classList.contains("jsonform-error-strasse")) {
+                                hit = expectTextField(formgroup, "text", "strasse", "Straße", "description-4", false);
+                            }
+                            if (formgroup.classList.contains("jsonform-error-birthday")) {
+                                hit = expectTextField(formgroup, "date", "birthday", "Geburtstag", "description-5", false);
+                            }
+                            if (formgroup.classList.contains("jsonform-error-heute")) {
+                                const eingabefeld = expectField(formgroup, "Ist es heute", false);
+                                expect(eingabefeld.classList).toContain("checkbox");
+
+                                const lbl = eingabefeld.firstChild;
+                                expect(lbl.textContent).toBe("ja/nein");
+                                const chk = lbl.firstChild;
+                                expect(chk.type).toBe("checkbox");
+                                expect(chk.name).toBe("heute");
+                                expect(chk.selected).not.toBeDefined();
+
+                                hit = expectDescription(eingabefeld, "description-6");
+                            }
+                            if (formgroup.classList.contains("jsonform-error-ort")) {
+
+                                const eingabefeld = expectField(formgroup, "Orte", false);
+                                expect(eingabefeld.tagName).toBe("SELECT");
+                                expect(eingabefeld.name).toBe("ort");
+                                expect(eingabefeld.required).toBe(false);
+                                expect(eingabefeld.classList).toContain("form-control");
+
+                                const options = eingabefeld.getElementsByTagName("OPTION");
+                                expect(options.length).toBe(4);
+
+                                expect(options[0].value).toBe("0");
+                                expect(options[0].textContent).toBe("Hannover");
+
+                                expect(options[1].value).toBe("1");
+                                expect(options[1].textContent).toBe("Goslar");
+
+                                expect(options[2].value).toBe("2");
+                                expect(options[2].textContent).toBe("Bad Tölz");
+
+                                expect(options[3].value).toBe("3");
+                                expect(options[3].textContent).toBe("Hamburg");
+
+                                hit = expectDescription(eingabefeld, "description-1");
+                            }
+
+                            if (!hit) {
+                                expect("").toBe(formgroup.outerHTML);
+                            }
+                        }
+                    }
+                });
+        });
+
     });
+
+    function expectTextField(formgroup, type, name, labelText, description, required) {
+        const eingabefeld = expectField(formgroup, labelText, required);
+        expect(eingabefeld).not.toBeNull();
+        expect(eingabefeld.type).toBe(type);
+        expect(eingabefeld.name).toBe(name);
+        expect(eingabefeld.required).toBe(required);
+        expect(eingabefeld.classList).toContain("form-control");
+
+        return expectDescription(eingabefeld, description);
+    }
+
+    function expectField(formgroup, labelText, required) {
+        if (required) {
+            expect(formgroup.classList).toContain("jsonform-required");
+        } else {
+            expect(formgroup.classList).not.toContain("jsonform-required");
+        }
+        const label = formgroup.firstChild;
+        expect(label).not.toBeNull();
+        expect(label.textContent).toBe(labelText);
+
+        const controls = label.nextSibling;
+        expect(controls).not.toBeNull();
+
+        const eingabefeld = controls.firstChild;
+        expect(eingabefeld).not.toBeNull();
+        return eingabefeld;
+    }
+
+    function expectDescription(eingabefeld, description) {
+        const desc = eingabefeld.nextSibling;
+        expect(desc.textContent).toBe(description);
+
+        const errors = desc.nextSibling;
+        expect(errors).not.toBeNull();
+        expect(errors.textContent).toBe("");
+
+        expect(errors.nextSibling).toBeNull();
+
+        return true;
+    }
 });
 
 
