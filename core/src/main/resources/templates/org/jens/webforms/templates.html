@@ -1,0 +1,15 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<body>
+
+<div th:fragment="scripts">
+    <script type="text/javascript" th:src="@{/webjars/underscore/underscore-min.js}"></script>
+    <script type="text/javascript" th:src="@{/webjars/JSV/lib/jsv.js}"></script>
+    <script type="text/javascript" th:src="@{/webjars/jsonform/lib/jsonform.js}"></script>
+
+    <!--    <script type="text/javascript" th:src="@{/js/org/jens/webforms/orgjenswebforms.js}"></script>-->
+    <script type="text/javascript" th:src="@{/webjars/webforms-js/orgjenswebforms.js}"></script>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,78 @@
+{
+  "schema": {
+    "name": {
+      "type": "string",
+      "title": "Name",
+      "required": true,
+      "description": "c93dd933-868b-467d-a6ae-0b7d33b3a4ea"
+    },
+    "vorname": {
+      "type": "string",
+      "title": "Vorname",
+      "required": false,
+      "description": "b49e051b-ea43-41dd-a1f2-479999e3e6e6"
+    },
+    "strasse": {
+      "type": "string",
+      "title": "Straße",
+      "required": false,
+      "description": "08ddaf59-587a-44c3-bf04-5fa7414cccd6"
+    },
+    "birthday": {
+      "type": "string",
+      "title": "Geburtstag",
+      "required": false,
+      "description": "27dbc2ba-225c-4bb6-80db-eca12b0545c1"
+    },
+    "heute": {
+      "type": "boolean",
+      "title": "Ist es heute",
+      "required": false,
+      "description": "8cb90f63-8908-4a53-9eef-1082c1bd9659"
+    },
+    "ort": {
+      "type": "string",
+      "title": "Orte",
+      "required": false,
+      "description": "67a90c2d-f8d3-4748-b63c-1ebf8d42e6cb",
+      "enum": [
+        "0",
+        "1",
+        "2",
+        "3"
+      ]
+    }
+  },
+  "form": [
+    {
+      "key": "name"
+    },
+    {
+      "key": "vorname"
+    },
+    {
+      "key": "strasse"
+    },
+    {
+      "key": "birthday",
+      "type": "date"
+    },
+    {
+      "key": "heute",
+      "inlinetitle": "ja/nein"
+    },
+    {
+      "key": "ort",
+      "titleMap": {
+        "0": "Hannover",
+        "1": "Goslar",
+        "2": "Bad Tölz",
+        "3": "Hamburg"
+      }
+    },
+    {
+      "type": "submit",
+      "title": "Submit"
+    }
+  ]
+}

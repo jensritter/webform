@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>org.jens.webforms</groupId>
+        <artifactId>webforms-parent</artifactId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+
+
+    <groupId>org.jens.webforms</groupId>
+    <artifactId>webforms-core</artifactId>
+    <version>1.0-SNAPSHOT</version>
+
+    <scm>
+        <url>http://git.jens.org/git/summary/${project.artifactId}</url>
+        <connection>scm:git:http://git.jens.org/git/r/${project.artifactId}.git</connection>
+        <developerConnection>scm:git:ssh://matrix.jens.org/git/${project.artifactId}.git</developerConnection>
+    </scm>
+
+
+    <dependencies>
+        <dependency>
+            <groupId>org.webjars.bowergithub.jsonform</groupId>
+            <artifactId>jsonform</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.webjars.bowergithub.jashkenas</groupId>
+            <artifactId>underscore</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.webjars.bowergithub.garycourt</groupId>
+            <artifactId>jsv</artifactId>
+        </dependency>
+
+
+        <!-- BaseWeb -->
+        <dependency>
+            <groupId>org.jens.starter</groupId>
+            <artifactId>starter-web</artifactId>
+        </dependency>
+
+        <!-- BaseWeb Testing -->
+        <dependency>
+            <groupId>org.jens.starter</groupId>
+            <artifactId>starter-web-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.restdocs</groupId>
+            <artifactId>spring-restdocs-mockmvc</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpclient</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- MiscDB -->
+        <dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-jdbc</artifactId>
+        </dependency>
+
+        <!-- Security -->
+        <dependency>
+            <groupId>org.jens.shorthand.security</groupId>
+            <artifactId>starter-security-ad</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.jens.shorthand.security</groupId>
+            <artifactId>starter-security-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.jens.starter</groupId>
+            <artifactId>starter-validation</artifactId>
+        </dependency>
+
+
+        <!-- JavaScript -->
+        <dependency>
+            <groupId>org.webjars.bower</groupId>
+            <artifactId>bootstrap</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.webjars.bower</groupId>
+            <artifactId>jquery</artifactId>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <finalName>${project.artifactId}</finalName>
+
+        <plugins><!-- GitInfo erzeugen -->
+            <plugin>
+                <groupId>pl.project13.maven</groupId>
+                <artifactId>git-commit-id-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <phase>generate-resources</phase>
+                        <goals>
+                            <goal>revision</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>repackage</goal>
+                            <goal>build-info</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <mainClass>org.jens.archetypes.Application</mainClass>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+    <profiles>
+        <profile>
+            <id>devtools</id>
+            <dependencies>
+                <dependency>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-devtools</artifactId>
+                    <optional>true</optional>
+                </dependency>
+            </dependencies>
+        </profile>
+
+
+        <profile> <!-- aufnehmen in Haupt-Config, sofern AsciiDocs gewünscht werden -->
+            <id>asciidoc</id> <!-- see masterpom für Properties zum überschreiben -->
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.asciidoctor</groupId>
+                        <artifactId>asciidoctor-maven-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>generate-html-docs</id>
+                                <phase>prepare-package</phase> <!-- sofern RestDocs verwendet wird, alternative geht auch generate-resources -->
+                                <goals>
+                                    <goal>process-asciidoc</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                        <configuration>
+                            <backend>html</backend>
+                            <!--<backend>pdf</backend>-->
+
+                            <outputDirectory>${project.build.outputDirectory}/static/docs</outputDirectory>
+                            <!--<sourceDocumentExtensions>asciidoc</sourceDocumentExtensions>-->
+
+                            <attributes>
+                                <!-- Inhaltsverzeichnis -->
+                                <!--<toc2 /> &lt;!&ndash; Html-Menu links &ndash;&gt;-->
+                                <!--<toclevels>4</toclevels> &lt;!&ndash; Max. Tiefe für Inhaltsverzeichnis &ndash;&gt;-->
+                                <!--<numbered /> &lt;!&ndash; Kapitel werden durchnummeriert &ndash;&gt;-->
+
+                                <!-- Font Awesome usage
+                                        Benötigt in der 1. Zeile der .adoc-Datei folgende Anweisung :
+
+                                        :iconfont-remote!:
+
+                                        und neben der WebJars-Dependency für fontawesome diese Config : -->
+                                <!--
+                                    <icons>font</icons>
+                                    <stylesdir>../webjars/fontawesome/css/</stylesdir> &lt;!&ndash; WebJars-Location&ndash;&gt;
+                                -->
+                                <xrefstyle>short</xrefstyle> <!-- // Wie sollen verweise  angezeigt werden ? -->
+
+                                <!-- Deutsch -->
+                                <!--<lang>de</lang>-->
+                                <!--<chapter-label>Kapitel</chapter-label>-->
+                                <!--<section-label>Abschnitt</section-label>-->
+                                <!--<table-label>Tabelle</table-label>-->
+                                <!--<example-caption>Beispiel</example-caption>-->
+                                <!--<figure-caption>Zeichnung</figure-caption>-->
+                                <!--<toc-title>Inhaltsverzeichnis</toc-title>-->
+                                <!--<last-update-label>Zuletzt aktualisiert</last-update-label>-->
+                            </attributes>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
+
+</project>

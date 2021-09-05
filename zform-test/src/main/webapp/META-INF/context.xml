@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- for Tomcat -->
+<Context>
+    <ResourceLink type="javax.sql.DataSource" global="jdbc/test" name="jdbc/test" />
+</Context>

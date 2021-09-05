@@ -1,0 +1,5 @@
+npm install --save-dev mocha
+npm install --save-dev chai
+npm install --save-dev jsdom global-jsdom
+npm install --save-dev express
+npm install --save-dev node-fetch

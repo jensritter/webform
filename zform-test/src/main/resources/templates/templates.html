@@ -1,0 +1,66 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<body>
+
+<!--suppress HtmlUnknownTag -->
+<head th:fragment="head(title)">
+    <meta content="text/html" th:charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title th:text="${title}">Einspielergebnisse</title>
+
+    <script th:inline="javascript" type="text/javascript">
+        const RELURL = /*[[ @{/} ]]*/ 'http://localhost:8080';
+    </script>
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/dist/css/bootstrap.min.css}" />
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/dist/css/bootstrap-theme.min.css}" />
+
+    <!--    <link rel="stylesheet" th:href="@{/webjars/Eonasdan-bootstrap-datetimepicker/css/bootstrap-datetimepicker.css}" />-->
+    <!--    <link rel="stylesheet" th:href="@{/webjars/jquery-ui/themes/base/jquery-ui.min.css}" />-->
+    <!--    <link rel="stylesheet" th:href="@{/webjars/fontawesome/css/font-awesome.min.css}" />-->
+    <!--    <link rel="stylesheet" th:href="@{/webjars/fontawesome/fonts/fontawesome-webfont.woff2}" media="all" />-->
+    <link rel="stylesheet" th:href="@{/css/style.css}" />
+
+</head>
+
+<div th:fragment="scripts">
+    <script type="text/javascript" th:src="@{/webjars/jquery/dist/jquery.min.js}"></script>
+    <script type="text/javascript" th:src="@{/webjars/bootstrap/dist/js/bootstrap.min.js}"></script>
+    <script type="text/javascript" th:src="@{/js/index.js}"></script>
+
+    <script type="text/javascript" th:src="@{/webjars/underscore/underscore-min.js}"></script>
+    <script type="text/javascript" th:src="@{/webjars/JSV/lib/jsv.js}"></script>
+    <script type="text/javascript" th:src="@{/webjars/jsonform/lib/jsonform.js}"></script>
+    <!--    <script type="text/javascript" src="deps/jquery.min.js"></script>-->
+    <!--    <script type="text/javascript" src="deps/underscore.js"></script>-->
+    <!--    <script type="text/javascript" src="deps/opt/jsv.js"></script>-->
+    <!--    <script type="text/javascript" src="lib/jsonform.js"></script>-->
+</div>
+
+<div th:fragment="dialog">
+    <div class="modal" tabindex="-1" role="dialog" id="dlg">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Wirklich löschen ? </h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>DialogText <span id="dlgValue" /> ?
+                </div>
+
+                <div class="modal-footer">
+                    <a type="button" class="btn btn-default btn-danger" id="dlgLink" th:href="@{/blacklist/delete(kredi=-1)}">Ja</a><!-- value wird via js gesetzt -->
+                    <button type="button" class="btn btn-default btn-secondary" data-dismiss="modal">Abbrechen</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript" th:src="@{/js/template-dialog.js}"></script>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,50 @@
+{
+  "name": "webforms-js",
+  "version": "1.0.0",
+  "description": "Notwendiges JS",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:jensritter/webforms.git"
+  },
+  "author": "Jens Ritter<jens.ritter@gmail.com>",
+  "license": "ISC",
+  "scripts": {
+    "test": "jest"
+  },
+  "jest": {
+    "roots": [
+      ".",
+      "src/test/js"
+    ],
+    "setupFiles": [
+      "<rootDir>/src/test/setup/jest-config-fail-always.js"
+    ],
+    "testResultsProcessor": "jest-junit",
+    "collectCoverage": true,
+    "coverageReporters": [
+      "text",
+      "cobertura"
+    ],
+    "coverageDirectory": "target/coverage",
+    "reporters": [
+      "default",
+      "jest-junit"
+    ]
+  },
+  "jest-junit": {
+    "outputDirectory": "target/surefire-reports",
+    "outputName": "jest-junit.xml"
+  },
+  "devDependencies": {
+    "express": "^4.17.1",
+    "jest": "^27.1.0",
+    "jest-junit": "^12.2.0",
+    "node-fetch": "^2.6.1"
+  },
+  "dependencies": {
+    "jsonform": "^2.2.4",
+    "jquery": "^3.6.0",
+    "underscore": "^1.13.1",
+    "JSV": "^4.0.2"
+  }
+}

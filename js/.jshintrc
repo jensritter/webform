@@ -1,0 +1,9 @@
+{
+  "browser": true,
+  "jquery": true,
+  "strict": false,
+  "esversion": 6,
+  "globals": {
+    "RELURL": true
+  }
+}

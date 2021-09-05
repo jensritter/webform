@@ -1,0 +1,32 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="templates:: head('Index-Page')"></head>
+<body>
+<div class="container-fluid">
+    <div class="page-header">
+        <h1>Example-Forms
+            <small>Page</small>
+        </h1>
+    </div>
+
+    <form id="form" th:method="post" th:action="@{/api/form}"></form>
+</div>
+
+
+<div th:replace="templates :: scripts"></div>
+<div th:replace="org/jens/webforms/templates :: scripts"></div>
+<script th:inline="javascript">
+    /*<![CDATA[*/
+
+
+    document.addEventListener('DOMContentLoaded', function (data) {
+        // const url = new URL(document.location)
+        // const base = url.protocol + "//" + url.host + RELURL;
+        orgjenswebforms.build("form", RELURL + "api/form");
+    });
+
+
+    /*]]>*/
+</script>
+</body>
+</html>
