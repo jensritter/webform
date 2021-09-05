@@ -21,11 +21,14 @@ import java.util.Arrays;
  */
 @Controller
 public class MainController {
+    private final Logger logger = LoggerFactory.getLogger(MainController.class);
+
 
     @GetMapping("/main")
     public String index() {
         return "index";
     }
+
 
     @GetMapping("/api/form")
     @ResponseBody
@@ -45,9 +48,6 @@ public class MainController {
 
         return response;
     }
-
-
-    private final Logger logger = LoggerFactory.getLogger(MainController.class);
 
     @PostMapping("/api/form")
     @ResponseBody
