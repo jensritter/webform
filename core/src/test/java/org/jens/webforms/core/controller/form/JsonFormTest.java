@@ -1,11 +1,14 @@
 package org.jens.webforms.core.controller.form;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.jens.webforms.core.FDate;
 import org.jens.webforms.core.FString;
 import org.jens.webforms.core.JsonForm;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 /**
@@ -21,7 +24,26 @@ class JsonFormTest {
     }
 
     @Test
-    void getForm() {
+    void getForm() throws JsonProcessingException {
+        form.add("name", new FString("Name"));
+        ObjectMapper mapper = new ObjectMapper();
+        String json = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(form)
+            .replace("\r", "");
+        assertThat(json).isEqualTo("{\n" +
+            "  \"schema\" : {\n" +
+            "    \"name\" : {\n" +
+            "      \"type\" : \"string\",\n" +
+            "      \"title\" : \"Name\",\n" +
+            "      \"required\" : false\n" +
+            "    }\n" +
+            "  },\n" +
+            "  \"form\" : [ {\n" +
+            "    \"key\" : \"name\"\n" +
+            "  }, {\n" +
+            "    \"type\" : \"submit\",\n" +
+            "    \"title\" : \"Submit\"\n" +
+            "  } ]\n" +
+            "}");
     }
 
     @Test

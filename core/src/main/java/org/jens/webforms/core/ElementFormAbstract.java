@@ -7,7 +7,7 @@ import org.jetbrains.annotations.Nullable;
 /**
  * @author Jens Ritter on 05/09/2021.
  */
-@JsonInclude(Include.NON_EMPTY)
+@JsonInclude(Include.NON_NULL)
 public class ElementFormAbstract {
 
     @Nullable
@@ -15,5 +15,5 @@ public class ElementFormAbstract {
 
     public @Nullable String getType() {return type;}
 
-    public void setType(@Nullable String type) {this.type = type;}
+    void setType(@Nullable String type) {this.type = type;}
 }

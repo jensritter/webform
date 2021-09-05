@@ -9,31 +9,26 @@
     "vorname": {
       "type": "string",
       "title": "Vorname",
-      "required": false,
       "description": "description-3"
     },
     "strasse": {
       "type": "string",
       "title": "Straße",
-      "required": false,
       "description": "description-4"
     },
     "birthday": {
       "type": "string",
       "title": "Geburtstag",
-      "required": false,
       "description": "description-5"
     },
     "heute": {
       "type": "boolean",
       "title": "Ist es heute",
-      "required": false,
       "description": "description-6"
     },
     "ort": {
       "type": "string",
       "title": "Orte",
-      "required": false,
       "description": "description-1",
       "enum": [
         "0",

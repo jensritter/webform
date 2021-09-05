@@ -26,7 +26,7 @@ public class FBoolean extends ElementControl {
 
     @Override
     ElementForm buildForm(ElementForm element) {
-        element.setInlinetitle(inlineTitle);
+        element.setInlineTitle(inlineTitle);
         return element;
     }
 }
