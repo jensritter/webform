@@ -10,7 +10,10 @@ import org.jetbrains.annotations.Nullable;
 import java.util.Optional;
 
 /**
- * Basis-Pojo für alle Element
+ * Basis-Pojo für alle Elemente.
+ * <p>
+ * Nur eine teilmenge von Properties werden direkt nach Json gemappt. Viele Properties werden via JsonForm zu einem ElementForm umgewandelt
+ * <p>
  * https://jsonform.github.io/jsonform/playground/index.html?example=schema-basic
  * https://github.com/jsonform/jsonform
  * <p>
@@ -95,7 +98,7 @@ public abstract class ElementSchema<T> {
         return element;
     }
 
-    public abstract ElementSchema<T> setValue(@Nullable T value);
+    public abstract ElementSchema<T> value(@Nullable T value);
 
 
     public FormType getType() {return type;}
@@ -111,15 +114,15 @@ public abstract class ElementSchema<T> {
 
     public boolean isRequired() {return required != null;}
 
-    public ElementSchema<T> setRequired(boolean required) {
-        this.required = required ? Boolean.TRUE : null;
+    public ElementSchema<T> required(boolean req) {
+        this.required = req ? Boolean.TRUE : null;
         return this;
     }
 
     public @Nullable String getDescription() {return description;}
 
-    public ElementSchema<T> setDescription(String description) {
-        this.description = description;
+    public ElementSchema<T> description(String desc) {
+        this.description = desc;
         return this;
     }
 
@@ -158,8 +161,8 @@ public abstract class ElementSchema<T> {
     @JsonIgnore
     public String getPlaceholder() {return placeholder;}
 
-    public ElementSchema<T> setPlaceholder(String placeholder) {
-        this.placeholder = placeholder;
+    public ElementSchema<T> placeholder(String plholder) {
+        this.placeholder = plholder;
         return this;
     }
 
@@ -182,7 +185,7 @@ public abstract class ElementSchema<T> {
     @JsonProperty("default")
     public @Nullable String getDefaultValue() {return defaultValue;}
 
-    protected ElementSchema<T> setDefaultValue(Optional<T> opt) {
+    ElementSchema<T> setDefaultValue(Optional<T> opt) {
         this.defaultValue = opt.map(Object::toString).orElse(null);
         return this;
     }

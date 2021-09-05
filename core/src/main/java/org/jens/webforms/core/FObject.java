@@ -9,7 +9,7 @@ public class FObject extends ElementSchema<Object> {
     }
 
     @Override
-    public ElementSchema<Object> setValue(Object value) {
+    public ElementSchema<Object> value(Object value) {
         throw new IllegalStateException("unimplemented: ");
     }
 }

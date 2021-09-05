@@ -13,7 +13,7 @@ public class FString extends ElementSchema<String> {
     }
 
     @Override
-    public FString setValue(@Nullable String value) {
+    public FString value(@Nullable String value) {
         setDefaultValue(Optional.ofNullable(value));
         return this;
     }

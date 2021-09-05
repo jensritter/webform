@@ -19,7 +19,7 @@ import java.util.Map.Entry;
  */
 public class JsonForm {
     private final ObjectMapper objectMapper = new ObjectMapper();
-    private final Map<String, ElementSchema> schema = new LinkedHashMap<>();
+    private final Map<String, ElementSchema<?>> schema = new LinkedHashMap<>();
 
     private String titleSubmit = "Submit";
 
@@ -35,7 +35,7 @@ public class JsonForm {
     public List<ElementFormAbstract> getForm() {
         List<ElementFormAbstract> result = new ArrayList<>();
 
-        for(Entry<String, ElementSchema> entry : schema.entrySet()) {
+        for(Entry<String, ElementSchema<?>> entry : schema.entrySet()) {
             final ElementForm element = new ElementForm(entry.getKey()); // entry.getValue().getTitle()
             ElementForm elementForm = entry.getValue().buildForm(element);
             result.add(elementForm);
@@ -45,7 +45,7 @@ public class JsonForm {
     }
 
     @JsonProperty("schema")
-    public Map<String, ElementSchema> getSchema() {return Collections.unmodifiableMap(schema);}
+    public Map<String, ElementSchema<?>> getSchema() {return Collections.unmodifiableMap(schema);}
 
     /**
      * Add another Control to the current Form.
@@ -55,7 +55,7 @@ public class JsonForm {
      * @param name Name of the Control
      * @param control Control
      */
-    public void add(String name, ElementSchema control) {
+    public void add(String name, ElementSchema<?> control) {
         if(this.schema.containsKey(name)) {
             throw new IllegalArgumentException("Duplicate 'name' for Control");
         }

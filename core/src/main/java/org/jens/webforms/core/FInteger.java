@@ -14,7 +14,7 @@ public class FInteger extends ElementSchema<Integer> {
     }
 
     @Override
-    public ElementSchema<Integer> setValue(@Nullable Integer value) {
+    public ElementSchema<Integer> value(@Nullable Integer value) {
         setDefaultValue(Optional.ofNullable(value));
         return this;
     }

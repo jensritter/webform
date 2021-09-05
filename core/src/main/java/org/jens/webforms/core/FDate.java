@@ -21,7 +21,7 @@ public class FDate extends ElementSchema<LocalDate> {
     }
 
     @Override
-    public ElementSchema<LocalDate> setValue(@Nullable LocalDate value) {
+    public ElementSchema<LocalDate> value(@Nullable LocalDate value) {
         setDefaultValue(Optional.ofNullable(value));
         return this;
     }

@@ -41,12 +41,12 @@ public class MainController {
 
         JsonForm response = new JsonForm();
         response.setTitleSubmit("Submit");
-        response.add("name", new FString("Name").setDescription("description-2").setRequired(true));
-        response.add("vorname", new FString("Vorname").setDescription("description-3"));
-        response.add("strasse", new FString("Straße").setDescription("description-4"));
-        response.add("birthday", new FDate("Geburtstag").setDescription("description-5"));
-        response.add("heute", new FBoolean("Ist es heute", "ja/nein").setDescription("description-6"));
-        response.add("ort", new FComboBox("Orte", orte).setDescription("description-1"));
+        response.add("name", new FString("Name").description("description-2").required(true));
+        response.add("vorname", new FString("Vorname").description("description-3"));
+        response.add("strasse", new FString("Straße").description("description-4"));
+        response.add("birthday", new FDate("Geburtstag").description("description-5"));
+        response.add("heute", new FBoolean("Ist es heute", "ja/nein").description("description-6"));
+        response.add("ort", new FComboBox("Orte", orte).description("description-1"));
 
         return response;
     }

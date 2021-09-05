@@ -12,7 +12,7 @@ public class FNumber extends ElementSchema<Number> {
     }
 
     @Override
-    public ElementSchema<Number> setValue(Number value) {
+    public ElementSchema<Number> value(Number value) {
         setDefaultValue(Optional.ofNullable(value));
         return this;
     }

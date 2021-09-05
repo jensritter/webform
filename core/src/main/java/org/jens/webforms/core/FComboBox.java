@@ -47,7 +47,7 @@ public class FComboBox extends ElementSchema<String> {
     }
 
     @Override
-    public ElementSchema<String> setValue(@Nullable String value) {
+    public ElementSchema<String> value(@Nullable String value) {
         setDefaultValue(Optional.ofNullable(value));
         return this;
     }

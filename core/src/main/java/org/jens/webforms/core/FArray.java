@@ -13,7 +13,7 @@ public class FArray extends ElementSchema<List<String>> {
     }
 
     @Override
-    public ElementSchema<List<String>> setValue(@Nullable List<String> value) {
+    public ElementSchema<List<String>> value(@Nullable List<String> value) {
         throw new IllegalStateException("unimplemented: ");
     }
 }
