@@ -22,6 +22,19 @@
 
 
     <dependencies>
+        <!-- Compiler-Annotations -->
+        <dependency>
+            <groupId>org.jetbrains</groupId>
+            <artifactId>annotations</artifactId>
+        </dependency>
+
+        <!-- Json-Dependencies -->
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-annotations</artifactId>
+        </dependency>
+
+        <!-- JS Dependencies -->
         <dependency>
             <groupId>org.webjars.bowergithub.jsonform</groupId>
             <artifactId>jsonform</artifactId>
@@ -35,116 +48,17 @@
             <artifactId>jsv</artifactId>
         </dependency>
 
-
-        <!-- BaseWeb -->
-        <dependency>
-            <groupId>org.jens.starter</groupId>
-            <artifactId>starter-web</artifactId>
-        </dependency>
-
         <!-- BaseWeb Testing -->
         <dependency>
             <groupId>org.jens.starter</groupId>
             <artifactId>starter-web-test</artifactId>
             <scope>test</scope>
         </dependency>
-        <dependency>
-            <groupId>org.springframework.restdocs</groupId>
-            <artifactId>spring-restdocs-mockmvc</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.httpcomponents</groupId>
-            <artifactId>httpclient</artifactId>
-            <scope>test</scope>
-        </dependency>
-
-        <!-- MiscDB -->
-        <dependency>
-            <groupId>com.h2database</groupId>
-            <artifactId>h2</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-jdbc</artifactId>
-        </dependency>
-
-        <!-- Security -->
-        <dependency>
-            <groupId>org.jens.shorthand.security</groupId>
-            <artifactId>starter-security</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.jens.shorthand.security</groupId>
-            <artifactId>starter-security-test</artifactId>
-            <scope>test</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>org.jens.starter</groupId>
-            <artifactId>starter-validation</artifactId>
-        </dependency>
 
 
-        <!-- JavaScript -->
-        <dependency>
-            <groupId>org.webjars.bower</groupId>
-            <artifactId>bootstrap</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.webjars.bower</groupId>
-            <artifactId>jquery</artifactId>
-        </dependency>
     </dependencies>
 
-    <build>
-        <finalName>${project.artifactId}</finalName>
-
-        <plugins><!-- GitInfo erzeugen -->
-            <plugin>
-                <groupId>pl.project13.maven</groupId>
-                <artifactId>git-commit-id-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <phase>generate-resources</phase>
-                        <goals>
-                            <goal>revision</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>repackage</goal>
-                            <goal>build-info</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <configuration>
-                    <mainClass>org.jens.archetypes.Application</mainClass>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
-
     <profiles>
-        <profile>
-            <id>devtools</id>
-            <dependencies>
-                <dependency>
-                    <groupId>org.springframework.boot</groupId>
-                    <artifactId>spring-boot-devtools</artifactId>
-                    <optional>true</optional>
-                </dependency>
-            </dependencies>
-        </profile>
-
-
         <profile> <!-- aufnehmen in Haupt-Config, sofern AsciiDocs gewünscht werden -->
             <id>asciidoc</id> <!-- see masterpom für Properties zum überschreiben -->
             <build>

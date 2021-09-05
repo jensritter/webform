@@ -1,10 +1,13 @@
-package org.jens.webforms.core.controller.form;
+package org.jens.webforms.core;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonValue;
 
 /**
+ * Form-Buttons
+ * https://github.com/jsonform/jsonform/wiki#fields-buttonss
+ *
  * @author Jens Ritter on 05/09/2021.
  */
 @JsonInclude(Include.NON_EMPTY)

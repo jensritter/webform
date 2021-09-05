@@ -1,4 +1,4 @@
-package org.jens.webforms.core.controller.form;
+package org.jens.webforms.core;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -35,7 +35,7 @@ public class FComboBox extends ElementControl {
 
     @Override
     ElementForm buildForm(ElementForm element) {
-        element.addTitleMaps(values);
+        element.setTitleMaps(values);
         return element;
     }
 

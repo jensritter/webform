@@ -1,4 +1,4 @@
-package org.jens.webforms.core.controller.form;
+package org.jens.webforms.core;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;

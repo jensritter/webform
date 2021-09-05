@@ -1,5 +1,5 @@
 
-package org.jens.webforms.core.controller.form;
+package org.jens.webforms.core;
 
 /**
  * @author Jens Ritter on 29/08/2021.

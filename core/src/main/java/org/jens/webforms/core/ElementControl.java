@@ -1,4 +1,4 @@
-package org.jens.webforms.core.controller.form;
+package org.jens.webforms.core;
 
 import com.fasterxml.jackson.annotation.JsonValue;
 
@@ -11,11 +11,13 @@ import com.fasterxml.jackson.annotation.JsonValue;
  * TODO: https://github.com/jsonform/jsonform/wiki#group-of-buttons-the-actions-type
  *
  * @author Jens Ritter on 29/08/2021.
+ * @see JsonForm
  */
 public abstract class ElementControl {
-    // https://github.com/jsonform/jsonform/wiki#common-schema-properties
+
     private final FormType type;
 
+    // https://github.com/jsonform/jsonform/wiki#common-schema-properties
     private String title;
     private boolean required;
     private String description;

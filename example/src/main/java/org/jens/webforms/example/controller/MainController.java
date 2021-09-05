@@ -1,11 +1,11 @@
 package org.jens.webforms.example.controller;
 
 
-import org.jens.webforms.core.controller.form.FBoolean;
-import org.jens.webforms.core.controller.form.FComboBox;
-import org.jens.webforms.core.controller.form.FDate;
-import org.jens.webforms.core.controller.form.FString;
-import org.jens.webforms.core.controller.form.JsonForm;
+import org.jens.webforms.core.FBoolean;
+import org.jens.webforms.core.FComboBox;
+import org.jens.webforms.core.FDate;
+import org.jens.webforms.core.FString;
+import org.jens.webforms.core.JsonForm;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
