@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>org.jens</groupId>
+        <artifactId>masterpom</artifactId>
+        <version>2.9-SNAPSHOT</version>
+    </parent>
+
+    <groupId>org.jens.webforms</groupId>
+    <artifactId>webforms-parent</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <packaging>pom</packaging>
+
+    <properties>
+        <version.jsonform>2.1.5</version.jsonform>
+        <version.underscore>1.13.1</version.underscore>
+        <version.jsv>4.0.2</version.jsv>
+    </properties>
+
+    <modules>
+        <module>core</module>
+        <module>example</module>
+        <module>starter</module>
+        <module>zform-test</module>
+        <module>js</module>
+    </modules>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.webjars.bowergithub.jsonform</groupId>
+                <artifactId>jsonform</artifactId>
+                <version>${version.jsonform}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.webjars.bowergithub.jashkenas</groupId>
+                <artifactId>underscore</artifactId>
+                <version>${version.underscore}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.webjars.bowergithub.garycourt</groupId>
+                <artifactId>jsv</artifactId>
+                <version>${version.jsv}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+</project>
