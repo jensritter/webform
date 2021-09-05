@@ -16,7 +16,7 @@
     <packaging>pom</packaging>
 
     <properties>
-        <version.jsonform>2.1.5</version.jsonform>
+        <version.jsonform>2.2.4</version.jsonform>
         <version.underscore>1.13.1</version.underscore>
         <version.jsv>4.0.2</version.jsv>
     </properties>
@@ -31,7 +31,7 @@
     <dependencyManagement>
         <dependencies>
             <dependency>
-                <groupId>org.webjars.bowergithub.jsonform</groupId>
+                <groupId>org.webjars.npm</groupId>
                 <artifactId>jsonform</artifactId>
                 <version>${version.jsonform}</version>
             </dependency>
