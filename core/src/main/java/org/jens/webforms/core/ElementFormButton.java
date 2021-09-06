@@ -11,29 +11,24 @@ import com.fasterxml.jackson.annotation.JsonValue;
  *
  * @author Jens Ritter on 05/09/2021.
  */
-@JsonInclude(Include.NON_NULL)
+@JsonInclude(Include.NON_DEFAULT)
 public class ElementFormButton extends ElementFormAbstract {
 
     private final ButtonType type;
-    private String title;
+    private final String title;
 
-    ElementFormButton(ButtonType type) {
+    ElementFormButton(ButtonType type, String title) {
         this.type = type;
+        this.title = title;
     }
 
-    /**
-     * Creates the Submit-Button
-     *
-     * @param buttonTitle
-     * @return
-     */
-    static ElementFormButton submit(String buttonTitle) {
-        ElementFormButton elementFormButton = new ElementFormButton(ButtonType.submit);
-        elementFormButton.setTitle(buttonTitle);
-        return elementFormButton;
-    }
+    @Override
+    public String getType() {return type.toString();}
 
-    public enum ButtonType {
+    public String getTitle() {return title;}
+
+
+    enum ButtonType {
         submit("submit"),
         button("button");
 
@@ -49,10 +44,5 @@ public class ElementFormButton extends ElementFormAbstract {
         }
     }
 
-    @Override
-    public String getType() {return type.toString();}
 
-    public String getTitle() {return title;}
-
-    void setTitle(String title) {this.title = title;}
 }

@@ -18,6 +18,12 @@
 <script th:inline="javascript">
     /*<![CDATA[*/
     $(document).ready(() => {
+        // letzten 2 elemente des Arrays "form" sind die buttons.
+        // letzer ist der "Submit" - Button
+        jsonform.form[jsonform.form.length - 2].onClick = function (evt) {
+            alert("hi");
+        }
+
         $("#form").jsonForm({
 
             schema: jsonform.schema,

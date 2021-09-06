@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.jens.webforms.core.ElementFormButton.ButtonType;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -11,6 +12,8 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Objects;
+import java.util.Optional;
 
 /**
  * Json-Response für Controller, damit JS daraus ein Formular baut.
@@ -20,7 +23,7 @@ import java.util.Map.Entry;
 public class JsonForm {
     private final ObjectMapper objectMapper = new ObjectMapper();
     private final Map<String, ElementSchema<?>> schema = new LinkedHashMap<>();
-
+    private final List<ElementFormButton> buttons = new ArrayList<>();
     private String titleSubmit = "Submit";
 
     /**
@@ -47,8 +50,19 @@ public class JsonForm {
             ElementForm elementForm = entry.getValue().buildForm(element);
             result.add(elementForm);
         }
-        result.add(ElementFormButton.submit(titleSubmit));
+        if(noSubmitButtonPresent()) {
+            // add a Submitbutton last
+            buttons.add(new ElementFormButton(ButtonType.submit, titleSubmit));
+        }
+        result.addAll(buttons);
         return result;
+    }
+
+    private boolean noSubmitButtonPresent() {
+        Optional<ElementFormButton> any = buttons.stream()
+            .filter(it -> Objects.equals(it.getType(), ButtonType.submit.toString()))
+            .findAny();
+        return any.isEmpty();
     }
 
     @JsonProperty("schema")
@@ -70,4 +84,9 @@ public class JsonForm {
         }
     }
 
+    public ElementFormButton addButton(String id, String title) {
+        ElementFormButton button = new ElementFormButton(ButtonType.button, title);
+        this.buttons.add(button);
+        return button;
+    }
 }

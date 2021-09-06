@@ -42,6 +42,7 @@ public class JsController {
         response.add("heute", new FBoolean("Ist es heute", "ja/nein").description("description-6"));
         response.add("ort", new FComboBox("Orte", orte).description("description-1").value("1"));
 
+        response.addButton("btnCancel", "Cancel");
         return response;
     }
 
