@@ -7,8 +7,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonValue;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.Optional;
-
 /**
  * Basis-Pojo für alle Elemente.
  * <p>
@@ -24,29 +22,29 @@ import java.util.Optional;
  * @author Jens Ritter on 29/08/2021.
  * @see JsonForm
  */
-@SuppressWarnings("NegativelyNamedBooleanVariable")
-@JsonInclude(Include.NON_NULL)
+@SuppressWarnings({"NegativelyNamedBooleanVariable", "WeakerAccess"})
+@JsonInclude(Include.NON_DEFAULT)
 public abstract class ElementSchema<T> {
 
     private final FormType type;
 
     // https://github.com/jsonform/jsonform/wiki#common-schema-properties
     private String title;
-    @Nullable
-    private Boolean required;
-    @Nullable
-    private String description;
-    @Nullable
-    private String defaultValue;
+    private boolean required;
+
+    @Nullable private String description;
+    @Nullable private Object defaultValue;
 
     /* form-properties */
     private boolean notitle;
-    private String htmlClass;
-    private String fieldHtmlClass;
-    private String prepend;
-    private String placeholder;
     private boolean disabled;
     private boolean readonly;
+    @Nullable private String htmlClass;
+    @Nullable private String fieldHtmlClass;
+    @Nullable private String prepend;
+    @Nullable private String append;
+    @Nullable private String placeholder;
+
 
     /**
      * Mögliche Formate.
@@ -59,7 +57,7 @@ public abstract class ElementSchema<T> {
         FormInteger("integer"),
         FormBoolean("boolean"),
         FormArray("array"),
-        FormObject("object)");
+        FormObject("object");
 
         private final String name;
 
@@ -72,7 +70,6 @@ public abstract class ElementSchema<T> {
             return name;
         }
     }
-
 
     protected ElementSchema(FormType type, String label) {
         this.type = type;
@@ -91,6 +88,7 @@ public abstract class ElementSchema<T> {
         element.setFieldHtmlClass(fieldHtmlClass);
 
         element.setPrepend(prepend);
+        element.setAppend(append);
         element.setPlaceholder(placeholder);
         element.setDisabled(disabled);
         element.setReadonly(readonly);
@@ -100,93 +98,135 @@ public abstract class ElementSchema<T> {
 
     public abstract ElementSchema<T> value(@Nullable T value);
 
+    //
+    // bean-methods
+    //
 
     public FormType getType() {return type;}
 
     public String getTitle() {return title;}
 
-    public void setTitle(String titleValue) {
-        this.title = titleValue;
-    }
+    public void setTitle(String title) {this.title = title;}
 
-    @Nullable
-    public Boolean getRequired() {return this.required;}
+    public void setRequired(boolean required) {this.required = required;}
 
-    public boolean isRequired() {return required != null;}
-
-    public ElementSchema<T> required(boolean req) {
-        this.required = req ? Boolean.TRUE : null;
-        return this;
-    }
+    public boolean getRequired() {return this.required;}
 
     public @Nullable String getDescription() {return description;}
 
-    public ElementSchema<T> description(String desc) {
-        this.description = desc;
-        return this;
-    }
-
-    @JsonIgnore
-    public boolean isNotitle() {return notitle;}
-
-    public ElementSchema<T> setNotitle(boolean notitle) {
-        this.notitle = notitle;
-        return this;
-    }
-
-    @JsonIgnore
-    public String getHtmlClass() {return htmlClass;}
-
-    public ElementSchema<T> setHtmlClass(String htmlClass) {
-        this.htmlClass = htmlClass;
-        return this;
-    }
-
-    @JsonIgnore
-    public String getFieldHtmlClass() {return fieldHtmlClass;}
-
-    public ElementSchema<T> setFieldHtmlClass(String fieldHtmlClass) {
-        this.fieldHtmlClass = fieldHtmlClass;
-        return this;
-    }
-
-    @JsonIgnore
-    public String getPrepend() {return prepend;}
-
-    public ElementSchema<T> setPrepend(String prepend) {
-        this.prepend = prepend;
-        return this;
-    }
-
-    @JsonIgnore
-    public String getPlaceholder() {return placeholder;}
-
-    public ElementSchema<T> placeholder(String plholder) {
-        this.placeholder = plholder;
-        return this;
-    }
-
-    @JsonIgnore
-    public boolean isDisabled() {return disabled;}
-
-    public ElementSchema<T> setDisabled(boolean disabled) {
-        this.disabled = disabled;
-        return this;
-    }
-
-    @JsonIgnore
-    public boolean isReadonly() {return readonly;}
-
-    public ElementSchema<T> setReadonly(boolean readonly) {
-        this.readonly = readonly;
-        return this;
-    }
+    public void setDescription(@Nullable String description) {this.description = description;}
 
     @JsonProperty("default")
-    public @Nullable String getDefaultValue() {return defaultValue;}
+    public @Nullable Object getDefaultValue() {return defaultValue;}
 
-    ElementSchema<T> setDefaultValue(Optional<T> opt) {
-        this.defaultValue = opt.map(Object::toString).orElse(null);
+    ElementSchema<T> setDefaultValue(@Nullable Object opt) {
+        this.defaultValue = opt;
         return this;
     }
+
+    @JsonIgnore // property not in schema
+    public boolean isNoTitle() {return this.notitle;}
+
+    @JsonIgnore // Property not in schema
+    @Nullable
+    public String getHtmlClass() {return htmlClass;}
+
+    public void setHtmlClass(@Nullable String htmlClass) {this.htmlClass = htmlClass;}
+
+    public void setNotitle(boolean value) {this.notitle = value;}
+
+    @JsonIgnore // Property not in schema
+    @Nullable
+    public String getFieldHtmlClass() {return fieldHtmlClass;}
+
+    public void setFieldHtmlClass(@Nullable String fieldHtmlClass) {this.fieldHtmlClass = fieldHtmlClass;}
+
+    @JsonIgnore // Property not in schema
+    @Nullable
+    public String getPrepend() {return prepend;}
+
+    public void setPrepend(@Nullable String prepend) {this.prepend = prepend;}
+
+    @JsonIgnore // Property not in schema
+    @Nullable
+    public String getAppend() {return append;}
+
+    public void setAppend(String append) {this.append = append;}
+
+    @JsonIgnore // Property not in schema
+    @Nullable
+    public String getPlaceholder() {return placeholder;}
+
+    public void setPlaceholder(@Nullable String placeholder) {this.placeholder = placeholder;}
+
+    @JsonIgnore // Property not in schema
+    public boolean isDisabled() {return disabled;}
+
+    public void setDisabled(boolean disabled) {this.disabled = disabled;}
+
+    @JsonIgnore // Property not in schema
+    public boolean isReadonly() {return readonly;}
+
+    public void setReadonly(boolean readonly) {this.readonly = readonly;}
+
+
+    //
+    // builders
+    //
+
+    public ElementSchema<T> title(String value) {
+        setTitle(value);
+        return this;
+    }
+
+    public ElementSchema<T> required(boolean value) {
+        setRequired(value);
+        return this;
+    }
+
+    public ElementSchema<T> description(String value) {
+        setDescription(value);
+        return this;
+    }
+
+    public ElementSchema<T> noTitle(boolean value) {
+        setNotitle(value);
+        return this;
+    }
+
+    public ElementSchema<T> htmlClass(String value) {
+        setHtmlClass(value);
+        return this;
+    }
+
+    public ElementSchema<T> fieldHtmlClass(String value) {
+        setFieldHtmlClass(value);
+        return this;
+    }
+
+    public ElementSchema<T> prepend(String value) {
+        setPrepend(value);
+        return this;
+    }
+
+    public ElementSchema<T> append(String value) {
+        setAppend(value);
+        return this;
+    }
+
+    public ElementSchema<T> placeholder(String value) {
+        setPlaceholder(value);
+        return this;
+    }
+
+    public ElementSchema<T> disabled(boolean value) {
+        setDisabled(value);
+        return this;
+    }
+
+    public ElementSchema<T> readOnly(boolean value) {
+        setReadonly(value);
+        return this;
+    }
+
 }

@@ -7,15 +7,17 @@ import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * @author Jens Ritter on 05/09/2021.
+ * @author Jens Ritter on 07/09/2021.
  */
-class FStringTest extends JsonTester {
+class FTextAreaTest extends JsonTester {
 
-    FString element;
+    public static final String FORM_TEXTAREA = "{\"type\":\"textarea\",\"key\":\"name\"}";
+
+    FTextArea element;
 
     @BeforeEach
     public void setupElement() {
-        element = new FString("label");
+        element = new FTextArea("label");
     }
 
     @Override
@@ -23,7 +25,7 @@ class FStringTest extends JsonTester {
     public void testJson() throws JsonProcessingException {
 
         assertThat(toJson(element)).isEqualTo(PLAIN_SCHEMA);
-        assertThat(toFormJson(element)).isEqualTo(PLAIN_FORM);
+        assertThat(toFormJson(element)).isEqualTo(FORM_TEXTAREA);
     }
 
     @Test
@@ -31,7 +33,6 @@ class FStringTest extends JsonTester {
         element.value("wert");
 
         assertThat(toJson(element)).isEqualTo("{\"type\":\"string\",\"title\":\"label\",\"default\":\"wert\"}");
-        assertThat(toFormJson(element)).isEqualTo(PLAIN_FORM);
+        assertThat(toFormJson(element)).isEqualTo(FORM_TEXTAREA);
     }
-
 }

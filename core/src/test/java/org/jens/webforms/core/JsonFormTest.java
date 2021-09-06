@@ -5,8 +5,13 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.List;
+
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
 
 /**
  * @author Jens Ritter on 05/09/2021.
@@ -43,11 +48,9 @@ class JsonFormTest {
     }
 
     @Test
-    void getSchema() {
-    }
-
-    @Test
-    void add() {
+    public void testToString() {
+        form.add("name", new FString("Name"));
+        assertThat(form.toString()).isEqualTo("{\"schema\":{\"name\":{\"type\":\"string\",\"title\":\"Name\"}},\"form\":[{\"key\":\"name\"},{\"type\":\"submit\",\"title\":\"Submit\"}]}");
     }
 
     @Test
@@ -60,4 +63,16 @@ class JsonFormTest {
             form.add("name", new FString("label"));
         });
     }
+
+
+    @Test
+    void getSchema() {
+        FString mock = mock(FString.class);
+        form.add("item", mock);
+        List<ElementFormAbstract> form = this.form.getForm();
+
+        verify(mock).buildForm(any(ElementForm.class));
+    }
+
+
 }

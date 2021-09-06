@@ -4,8 +4,6 @@ package org.jens.webforms.core;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.Optional;
-
 /**
  * @author Jens Ritter on 29/08/2021.
  */
@@ -13,19 +11,14 @@ public class FBoolean extends ElementSchema<Boolean> {
 
     private String inlineTitle;
 
-    private FBoolean(String label) {
+    public FBoolean(String label) {
         super(FormType.FormBoolean, label);
     }
 
-    public FBoolean(String label, String inlinetitle) {
+    public FBoolean(String label, String value) {
         this(label);
-        this.inlineTitle = inlinetitle;
+        this.inlineTitle = value;
     }
-
-    @JsonIgnore
-    public String getInlineTitle() {return inlineTitle;}
-
-    public void setInlineTitle(String inlineTitle) {this.inlineTitle = inlineTitle;}
 
     @Override
     ElementForm buildForm(ElementForm element) {
@@ -35,8 +28,19 @@ public class FBoolean extends ElementSchema<Boolean> {
 
     @Override
     public ElementSchema<Boolean> value(@Nullable Boolean value) {
-        setDefaultValue(Optional.ofNullable(value));
+        setDefaultValue(value);
         return this;
 
     }
+
+    @JsonIgnore // not in Schema
+    public String getInlineTitle() {return inlineTitle;}
+
+    public void setInlineTitle(String inlineTitle) {this.inlineTitle = inlineTitle;}
+
+    public FBoolean inlineTitle(String value) {
+        setInlineTitle(value);
+        return this;
+    }
+
 }

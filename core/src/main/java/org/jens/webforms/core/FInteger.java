@@ -3,8 +3,6 @@ package org.jens.webforms.core;
 
 import org.jetbrains.annotations.Nullable;
 
-import java.util.Optional;
-
 /**
  * @author Jens Ritter on 29/08/2021.
  */
@@ -15,7 +13,7 @@ public class FInteger extends ElementSchema<Integer> {
 
     @Override
     public ElementSchema<Integer> value(@Nullable Integer value) {
-        setDefaultValue(Optional.ofNullable(value));
+        setDefaultValue(value);
         return this;
     }
 }

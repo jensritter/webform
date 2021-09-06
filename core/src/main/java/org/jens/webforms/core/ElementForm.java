@@ -1,6 +1,5 @@
 package org.jens.webforms.core;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import org.jetbrains.annotations.Nullable;
@@ -19,20 +18,21 @@ import java.util.Map;
  * @author Jens Ritter on 05/09/2021.
  * @see JsonForm
  */
-@JsonInclude(Include.NON_EMPTY)
+@JsonInclude(Include.NON_DEFAULT)
+@SuppressWarnings("NegativelyNamedBooleanVariable")
 public class ElementForm extends ElementFormAbstract {
-
     private final String key;
-    @Nullable
-    private Boolean notitle; /* true=true, false=null !!!*/
-    private String htmlClass;
-    private String fieldHtmlClass;
-    private String prepend;
-    private String placeholder;
-    @Nullable
-    private Boolean disabled;
-    @Nullable
-    private Boolean readonly;
+
+    private boolean notitle;
+    private boolean disabled;
+    private boolean readonly;
+
+    @Nullable private String htmlClass;
+    @Nullable private String fieldHtmlClass;
+    @Nullable private String prepend;
+    @Nullable private String append;
+    @Nullable private String placeholder;
+
 
     /* for  FComboBox */
     private final Map<String, String> titleMap = new HashMap<>();
@@ -42,8 +42,7 @@ public class ElementForm extends ElementFormAbstract {
     /* for FRange */
     @Nullable
     private Integer step;
-    @Nullable
-    private Boolean indicator;
+    private boolean indicator;
 
 
     ElementForm(String key) {this.key = key;}
@@ -55,35 +54,25 @@ public class ElementForm extends ElementFormAbstract {
 
     void setStep(int value) {this.step = value;}
 
-    void setIndicator(boolean value) {this.indicator = value ? Boolean.TRUE : null;}
+    void setIndicator(boolean value) {this.indicator = value;}
 
     void setInlineTitle(String inlinetitle) {this.inlinetitle = inlinetitle;}
 
-    void setNoTitle(boolean notitle) {
-        this.notitle = notitle ? Boolean.TRUE : null;
-    }
+    void setNoTitle(boolean value) {this.notitle = value;}
 
-    void setHtmlClass(String htmlClass) {this.htmlClass = htmlClass;}
+    void setHtmlClass(@Nullable String htmlClass) {this.htmlClass = htmlClass;}
 
-    void setFieldHtmlClass(String fieldHtmlClass) {this.fieldHtmlClass = fieldHtmlClass;}
+    void setFieldHtmlClass(@Nullable String fieldHtmlClass) {this.fieldHtmlClass = fieldHtmlClass;}
 
-    void setPrepend(String prepend) {this.prepend = prepend;}
+    void setPrepend(@Nullable String prepend) {this.prepend = prepend;}
 
-    void setPlaceholder(String placeholder) {this.placeholder = placeholder;}
+    void setAppend(@Nullable String append) {this.append = append;}
 
-    @SuppressWarnings("NegativelyNamedBooleanVariable")
-    void setDisabled(boolean disabled) {this.disabled = disabled ? Boolean.TRUE : null;}
+    void setPlaceholder(@Nullable String placeholder) {this.placeholder = placeholder;}
 
-    @JsonIgnore
-    boolean isNotTitle() {return notitle != null;}
+    void setDisabled(boolean disabled) {this.disabled = disabled;}
 
-    @JsonIgnore
-    boolean isDisabled() {return disabled != null;}
-
-    void setReadonly(boolean readonly) {this.readonly = readonly ? Boolean.TRUE : null;}
-
-    @JsonIgnore
-    boolean isReadonly() {return readonly != null;}
+    void setReadonly(boolean readonly) {this.readonly = readonly;}
 
 
     /** Json-Properties : **/
@@ -94,21 +83,24 @@ public class ElementForm extends ElementFormAbstract {
 
     public String getInlinetitle() {return inlinetitle;}
 
-    public @Nullable Boolean getNotitle() {return notitle;}
+    public boolean getNotitle() {return notitle;}
 
-    public String getHtmlClass() {return htmlClass;}
+    public @Nullable String getHtmlClass() {return htmlClass;}
 
-    public String getFieldHtmlClass() {return fieldHtmlClass;}
+    public @Nullable String getFieldHtmlClass() {return fieldHtmlClass;}
 
-    public String getPrepend() {return prepend;}
+    public @Nullable String getPrepend() {return prepend;}
 
-    public String getPlaceholder() {return placeholder;}
+    public @Nullable String getPlaceholder() {return placeholder;}
 
-    public @Nullable Boolean getDisabled() {return disabled;}
+    public boolean getDisabled() {return disabled;}
 
-    public @Nullable Boolean getReadonly() {return readonly;}
+    public boolean getReadonly() {return readonly;}
 
     public @Nullable Integer getStep() {return step;}
 
-    public @Nullable Boolean getIndicator() {return indicator;}
+    public boolean getIndicator() {return indicator;}
+
+    public @Nullable String getAppend() {return append;}
+
 }

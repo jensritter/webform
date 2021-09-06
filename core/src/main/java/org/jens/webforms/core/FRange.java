@@ -12,23 +12,26 @@ public class FRange extends FInteger {
     private int formStep;
     private boolean formIndicator;
 
-    protected FRange(String label) {
-        super(label);
+    public FRange(String label) {super(label);}
+
+    @Override
+    ElementForm buildForm(ElementForm element) {
+        element.setType("range");
+        element.setStep(formStep);
+        element.setIndicator(formIndicator);
+        return element;
     }
+
+
+    // beans
 
     public int getMinimum() {return minimum;}
 
-    public FRange setMinimum(int minimum) {
-        this.minimum = minimum;
-        return this;
-    }
+    public void setMinimum(int minimum) {this.minimum = minimum;}
 
     public int getMaximum() {return maximum;}
 
-    public FRange setMaximum(int maximum) {
-        this.maximum = maximum;
-        return this;
-    }
+    public void setMaximum(int maximum) {this.maximum = maximum;}
 
     @JsonIgnore
     public int getFormStep() {return formStep;}
@@ -40,11 +43,27 @@ public class FRange extends FInteger {
 
     public void setFormIndicator(boolean formIndicator) {this.formIndicator = formIndicator;}
 
-    @Override
-    ElementForm buildForm(ElementForm element) {
-        element.setType("range");
-        element.setStep(formStep);
-        element.setIndicator(formIndicator);
-        return element;
+    // builder
+
+    // builder
+    public FRange minimum(int value) {
+        setMinimum(value);
+        return this;
     }
+
+    public FRange maximum(int max) {
+        setMaximum(max);
+        return this;
+    }
+
+    public FRange formStep(int step) {
+        setFormStep(step);
+        return this;
+    }
+
+    public FRange formIndicator(boolean value) {
+        setFormIndicator(value);
+        return this;
+    }
+
 }

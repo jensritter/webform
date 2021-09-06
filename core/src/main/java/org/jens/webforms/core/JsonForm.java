@@ -23,12 +23,19 @@ public class JsonForm {
 
     private String titleSubmit = "Submit";
 
-    public String toString() {
-        try {
-            return objectMapper.writeValueAsString(this);
-        } catch(JsonProcessingException e) {
-            return "{\"error\": \"" + e + "\"}";
+    /**
+     * Add another Control to the current Form.
+     * <p>
+     * Does throw IllegalArgumentException, if the name already exists in the current form.
+     *
+     * @param name Name of the Control
+     * @param control Control
+     */
+    public void add(String name, ElementSchema<?> control) {
+        if(this.schema.containsKey(name)) {
+            throw new IllegalArgumentException("Duplicate 'name' for Control");
         }
+        this.schema.put(name, control);
     }
 
     @JsonProperty("form")
@@ -47,23 +54,20 @@ public class JsonForm {
     @JsonProperty("schema")
     public Map<String, ElementSchema<?>> getSchema() {return Collections.unmodifiableMap(schema);}
 
-    /**
-     * Add another Control to the current Form.
-     * <p>
-     * Does throw IllegalArgumentException, if the name already exists in the current form.
-     *
-     * @param name Name of the Control
-     * @param control Control
-     */
-    public void add(String name, ElementSchema<?> control) {
-        if(this.schema.containsKey(name)) {
-            throw new IllegalArgumentException("Duplicate 'name' for Control");
-        }
-        this.schema.put(name, control);
-    }
-
     @JsonIgnore
     public String getTitleSubmit() {return titleSubmit;}
 
     public void setTitleSubmit(String titleSubmit) {this.titleSubmit = titleSubmit;}
+
+
+    /** Damit man JsonForm in eine Webseite als "json" einbetten kann **/
+    @Override
+    public String toString() {
+        try {
+            return objectMapper.writeValueAsString(this);
+        } catch(JsonProcessingException e) {
+            return "{\"error\": \"" + e + "\"}";
+        }
+    }
+
 }

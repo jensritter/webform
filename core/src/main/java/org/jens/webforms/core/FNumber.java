@@ -1,7 +1,7 @@
 
 package org.jens.webforms.core;
 
-import java.util.Optional;
+import org.jetbrains.annotations.Nullable;
 
 /**
  * @author Jens Ritter on 29/08/2021.
@@ -12,8 +12,8 @@ public class FNumber extends ElementSchema<Number> {
     }
 
     @Override
-    public ElementSchema<Number> value(Number value) {
-        setDefaultValue(Optional.ofNullable(value));
+    public ElementSchema<Number> value(@Nullable Number value) {
+        setDefaultValue(value);
         return this;
     }
 }
