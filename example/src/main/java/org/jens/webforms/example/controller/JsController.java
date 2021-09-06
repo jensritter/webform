@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 
+import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
 
@@ -35,7 +36,9 @@ public class JsController {
         response.add("name", new FString("Name").value("Jens").description("description-2").required(true).placeholder("Enter your Name"));
         response.add("vorname", new FString("Vorname").description("description-3"));
         response.add("strasse", new FString("Straße").description("description-4"));
-        response.add("birthday", new FDate("Geburtstag").description("description-5"));
+        response.add("birthday", new FDate("Geburtstag").description("description-5")
+            .value(LocalDate.of(2021, 12, 31))
+        );
         response.add("heute", new FBoolean("Ist es heute", "ja/nein").description("description-6"));
         response.add("ort", new FComboBox("Orte", orte).description("description-1").value("1"));
 
