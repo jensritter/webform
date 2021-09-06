@@ -22,7 +22,7 @@
     </properties>
 
     <modules>
-        <module>core</module>
+        <module>webforms</module>
         <module>example</module>
         <module>js</module>
     </modules>
