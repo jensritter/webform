@@ -31,7 +31,7 @@ class FObjectTest extends JsonTester {
     }
 
     @Test
-    public void setValue() throws JsonProcessingException {
+    public void setValue() {
         assertThrows(IllegalStateException.class, () -> {
             element.value(Arrays.asList("1"));
         });

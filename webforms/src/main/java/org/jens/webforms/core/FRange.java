@@ -1,6 +1,9 @@
 package org.jens.webforms.core;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.databind.JsonNode;
+
+import java.util.Optional;
 
 /**
  * @author Jens Ritter on 05/09/2021.
@@ -15,13 +18,35 @@ public class FRange extends FInteger {
     public FRange(String label) {super(label);}
 
     @Override
-    ElementForm buildForm(ElementForm element) {
+    void buildForm(ElementForm element) {
         element.setType("range");
         element.setStep(formStep);
         element.setIndicator(formIndicator);
-        return element;
     }
 
+    @Override
+    public void parseForm(JsonNode schemaElement, JsonNode formElement, Optional<JsonNode> defaultValue) {
+        super.parseForm(schemaElement, formElement, defaultValue);
+        JsonNode nodeMinimum = schemaElement.get("minimum");
+        if(nodeMinimum != null) {
+            setMinimum(nodeMinimum.asInt());
+        }
+        JsonNode nodeMaximum = schemaElement.get("maximum");
+        if(nodeMaximum != null) {
+            setMaximum(nodeMaximum.asInt());
+        }
+
+        JsonNode nodeStep = formElement.get("step");
+        if(nodeStep != null) {
+            setFormStep(nodeStep.asInt());
+        }
+        JsonNode nodeIndicator = formElement.get("indicator");
+        if(nodeIndicator != null) {
+            setFormIndicator(nodeIndicator.asBoolean());
+        }
+
+
+    }
 
     // beans
 

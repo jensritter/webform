@@ -56,7 +56,7 @@ public class ElementForm extends ElementFormAbstract {
 
     void setIndicator(boolean value) {this.indicator = value;}
 
-    void setInlineTitle(String inlinetitle) {this.inlinetitle = inlinetitle;}
+    void setInlineTitle(@Nullable String inlinetitle) {this.inlinetitle = inlinetitle;}
 
     void setNoTitle(boolean value) {this.notitle = value;}
 

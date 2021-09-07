@@ -5,13 +5,13 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.jens.webforms.core.ElementSchema.FormType;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 /**
  * @author Jens Ritter on 07/09/2021.
@@ -49,77 +49,57 @@ public class JsonFormParser {
 
     private ElementSchema<?> parse(JsonNode schemaElement, JsonNode formElement) throws JsonFormParserException {
         FormType formType = parseFormType(schemaElement);
+        ElementSchema<?> elementSchema = generateType(schemaElement, formElement, formType);
 
-        ElementSchema<?> elementSchema = generateType(schemaElement, formType);
-
-        /*
-        schemaElement
-         _children = {LinkedHashMap@2606}  size = 5
-            "type" -> {TextNode@2616} ""string""
-            "title" -> {TextNode@2618} ""Welcome""
-            "required" -> {BooleanNode@2620} "true"
-            "description" -> {TextNode@2622} ""description""
-            "default" -> {TextNode@2624} ""value""
-        formElement
-            "key" -> {TextNode@2640} ""welcome""
-            "notitle" -> {BooleanNode@2620} "true"
-            "disabled" -> {BooleanNode@2620} "true"
-            "readonly" -> {BooleanNode@2620} "true"
-            "htmlClass" -> {TextNode@2645} ""htmlclass""
-            "fieldHtmlClass" -> {TextNode@2647} ""fieldhtml""
-            "prepend" -> {TextNode@2649} ""prepend""
-            "append" -> {TextNode@2651} ""append""
-            "placeholder" -> {TextNode@2653} ""placeholder""
-         */
-        elementSchema.setTitle(getValueAsString(schemaElement, "title"));
-        elementSchema.setRequired(getValueAsBoolean(schemaElement, "required"));
-        elementSchema.setDescription(getValueAsString(schemaElement, "description"));
-        elementSchema.setDefaultValue(getValueAsString(schemaElement, "default"));
-
-
-        elementSchema.setNotitle(getValueAsBoolean(formElement, "notitle"));
-        elementSchema.setDisabled(getValueAsBoolean(formElement, "disabled"));
-        elementSchema.setReadonly(getValueAsBoolean(formElement, "readonly"));
-        elementSchema.setFieldHtmlClass(getValueAsString(formElement, "fieldHtmlClass"));
-        elementSchema.setHtmlClass(getValueAsString(formElement, "htmlClass"));
-        elementSchema.setPrepend(getValueAsString(formElement, "prepend"));
-        elementSchema.setAppend(getValueAsString(formElement, "append"));
-        elementSchema.setPlaceholder(getValueAsString(formElement, "placeholder"));
-
+        // Generic Properties :
+        JsonNode aDefault = schemaElement.get("default");
+        elementSchema.applyDefaultFromJson(schemaElement, formElement);
+        // Specific Properties :
+        elementSchema.parseForm(schemaElement, formElement, Optional.ofNullable(aDefault));
         return elementSchema;
     }
 
-    private boolean getValueAsBoolean(JsonNode schemaElement, String key) {
-        JsonNode entry = schemaElement.get(key);
-        if(entry == null) {
-            return false;
-        }
-        return entry.asBoolean();
-    }
-
-    private static final @Nullable String getValueAsString(JsonNode node, String key) {
-        JsonNode jsonNode = node.get(key);
-        if(jsonNode != null) {
-            return jsonNode.asText();
-        }
-        return null;
-    }
+    private final org.slf4j.Logger logger = org.slf4j.LoggerFactory.getLogger(JsonFormParser.class);
 
     @NotNull
-    private ElementSchema<?> generateType(JsonNode schemaElement, FormType formType) {
-        JsonNode title = schemaElement.get("title");
+    private ElementSchema<?> generateType(JsonNode schemaElement, JsonNode formElement, FormType formType) {
+        JsonNode titleNode = schemaElement.get("title");
+        final String title;
+        if(titleNode == null) {
+            logger.info("No Title for Element {}", schemaElement);
+            title = "";
+        } else {
+            title = titleNode.asText();
+        }
 
+        JsonNode type = formElement.get("type");
         switch(formType) {
         case FormString:
-            return new FString(title.asText());
+            if(type != null) {
+                if("date".equals(type.asText())) {
+                    return new FDate(title);
+                }
+                if("textarea".equals(type.asText())) {
+                    return new FTextArea(title);
+                }
+            }
+            if(formElement.has("titleMap")) {
+                return new FComboBox(title);
+            }
+            return new FString(title);
         case FormArray:
-            return new FArray(title.asText());
+            return new FArray(title);
         case FormBoolean:
-            return new FBoolean(title.asText());
+            return new FBoolean(title);
         case FormInteger:
-            return new FInteger(title.asText());
+            if(type != null) {
+                if("range".equals(type.asText())) {
+                    return new FRange(title);
+                }
+            }
+            return new FInteger(title);
         case FormNumber:
-            return new FNumber(title.asText());
+            return new FNumber(title);
         case FormObject:
             throw new IllegalStateException("unimplemented: 'object'");
         default:
@@ -145,13 +125,4 @@ public class JsonFormParser {
         }
     }
 
-    private static final class NumberedFormElement {
-        private final int index;
-        private final JsonNode node;
-
-        private NumberedFormElement(int index, JsonNode node) {
-            this.index = index;
-            this.node = node;
-        }
-    }
 }

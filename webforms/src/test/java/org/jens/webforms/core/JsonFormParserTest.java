@@ -71,7 +71,7 @@ class JsonFormParserTest {
         assertThat(bool).isInstanceOf(FBoolean.class);
         FBoolean fBoolean = (FBoolean) bool;
 
-        assertThat(fBoolean.getInlineTitle()).isEqualTo("inlinetitle");
+        assertThat(fBoolean.getInlineTitle()).isEqualTo("inlineTitle");
         assertThat(fBoolean.getDefaultValue()).isEqualTo(Boolean.TRUE);
     }
 }

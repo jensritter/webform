@@ -12,6 +12,7 @@ import org.junit.jupiter.api.Test;
 public abstract class JsonTester {
     protected static ObjectWriter objectWriter;
 
+
     static final String PLAIN_FORM = "{\"key\":\"name\"}";
     static final String PLAIN_SCHEMA = "{\"type\":\"string\",\"title\":\"label\"}";
 
@@ -28,11 +29,12 @@ public abstract class JsonTester {
 
     String toFormJson(ElementSchema<?> item) throws JsonProcessingException {
         ElementForm form = new ElementForm("name");
-        ElementForm elementForm = item.buildForm(form);
-        return toJson(elementForm);
+        item.buildForm(form);
+        return toJson(form);
     }
 
     @Test
     abstract void testJson() throws JsonProcessingException;
+
 
 }

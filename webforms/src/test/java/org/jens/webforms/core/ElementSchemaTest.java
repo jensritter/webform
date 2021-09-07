@@ -43,9 +43,7 @@ class ElementSchemaTest extends JsonTester {
             .placeholder("placeholder");
 
         ElementForm mock = mock(ElementForm.class);
-        ElementForm elementForm = element.buildForm(mock);
-
-        assertThat(mock).isEqualTo(elementForm);
+        element.buildForm(mock);
 
         verify(mock).setNoTitle(eq(true));
         verify(mock).setHtmlClass(eq("hc"));

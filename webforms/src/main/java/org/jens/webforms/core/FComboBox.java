@@ -2,13 +2,18 @@ package org.jens.webforms.core;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.JsonNode;
 import org.jetbrains.annotations.Nullable;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Optional;
 
 /**
  * https://github.com/jsonform/jsonform/wiki#selection-fields
@@ -16,6 +21,8 @@ import java.util.Map;
  * @author Jens Ritter on 29/08/2021.
  */
 public class FComboBox extends ElementSchema<String> {
+    private final Logger logger = LoggerFactory.getLogger(FComboBox.class);
+
     private final Map<String, String> selectionValues = new LinkedHashMap<>();
     private boolean viewAsRadios;
 
@@ -35,12 +42,38 @@ public class FComboBox extends ElementSchema<String> {
     }
 
     @Override
-    ElementForm buildForm(ElementForm element) {
+    void buildForm(ElementForm element) {
         element.setTitleMaps(selectionValues);
         if(viewAsRadios) {
             element.setType("radios");
         }
-        return element;
+    }
+
+    @Override
+    public void parseForm(JsonNode schemaElement, JsonNode formElement, Optional<JsonNode> defaultValue) {
+
+        JsonNode type = formElement.get("type");
+        if(type != null && "radios".equals(type.asText())) {
+            setViewAsRadios(true);
+        }
+
+        JsonNode titleMap = formElement.get("titleMap");
+        if(titleMap == null) {throw new IllegalStateException("unimplemented: no titleMap property. Condition in ElementSchema not met");}
+
+        defaultValue.ifPresent(k -> value(k.asText()));
+
+        this.selectionValues.clear();
+        Iterator<Entry<String, JsonNode>> fields = titleMap.fields();
+        if(fields == null) {
+            logger.warn("titleMap contains no elements {}", formElement);
+        } else {
+            while(fields.hasNext()) {
+                Entry<String, JsonNode> next = fields.next();
+                String key = next.getKey();
+                JsonNode value = next.getValue();
+                selectionValues.put(key, value != null ? value.asText() : null);
+            }
+        }
     }
 
     private static Map<String, String> buildWithIndex(Collection<String> werte) {

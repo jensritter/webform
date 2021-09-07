@@ -47,8 +47,9 @@ public class JsonForm {
 
         for(Entry<String, ElementSchema<?>> entry : schema.entrySet()) {
             final ElementForm element = new ElementForm(entry.getKey()); // entry.getValue().getTitle()
-            ElementForm elementForm = entry.getValue().buildForm(element);
-            result.add(elementForm);
+            ElementSchema<?> elementSchema = entry.getValue();
+            elementSchema.buildForm(element);
+            result.add(element);
         }
         if(noSubmitButtonPresent()) {
             // add a Submitbutton last

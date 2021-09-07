@@ -5,7 +5,12 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonValue;
+import com.fasterxml.jackson.databind.JsonNode;
 import org.jetbrains.annotations.Nullable;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.util.Optional;
 
 /**
  * Basis-Pojo für alle Elemente.
@@ -24,7 +29,8 @@ import org.jetbrains.annotations.Nullable;
  */
 @SuppressWarnings({"NegativelyNamedBooleanVariable", "WeakerAccess"})
 @JsonInclude(Include.NON_DEFAULT)
-public abstract class ElementSchema<T> {
+public abstract class ElementSchema<T> implements ElementParseable {
+    private final Logger logger = LoggerFactory.getLogger(ElementSchema.class);
 
     private final FormType type;
 
@@ -61,6 +67,7 @@ public abstract class ElementSchema<T> {
 
         private final String name;
 
+
         FormType(String name) {
             this.name = name;
         }
@@ -69,6 +76,7 @@ public abstract class ElementSchema<T> {
         public String toString() {
             return name;
         }
+
     }
 
     protected ElementSchema(FormType type, String label) {
@@ -80,9 +88,8 @@ public abstract class ElementSchema<T> {
      * Creates an ElementForm for the Control
      *
      * @param element Default-Element
-     * @return modified Element
      */
-    ElementForm buildForm(ElementForm element) {
+    void buildForm(ElementForm element) {
         element.setNoTitle(notitle);
         element.setHtmlClass(htmlClass);
         element.setFieldHtmlClass(fieldHtmlClass);
@@ -92,11 +99,47 @@ public abstract class ElementSchema<T> {
         element.setPlaceholder(placeholder);
         element.setDisabled(disabled);
         element.setReadonly(readonly);
-
-        return element;
     }
 
     public abstract ElementSchema<T> value(@Nullable T value);
+
+    void applyDefaultFromJson(JsonNode schemaElement, JsonNode formElement) {
+        String schemaTitle = getValueAsString(schemaElement, "title");
+        if(schemaTitle == null) {
+            logger.warn("Element does not have a title {}", schemaElement);
+            setTitle("");
+        } else {
+            setTitle(schemaTitle);
+        }
+
+        setRequired(getValueAsBoolean(schemaElement, "required"));
+        setDescription(getValueAsString(schemaElement, "description"));
+//        setDefaultValue(getValueAsString(schemaElement, "default"));
+        setNotitle(getValueAsBoolean(formElement, "notitle"));
+        setDisabled(getValueAsBoolean(formElement, "disabled"));
+        setReadonly(getValueAsBoolean(formElement, "readonly"));
+        setFieldHtmlClass(getValueAsString(formElement, "fieldHtmlClass"));
+        setHtmlClass(getValueAsString(formElement, "htmlClass"));
+        setPrepend(getValueAsString(formElement, "prepend"));
+        setAppend(getValueAsString(formElement, "append"));
+        setPlaceholder(getValueAsString(formElement, "placeholder"));
+    }
+
+    abstract void parseForm(JsonNode schemaElement, JsonNode formElement, Optional<JsonNode> defaultValueNode);
+
+    boolean getValueAsBoolean(JsonNode schemaElement, String key) {
+        JsonNode entry = schemaElement.get(key);
+        return entry != null && entry.asBoolean();
+    }
+
+    @Nullable String getValueAsString(JsonNode node, String key) {
+        JsonNode jsonNode = node.get(key);
+        if(jsonNode != null) {
+            return jsonNode.asText();
+        }
+        return null;
+    }
+
 
     //
     // bean-methods
@@ -228,5 +271,6 @@ public abstract class ElementSchema<T> {
         setReadonly(value);
         return this;
     }
+
 
 }

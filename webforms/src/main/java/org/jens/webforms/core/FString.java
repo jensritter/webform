@@ -1,6 +1,10 @@
 package org.jens.webforms.core;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.databind.JsonNode;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.Optional;
 
 /**
  * @author Jens Ritter on 29/08/2021.
@@ -11,8 +15,29 @@ public class FString extends ElementSchema<String> {
     }
 
     @Override
-    public FString value(@Nullable String value) {
+    public void parseForm(JsonNode schemaElement, JsonNode formElement, Optional<JsonNode> defaultValue) {
+        defaultValue.ifPresent(k -> setDefaultValue(k.asText()));
+    }
+
+    // bean
+
+    @JsonIgnore
+    @Nullable
+    public String getValue() {
+        return getDefaultValue() != null ? (String) getDefaultValue() : null;
+    }
+
+    public void setValue(@Nullable String value) {
         setDefaultValue(value);
+    }
+
+    //
+    // builder
+    //
+
+    @Override
+    public FString value(@Nullable String value) {
+        setValue(value);
         return this;
     }
 }
