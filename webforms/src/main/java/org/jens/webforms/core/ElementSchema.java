@@ -110,7 +110,7 @@ public abstract class ElementSchema<T> {
 
     public void setRequired(boolean required) {this.required = required;}
 
-    public boolean getRequired() {return this.required;}
+    public boolean isRequired() {return this.required;}
 
     public @Nullable String getDescription() {return description;}
 
@@ -151,7 +151,7 @@ public abstract class ElementSchema<T> {
     @Nullable
     public String getAppend() {return append;}
 
-    public void setAppend(String append) {this.append = append;}
+    public void setAppend(@Nullable String append) {this.append = append;}
 
     @JsonIgnore // Property not in schema
     @Nullable
