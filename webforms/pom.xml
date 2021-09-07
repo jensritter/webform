@@ -11,15 +11,8 @@
 
 
     <groupId>org.jens.webforms</groupId>
-    <artifactId>webforms-core</artifactId>
+    <artifactId>webforms</artifactId>
     <version>1.0-SNAPSHOT</version>
-
-    <scm>
-        <url>http://git.jens.org/git/summary/${project.artifactId}</url>
-        <connection>scm:git:http://git.jens.org/git/r/${project.artifactId}.git</connection>
-        <developerConnection>scm:git:ssh://matrix.jens.org/git/${project.artifactId}.git</developerConnection>
-    </scm>
-
 
     <dependencies>
         <!-- Compiler-Annotations -->
@@ -54,8 +47,6 @@
             <artifactId>starter-web-test</artifactId>
             <scope>test</scope>
         </dependency>
-
-
     </dependencies>
 
     <profiles>

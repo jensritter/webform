@@ -15,6 +15,32 @@
     <version>1.0-SNAPSHOT</version>
     <packaging>pom</packaging>
 
+    <description>SpringBoot-Module to use jsonform-js-library</description>
+    <url>https://github.com/jensritter/webforms</url>
+
+    <scm>
+        <connection>scm:git:git://github.com/jensritter/webforms.git</connection>
+        <developerConnection>scm:git:ssh://git@github.com/jensritter/webforms.git</developerConnection>
+        <url>http://github.com/jensritter/webforms</url>
+    </scm>
+    <inceptionYear>2021</inceptionYear>
+    <developers>
+        <developer>
+            <name>Jens Ritter</name>
+            <email>jens.ritter@gmail.com</email>
+        </developer>
+    </developers>
+    <licenses>
+        <license>
+            <name>The Apache License, Version 2.0</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+        </license>
+    </licenses>
+    <issueManagement>
+        <system>github</system>
+        <url>https://github.com/jensritter/webforms/issues</url>
+    </issueManagement>
+
     <properties>
         <version.jsonform>2.2.4</version.jsonform>
         <version.underscore>1.13.1</version.underscore>
