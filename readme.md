@@ -46,9 +46,9 @@ JS:
 
         onSubmit: function (errors, values) {
             if (errors) {
-                orgjenswebforms.displayError(errors, values, null);
+                displayError(errors, values);
             } else {
-                document.getElementById("form").submit();
+                document.getElementById("formid").submit();
             }
 
         });
