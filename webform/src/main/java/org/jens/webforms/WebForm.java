@@ -35,11 +35,12 @@ public class WebForm {
      * @param name Name of the Control
      * @param control Control
      */
-    public void add(String name, ElementSchema<?> control) {
+    public WebForm add(String name, ElementSchema<?> control) {
         if(this.schema.containsKey(name)) {
             throw new IllegalArgumentException("Duplicate 'name' for Control");
         }
         this.schema.put(name, control);
+        return this;
     }
 
     @JsonProperty("form")

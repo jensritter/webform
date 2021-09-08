@@ -60,6 +60,12 @@ class WebFormTest {
         assertThrows(IllegalArgumentException.class, () -> form.add("name", new FString("label")));
     }
 
+    @Test
+    void testAddBuilderPattern() {
+        WebForm add = form.add("name", new FString("label"));
+        assertThat(add.toString()).isEqualTo(form.toString());
+    }
+
 
     @Test
     void getSchema() {
