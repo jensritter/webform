@@ -15,6 +15,19 @@ public class FInteger extends ElementSchema<Integer> {
         super(FormType.FormInteger, label);
     }
 
+    @Override
+    protected void buildForm(ElementForm element) {
+        // default-value not needed
+    }
+
+    @Override
+    public void parseForm(JsonNode schemaElement, JsonNode formElement, Optional<JsonNode> defaultValueNode) {
+        defaultValueNode.ifPresent(k -> {
+            setValue(k.asInt());
+        });
+    }
+
+
     @JsonIgnore
     @Nullable
     public Integer getValue() {
@@ -25,14 +38,9 @@ public class FInteger extends ElementSchema<Integer> {
 
     @Override
     public ElementSchema<Integer> value(@Nullable Integer value) {
-        setDefaultValue(value);
+        setValue(value);
         return this;
     }
 
-    @Override
-    public void parseForm(JsonNode schemaElement, JsonNode formElement, Optional<JsonNode> defaultValue) {
-        defaultValue.ifPresent(k -> {
-            setValue(k.asInt());
-        });
-    }
+
 }

@@ -4,6 +4,8 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -24,9 +26,23 @@ class JsonFormParserTest {
 
     @Test
     void parseElements() throws JsonProcessingException {
-        jsonForm.add("welcome",
-            new FString("Welcome")
-                .value("value")
+        List<ElementSchema<?>> elementSchemas = Arrays.asList(
+            new FBoolean("welcome"),
+            new FString("welcome"),
+//            new FArray("welcome"),
+            new FComboBox("welcome").selectionValue("10", "10"),
+            new FDate("welcome"),
+            new FInteger("welcome"),
+            new FNumber("welcome"),
+//            new FObject("welcome"),
+            new FRange("welcome"),
+            new FString("welcome"),
+            new FTextArea("welcome")
+        );
+        for(ElementSchema<?> loop : elementSchemas) {
+            jsonForm = new JsonForm();
+
+            loop
                 .placeholder("placeholder")
                 .required(true)
                 .disabled(true)
@@ -36,27 +52,28 @@ class JsonFormParserTest {
                 .prepend("prepend")
                 .append("append")
                 .description("description")
-                .readOnly(true)
-        );
-        Map<String, ElementSchema<?>> elements = parser.parseElements(jsonForm.toString());
-        assertThat(elements).hasSize(1);
-        assertThat(elements).containsOnlyKeys("welcome");
+                .readOnly(true);
+            jsonForm.add("welcome", loop);
 
-        ElementSchema<?> elementSchema = elements.get("welcome");
-        assertThat(elementSchema).isNotNull();
-        assertThat(elementSchema).isInstanceOf(FString.class);
-        FString fstring = (FString) elementSchema;
-        assertThat(fstring.getDefaultValue()).describedAs("defaultValue present").isEqualTo("value");
-        assertThat(fstring.getPlaceholder()).describedAs("placeholder present").isEqualTo("placeholder");
-        assertThat(fstring.isRequired()).describedAs("required is present").isEqualTo(true);
-        assertThat(fstring.isDisabled()).describedAs("disabled is present").isEqualTo(true);
-        assertThat(fstring.getFieldHtmlClass()).describedAs("FieldHtmlClass is present").isEqualTo("fieldhtml");
-        assertThat(fstring.getHtmlClass()).describedAs("htmlClass is present").isEqualTo("htmlclass");
-        assertThat(fstring.isNoTitle()).describedAs("notitle is present").isTrue();
-        assertThat(fstring.getPrepend()).describedAs("prepend is present").isEqualTo("prepend");
-        assertThat(fstring.getAppend()).describedAs("append is present").isEqualTo("append");
-        assertThat(fstring.getDescription()).describedAs("description is present").isEqualTo("description");
-        assertThat(fstring.isReadonly()).describedAs("readonly is present").isTrue();
+            Map<String, ElementSchema<?>> elements = parser.parseElements(jsonForm.toString());
+            assertThat(elements).hasSize(1);
+            assertThat(elements).containsOnlyKeys("welcome");
+
+            ElementSchema<?> element = elements.get("welcome");
+            assertThat(element).isNotNull();
+            assertThat(element.getPlaceholder()).describedAs("placeholder missing from " + element).isEqualTo("placeholder");
+            assertThat(element.isRequired()).describedAs("required missing from" + element).isEqualTo(true);
+            assertThat(element.isDisabled()).describedAs("disabled missing from" + element).isEqualTo(true);
+            assertThat(element.getFieldHtmlClass()).describedAs("FieldHtmlClass missing from" + element).isEqualTo("fieldhtml");
+            assertThat(element.getHtmlClass()).describedAs("htmlClass missing from" + element).isEqualTo("htmlclass");
+            assertThat(element.isNoTitle()).describedAs("notitle missing from" + element).isTrue();
+            assertThat(element.getPrepend()).describedAs("prepend missing from" + element).isEqualTo("prepend");
+            assertThat(element.getAppend()).describedAs("append missing from" + element).isEqualTo("append");
+            assertThat(element.getDescription()).describedAs("description missing from" + element).isEqualTo("description");
+            assertThat(element.isReadonly()).describedAs("readonly missing from" + element).isTrue();
+        }
+
+
     }
 
     @Test

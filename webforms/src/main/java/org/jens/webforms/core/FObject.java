@@ -13,15 +13,22 @@ public class FObject extends ElementSchema<Object> {
     }
 
     @Override
-    public ElementSchema<Object> value(Object value) {
-        throw new IllegalStateException("unimplemented: ");
+    protected void buildForm(ElementForm element) {
+        // default-value not needed
     }
 
     @Override
-    void parseForm(JsonNode schemaElement, JsonNode formElement, Optional<JsonNode> defaultValueNode) {
+    protected void parseForm(JsonNode schemaElement, JsonNode formElement, Optional<JsonNode> defaultValueNode) {
         defaultValueNode.ifPresent(k -> {
             setDefaultValue(k);
         });
         throw new IllegalStateException("unimplemented: ");
     }
+
+
+    @Override
+    public ElementSchema<Object> value(Object value) {
+        throw new IllegalStateException("unimplemented: ");
+    }
+
 }

@@ -37,13 +37,14 @@ public class FDate extends ElementSchema<LocalDate> {
     }
 
     @Override
-    void buildForm(ElementForm element) {
+    protected void buildForm(ElementForm element) {
+        // default-value not needed
         element.setType("date");
     }
 
     @Override
-    public void parseForm(JsonNode schemaElement, JsonNode formElement, Optional<JsonNode> defaultValue) {
-        defaultValue.ifPresent(k -> {
+    public void parseForm(JsonNode schemaElement, JsonNode formElement, Optional<JsonNode> defaultValueNode) {
+        defaultValueNode.ifPresent(k -> {
             try {
                 TemporalAccessor parse = DATE_YYYY_MM_DD.parse(k.asText());
                 setValue(LocalDate.from(parse));
@@ -58,7 +59,8 @@ public class FDate extends ElementSchema<LocalDate> {
     //
 
     @JsonIgnore
-    public @Nullable LocalDate getValue() {
+    @Nullable
+    public LocalDate getValue() {
         Object defaultValue = getDefaultValue();
         if(defaultValue == null) {return null;}
 

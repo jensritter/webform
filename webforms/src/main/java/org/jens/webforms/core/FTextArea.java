@@ -10,7 +10,7 @@ public class FTextArea extends FString {
     }
 
     @Override
-    void buildForm(ElementForm element) {
+    public void buildForm(ElementForm element) {
         element.setType("textarea");
     }
 }

@@ -7,6 +7,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.jens.webforms.core.ElementFormButton.ButtonType;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -23,7 +24,7 @@ import java.util.Optional;
 public class JsonForm {
     private final ObjectMapper objectMapper = new ObjectMapper();
     private final Map<String, ElementSchema<?>> schema = new LinkedHashMap<>();
-    private final List<ElementFormButton> buttons = new ArrayList<>();
+    private final Collection<ElementFormButton> buttons = new ArrayList<>();
     private String titleSubmit = "Submit";
 
     /**
@@ -48,6 +49,7 @@ public class JsonForm {
         for(Entry<String, ElementSchema<?>> entry : schema.entrySet()) {
             final ElementForm element = new ElementForm(entry.getKey()); // entry.getValue().getTitle()
             ElementSchema<?> elementSchema = entry.getValue();
+            elementSchema.buildDefaultForm(element);
             elementSchema.buildForm(element);
             result.add(element);
         }

@@ -23,21 +23,20 @@ import java.util.Optional;
  * TODO: https://github.com/jsonform/jsonform/wiki#multiple-options-the-checkboxes-type
  * TODO: https://github.com/jsonform/jsonform/wiki#a-list-of-radio-buttons-the-radios-type
  * TODO: https://github.com/jsonform/jsonform/wiki#group-of-buttons-the-actions-type
+ * https://github.com/jsonform/jsonform/wiki#common-schema-properties
  *
  * @author Jens Ritter on 29/08/2021.
  * @see JsonForm
  */
 @SuppressWarnings({"NegativelyNamedBooleanVariable", "WeakerAccess"})
 @JsonInclude(Include.NON_DEFAULT)
-public abstract class ElementSchema<T> implements ElementParseable {
+public abstract class ElementSchema<T> {
     private final Logger logger = LoggerFactory.getLogger(ElementSchema.class);
 
     private final FormType type;
 
-    // https://github.com/jsonform/jsonform/wiki#common-schema-properties
     private String title;
     private boolean required;
-
     @Nullable private String description;
     @Nullable private Object defaultValue;
 
@@ -53,11 +52,11 @@ public abstract class ElementSchema<T> implements ElementParseable {
 
 
     /**
-     * Mögliche Formate.
+     * Available types
      *
      * @see <a href="https://github.com/jsonform/jsonform/wiki#schema-supported">https://github.com/jsonform/jsonform/wiki#schema-supported</a>
      */
-    public enum FormType {
+    enum FormType {
         FormString("string"),
         FormNumber("number"),
         FormInteger("integer"),
@@ -67,7 +66,6 @@ public abstract class ElementSchema<T> implements ElementParseable {
 
         private final String name;
 
-
         FormType(String name) {
             this.name = name;
         }
@@ -76,7 +74,6 @@ public abstract class ElementSchema<T> implements ElementParseable {
         public String toString() {
             return name;
         }
-
     }
 
     protected ElementSchema(FormType type, String label) {
@@ -89,7 +86,9 @@ public abstract class ElementSchema<T> implements ElementParseable {
      *
      * @param element Default-Element
      */
-    void buildForm(ElementForm element) {
+    protected abstract void buildForm(ElementForm element);
+
+    void buildDefaultForm(ElementForm element) {
         element.setNoTitle(notitle);
         element.setHtmlClass(htmlClass);
         element.setFieldHtmlClass(fieldHtmlClass);
@@ -101,38 +100,60 @@ public abstract class ElementSchema<T> implements ElementParseable {
         element.setReadonly(readonly);
     }
 
+    /**
+     * Method to set the {@link #defaultValue} per Element
+     *
+     * @param value
+     * @return
+     */
     public abstract ElementSchema<T> value(@Nullable T value);
 
-    void applyDefaultFromJson(JsonNode schemaElement, JsonNode formElement) {
-        String schemaTitle = getValueAsString(schemaElement, "title");
-        if(schemaTitle == null) {
+    /**
+     * Parse the "default"-Value and aother component-specific properties
+     *
+     * @param schemaElement
+     * @param formElement
+     * @param defaultValueNode
+     */
+    protected abstract void parseForm(JsonNode schemaElement, JsonNode formElement, Optional<JsonNode> defaultValueNode);
+
+    /**
+     * Parse default properties for all elements
+     *
+     * @param schemaElement
+     * @param formElement
+     */
+    void parseFormDefaults(JsonNode schemaElement, JsonNode formElement) {
+        String schemaTitle = parseValueAsString(schemaElement, "title");
+        if(schemaTitle != null) {
+            setTitle(schemaTitle);
+        } else {
             logger.warn("Element does not have a title {}", schemaElement);
             setTitle("");
-        } else {
-            setTitle(schemaTitle);
         }
 
-        setRequired(getValueAsBoolean(schemaElement, "required"));
-        setDescription(getValueAsString(schemaElement, "description"));
+        setRequired(parseValueAsBoolean(schemaElement, "required"));
+        setDescription(parseValueAsString(schemaElement, "description"));
 //        setDefaultValue(getValueAsString(schemaElement, "default"));
-        setNotitle(getValueAsBoolean(formElement, "notitle"));
-        setDisabled(getValueAsBoolean(formElement, "disabled"));
-        setReadonly(getValueAsBoolean(formElement, "readonly"));
-        setFieldHtmlClass(getValueAsString(formElement, "fieldHtmlClass"));
-        setHtmlClass(getValueAsString(formElement, "htmlClass"));
-        setPrepend(getValueAsString(formElement, "prepend"));
-        setAppend(getValueAsString(formElement, "append"));
-        setPlaceholder(getValueAsString(formElement, "placeholder"));
+        setNotitle(parseValueAsBoolean(formElement, "notitle"));
+        setDisabled(parseValueAsBoolean(formElement, "disabled"));
+        setReadonly(parseValueAsBoolean(formElement, "readonly"));
+        setFieldHtmlClass(parseValueAsString(formElement, "fieldHtmlClass"));
+        setHtmlClass(parseValueAsString(formElement, "htmlClass"));
+        setPrepend(parseValueAsString(formElement, "prepend"));
+        setAppend(parseValueAsString(formElement, "append"));
+        setPlaceholder(parseValueAsString(formElement, "placeholder"));
     }
 
-    abstract void parseForm(JsonNode schemaElement, JsonNode formElement, Optional<JsonNode> defaultValueNode);
-
-    boolean getValueAsBoolean(JsonNode schemaElement, String key) {
+    //
+    // Helper-methods
+    //
+    boolean parseValueAsBoolean(JsonNode schemaElement, String key) {
         JsonNode entry = schemaElement.get(key);
         return entry != null && entry.asBoolean();
     }
 
-    @Nullable String getValueAsString(JsonNode node, String key) {
+    @Nullable String parseValueAsString(JsonNode node, String key) {
         JsonNode jsonNode = node.get(key);
         if(jsonNode != null) {
             return jsonNode.asText();
@@ -160,7 +181,8 @@ public abstract class ElementSchema<T> implements ElementParseable {
     public void setDescription(@Nullable String description) {this.description = description;}
 
     @JsonProperty("default")
-    public @Nullable Object getDefaultValue() {return defaultValue;}
+    @Nullable
+    public Object getDefaultValue() {return defaultValue;}
 
     ElementSchema<T> setDefaultValue(@Nullable Object opt) {
         this.defaultValue = opt;

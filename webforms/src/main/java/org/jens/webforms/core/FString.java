@@ -15,9 +15,15 @@ public class FString extends ElementSchema<String> {
     }
 
     @Override
-    public void parseForm(JsonNode schemaElement, JsonNode formElement, Optional<JsonNode> defaultValue) {
-        defaultValue.ifPresent(k -> setDefaultValue(k.asText()));
+    public void parseForm(JsonNode schemaElement, JsonNode formElement, Optional<JsonNode> defaultValueNode) {
+        defaultValueNode.ifPresent(k -> setDefaultValue(k.asText()));
     }
+
+    @Override
+    protected void buildForm(ElementForm element) {
+        // Default-Value not needed
+    }
+
 
     // bean
 
@@ -34,6 +40,7 @@ public class FString extends ElementSchema<String> {
     //
     // builder
     //
+
 
     @Override
     public FString value(@Nullable String value) {

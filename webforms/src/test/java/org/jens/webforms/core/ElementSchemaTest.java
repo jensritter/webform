@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
 /**
@@ -43,16 +44,17 @@ class ElementSchemaTest extends JsonTester {
             .placeholder("placeholder");
 
         ElementForm mock = mock(ElementForm.class);
+        element.buildDefaultForm(mock);
         element.buildForm(mock);
 
-        verify(mock).setNoTitle(eq(true));
-        verify(mock).setHtmlClass(eq("hc"));
-        verify(mock).setFieldHtmlClass(eq("fc"));
-        verify(mock).setPrepend(eq("prepend"));
-        verify(mock).setPlaceholder(eq("placeholder"));
-        verify(mock).setAppend(eq("append"));
-        verify(mock).setDisabled(eq(true));
-        verify(mock).setReadonly(eq(true));
+        verify(mock, times(1)).setNoTitle(eq(true));
+        verify(mock, times(1)).setHtmlClass(eq("hc"));
+        verify(mock, times(1)).setFieldHtmlClass(eq("fc"));
+        verify(mock, times(1)).setPrepend(eq("prepend"));
+        verify(mock, times(1)).setPlaceholder(eq("placeholder"));
+        verify(mock, times(1)).setAppend(eq("append"));
+        verify(mock, times(1)).setDisabled(eq(true));
+        verify(mock, times(1)).setReadonly(eq(true));
     }
 
     @Test

@@ -17,6 +17,11 @@ public class FNumber extends ElementSchema<Number> {
 
 
     @Override
+    protected void buildForm(ElementForm element) {
+        // default-value not needed
+    }
+
+    @Override
     public void parseForm(JsonNode schemaElement, JsonNode formElement, Optional<JsonNode> defaultValue) {
         defaultValue.ifPresent(k -> {
             setValue(k.asDouble());
@@ -42,7 +47,7 @@ public class FNumber extends ElementSchema<Number> {
     //
     @Override
     public ElementSchema<Number> value(@Nullable Number value) {
-        setDefaultValue(value);
+        setValue(value);
         return this;
     }
 

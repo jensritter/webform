@@ -24,20 +24,30 @@ public class FBoolean extends ElementSchema<Boolean> {
     }
 
     @Override
-    void buildForm(ElementForm element) {
+    protected void buildForm(ElementForm element) {
+        // default-value not needed
         element.setInlineTitle(inlineTitle);
     }
 
     @Override
     public void parseForm(JsonNode schemaElement, JsonNode formElement, Optional<JsonNode> defaultValueNode) {
         // form: {"key":"bool","inlinetitle":"inlinetitle"}
-        setInlineTitle(getValueAsString(formElement, "inlinetitle"));
+        setInlineTitle(parseValueAsString(formElement, "inlinetitle"));
         defaultValueNode.ifPresent(k -> value(k.asBoolean()));
+    }
+
+    @JsonIgnore
+    public boolean getValue() {
+        return getDefaultValue() != null ? (Boolean) getDefaultValue() : false;
+    }
+
+    public void setValue(@Nullable Boolean value) {
+        setDefaultValue(value);
     }
 
     @Override
     public ElementSchema<Boolean> value(@Nullable Boolean value) {
-        setDefaultValue(value);
+        setValue(value);
         return this;
     }
 

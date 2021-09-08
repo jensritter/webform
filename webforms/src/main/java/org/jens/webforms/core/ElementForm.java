@@ -37,13 +37,12 @@ public class ElementForm extends ElementFormAbstract {
     /* for  FComboBox */
     private final Map<String, String> titleMap = new HashMap<>();
     /* for FBoolean */
-    private String inlinetitle;
+    private @Nullable String inlinetitle;
 
-    /* for FRange */
+    /* for FFange */
     @Nullable
     private Integer step;
     private boolean indicator;
-
 
     ElementForm(String key) {this.key = key;}
 
@@ -81,7 +80,7 @@ public class ElementForm extends ElementFormAbstract {
 
     public Map<String, String> getTitleMap() {return Collections.unmodifiableMap(titleMap);}
 
-    public String getInlinetitle() {return inlinetitle;}
+    public @Nullable String getInlinetitle() {return inlinetitle;}
 
     public boolean getNotitle() {return notitle;}
 

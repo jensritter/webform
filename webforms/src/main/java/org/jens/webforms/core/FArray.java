@@ -16,14 +16,21 @@ public class FArray extends ElementSchema<List<String>> {
 
 
     @Override
-    public ElementSchema<List<String>> value(@Nullable List<String> value) {
-        throw new IllegalStateException("unimplemented: ");
+    protected void buildForm(ElementForm element) {
+        // default-value not needed
     }
 
     @Override
-    void parseForm(JsonNode schemaElement, JsonNode formElement, Optional<JsonNode> defaultValueNode) {
+    protected void parseForm(JsonNode schemaElement, JsonNode formElement, Optional<JsonNode> defaultValueNode) {
         defaultValueNode.ifPresent(k -> {
             setDefaultValue(k);
         });
     }
+
+    @Override
+    public ElementSchema<List<String>> value(@Nullable List<String> value) {
+        throw new IllegalStateException("unimplemented: ");
+    }
+
+
 }

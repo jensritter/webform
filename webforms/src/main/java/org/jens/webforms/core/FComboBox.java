@@ -42,7 +42,8 @@ public class FComboBox extends ElementSchema<String> {
     }
 
     @Override
-    void buildForm(ElementForm element) {
+    protected void buildForm(ElementForm element) {
+        // default-value not needed
         element.setTitleMaps(selectionValues);
         if(viewAsRadios) {
             element.setType("radios");
@@ -51,16 +52,13 @@ public class FComboBox extends ElementSchema<String> {
 
     @Override
     public void parseForm(JsonNode schemaElement, JsonNode formElement, Optional<JsonNode> defaultValue) {
+        defaultValue.ifPresent(k -> value(k.asText()));
 
         JsonNode type = formElement.get("type");
-        if(type != null && "radios".equals(type.asText())) {
-            setViewAsRadios(true);
-        }
+        setViewAsRadios(type != null && "radios".equals(type.asText()));
 
         JsonNode titleMap = formElement.get("titleMap");
         if(titleMap == null) {throw new IllegalStateException("unimplemented: no titleMap property. Condition in ElementSchema not met");}
-
-        defaultValue.ifPresent(k -> value(k.asText()));
 
         this.selectionValues.clear();
         Iterator<Entry<String, JsonNode>> fields = titleMap.fields();
@@ -86,18 +84,22 @@ public class FComboBox extends ElementSchema<String> {
         return result;
     }
 
+    @JsonIgnore
+    @Nullable
+    public String getValue() {
+        return getDefaultValue() != null ? (String) getDefaultValue() : null;
+    }
 
-    /**
-     * Befüllt die Default-Value
-     *
-     * @param index
-     * @return
-     */
+    public void setValue(@Nullable String index) {
+        setDefaultValue(index);
+    }
+
     @Override
     public ElementSchema<String> value(@Nullable String index) {
-        setDefaultValue(index);
+        setValue(index);
         return this;
     }
+
 
     //
     // Beans

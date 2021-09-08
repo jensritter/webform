@@ -29,6 +29,7 @@ public abstract class JsonTester {
 
     String toFormJson(ElementSchema<?> item) throws JsonProcessingException {
         ElementForm form = new ElementForm("name");
+        item.buildDefaultForm(form);
         item.buildForm(form);
         return toJson(form);
     }

@@ -18,7 +18,8 @@ public class FRange extends FInteger {
     public FRange(String label) {super(label);}
 
     @Override
-    void buildForm(ElementForm element) {
+    protected void buildForm(ElementForm element) {
+        // default-value not needed
         element.setType("range");
         element.setStep(formStep);
         element.setIndicator(formIndicator);
