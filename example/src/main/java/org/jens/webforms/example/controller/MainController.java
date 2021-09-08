@@ -1,11 +1,11 @@
 package org.jens.webforms.example.controller;
 
 
-import org.jens.webforms.core.FBoolean;
-import org.jens.webforms.core.FComboBox;
-import org.jens.webforms.core.FDate;
-import org.jens.webforms.core.FString;
-import org.jens.webforms.core.JsonForm;
+import org.jens.webforms.FBoolean;
+import org.jens.webforms.FComboBox;
+import org.jens.webforms.FDate;
+import org.jens.webforms.FString;
+import org.jens.webforms.WebForm;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -33,13 +33,13 @@ public class MainController {
 
     @GetMapping("/api/form")
     @ResponseBody
-    public JsonForm schema() {
+    public WebForm schema() {
         List<String> orte = Arrays.asList(
             "Hannover", "Goslar", "Bad Tölz", "Hamburg"
         );
 
 
-        JsonForm response = new JsonForm();
+        WebForm response = new WebForm();
         response.setTitleSubmit("Submit");
         response.add("name", new FString("Name").description("description-2").required(true));
         response.add("vorname", new FString("Vorname").description("description-3"));

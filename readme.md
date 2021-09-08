@@ -39,7 +39,7 @@ Thymeleaf:
 
 JS:
 
-    $("#formid").jsonForm({
+    $("#formid").webForm({
 
         schema: jsonform.schema,
         form: jsonform.form,
