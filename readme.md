@@ -1,4 +1,4 @@
-# webforms
+# webform
 
 uses jsonform https://github.com/jsonform/jsonform to display bootstrap-forms to be used from a Spring-Boot Application with Thymeleaf.
 
@@ -10,7 +10,7 @@ uses jsonform https://github.com/jsonform/jsonform to display bootstrap-forms to
 
     <dependency>
         <groupId>org.jens.webform</groupId>
-        <artifactId>webforms</artifactId>
+        <artifactId>webform</artifactId>
         <version>1.0-SNAPSHOT</version>
     </dependency>
 
@@ -27,7 +27,7 @@ Additional-Dependencies for JavaScript to work:
 
 ### Include into Thymeleaf-Page
 
-    <div th:replace="org/jens/webforms/templates :: inline"></div>
+    <div th:replace="org/jens/webform/templates :: inline"></div>
 
 ### Assign to &lt;FORM&gt;-Element
 
@@ -39,10 +39,10 @@ Thymeleaf:
 
 JS:
 
-    $("#formid").webForm({
+    $("#formid").jsonForm({
 
-        schema: jsonform.schema,
-        form: jsonform.form,
+        schema: webform.schema,
+        form: webform.form,
 
         onSubmit: function (errors, values) {
             if (errors) {
@@ -57,6 +57,6 @@ JS:
 
 Modify the content of the js-variable "jsonform"
 
-    jsonform.form[jsonform.form.length - 2].onClick = function (evt) {
+    webform.form[webform.form.length - 2].onClick = function (evt) {
         alert("hi");
     }
