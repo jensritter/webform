@@ -21,10 +21,8 @@ public class FInteger extends ElementSchema<Integer> {
     }
 
     @Override
-    public void parseForm(JsonNode schemaElement, JsonNode formElement, Optional<JsonNode> defaultValueNode) {
-        defaultValueNode.ifPresent(k -> {
-            setValue(k.asInt());
-        });
+    protected void parseForm(JsonNode schemaElement, JsonNode formElement, Optional<JsonNode> defaultValueNode) {
+        defaultValueNode.ifPresent(k -> setValue(k.asInt()));
     }
 
 

@@ -1,6 +1,5 @@
 package org.jens.webforms.core;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -14,7 +13,7 @@ public class FObjectParserTest extends JsonParser<FObject> {
 
     @Test
     @Override
-    void testParse() throws JsonProcessingException {
+    void testParse() {
         assertThrows(IllegalStateException.class, () -> {
             FObject title = parseElement(new FObject("title"));
             assertThat(title.getTitle()).isEqualTo("title");
@@ -25,7 +24,7 @@ public class FObjectParserTest extends JsonParser<FObject> {
 
     @Test
     @Override
-    void testParseValue() throws JsonProcessingException {
+    void testParseValue() {
         assertThrows(IllegalStateException.class, () -> {
             FObject fRange = parseElement(new FObject("element"));
             assertThat(fRange).isNull();

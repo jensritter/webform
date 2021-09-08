@@ -4,7 +4,6 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Test;
 
 /**
  * @author Jens Ritter on 05/09/2021.
@@ -34,7 +33,6 @@ public abstract class JsonTester {
         return toJson(form);
     }
 
-    @Test
     abstract void testJson() throws JsonProcessingException;
 
 

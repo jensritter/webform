@@ -24,7 +24,7 @@ public class FDate extends ElementSchema<LocalDate> {
     /**
      * Formatter, welches von Chrome+Firefox als gültiges Datum anerkannt werden
      */
-    public static final DateTimeFormatter DATE_YYYY_MM_DD = new DateTimeFormatterBuilder()
+    private static final DateTimeFormatter DATE_YYYY_MM_DD = new DateTimeFormatterBuilder()
         .appendValue(ChronoField.YEAR, 4)
         .appendLiteral('-')
         .appendValue(ChronoField.MONTH_OF_YEAR, 2)

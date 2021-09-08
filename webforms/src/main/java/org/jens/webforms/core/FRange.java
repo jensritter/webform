@@ -26,8 +26,8 @@ public class FRange extends FInteger {
     }
 
     @Override
-    public void parseForm(JsonNode schemaElement, JsonNode formElement, Optional<JsonNode> defaultValue) {
-        super.parseForm(schemaElement, formElement, defaultValue);
+    public void parseForm(JsonNode schemaElement, JsonNode formElement, Optional<JsonNode> defaultValueNode) {
+        super.parseForm(schemaElement, formElement, defaultValueNode);
         JsonNode nodeMinimum = schemaElement.get("minimum");
         if(nodeMinimum != null) {
             setMinimum(nodeMinimum.asInt());

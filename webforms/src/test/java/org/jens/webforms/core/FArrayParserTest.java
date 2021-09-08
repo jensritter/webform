@@ -24,7 +24,7 @@ class FArrayParserTest extends JsonParser<FArray> {
 
     @Test
     @Override
-    void testParseValue() throws JsonProcessingException {
+    void testParseValue() {
         assertThrows(IllegalStateException.class, () -> {
             ElementSchema<List<String>> element = new FArray("title")
                 .value(List.of("1"));

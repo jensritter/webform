@@ -1,7 +1,6 @@
 package org.jens.webforms.core;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import org.junit.jupiter.api.Test;
 
 import java.util.Map;
 
@@ -25,7 +24,6 @@ public abstract class JsonParser<T extends ElementSchema<?>> {
         return (T) element;
     }
 
-    @Test
     abstract void testParse() throws JsonProcessingException;
 
     abstract void testParseValue() throws JsonProcessingException;

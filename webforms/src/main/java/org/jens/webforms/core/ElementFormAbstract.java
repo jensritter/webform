@@ -8,7 +8,7 @@ import org.jetbrains.annotations.Nullable;
  * @author Jens Ritter on 05/09/2021.
  */
 @JsonInclude(Include.NON_NULL)
-public class ElementFormAbstract {
+class ElementFormAbstract {
 
     @Nullable
     private String type;

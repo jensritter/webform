@@ -51,8 +51,8 @@ public class FComboBox extends ElementSchema<String> {
     }
 
     @Override
-    public void parseForm(JsonNode schemaElement, JsonNode formElement, Optional<JsonNode> defaultValue) {
-        defaultValue.ifPresent(k -> value(k.asText()));
+    public void parseForm(JsonNode schemaElement, JsonNode formElement, Optional<JsonNode> defaultValueNode) {
+        defaultValueNode.ifPresent(k -> value(k.asText()));
 
         JsonNode type = formElement.get("type");
         setViewAsRadios(type != null && "radios".equals(type.asText()));
@@ -90,9 +90,7 @@ public class FComboBox extends ElementSchema<String> {
         return getDefaultValue() != null ? (String) getDefaultValue() : null;
     }
 
-    public void setValue(@Nullable String index) {
-        setDefaultValue(index);
-    }
+    public void setValue(@Nullable String index) {setDefaultValue(index);}
 
     @Override
     public ElementSchema<String> value(@Nullable String index) {
@@ -118,9 +116,7 @@ public class FComboBox extends ElementSchema<String> {
         this.selectionValues.putAll(newValues);
     }
 
-    public void addSelectionValue(String id, String value) {
-        this.selectionValues.put(id, value);
-    }
+    public void addSelectionValue(String id, String value) {this.selectionValues.put(id, value);}
 
     @JsonIgnore // not in schema
     public Map<String, String> getSelectionValues() {

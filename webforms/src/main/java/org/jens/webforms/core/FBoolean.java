@@ -41,9 +41,7 @@ public class FBoolean extends ElementSchema<Boolean> {
         return getDefaultValue() != null ? (Boolean) getDefaultValue() : false;
     }
 
-    public void setValue(@Nullable Boolean value) {
-        setDefaultValue(value);
-    }
+    public void setValue(@Nullable Boolean value) {setDefaultValue(value);}
 
     @Override
     public ElementSchema<Boolean> value(@Nullable Boolean value) {

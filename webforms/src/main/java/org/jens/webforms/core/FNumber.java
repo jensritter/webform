@@ -22,19 +22,15 @@ public class FNumber extends ElementSchema<Number> {
     }
 
     @Override
-    public void parseForm(JsonNode schemaElement, JsonNode formElement, Optional<JsonNode> defaultValue) {
-        defaultValue.ifPresent(k -> {
-            setValue(k.asDouble());
-        });
+    public void parseForm(JsonNode schemaElement, JsonNode formElement, Optional<JsonNode> defaultValueNode) {
+        defaultValueNode.ifPresent(k -> setValue(k.asDouble()));
     }
 
     //
     // beans
     //
 
-    public void setValue(@Nullable Number number) {
-        setDefaultValue(number);
-    }
+    public void setValue(@Nullable Number number) {setDefaultValue(number);}
 
     @JsonIgnore
     @Nullable

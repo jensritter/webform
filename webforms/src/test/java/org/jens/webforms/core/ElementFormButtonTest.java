@@ -1,6 +1,5 @@
 package org.jens.webforms.core;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -21,7 +20,7 @@ class ElementFormButtonTest {
 
     @SuppressWarnings("JsonStandardCompliance")
     @Test
-    public void testUsage() throws JsonProcessingException {
+    public void testUsage() {
         ElementFormButton button = form.addButton("btnCancel", "Cancel");
         assertThat(button).isNotNull();
         assertThat(button.getTitle()).isEqualTo("Cancel");

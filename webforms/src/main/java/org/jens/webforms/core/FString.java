@@ -33,9 +33,7 @@ public class FString extends ElementSchema<String> {
         return getDefaultValue() != null ? (String) getDefaultValue() : null;
     }
 
-    public void setValue(@Nullable String value) {
-        setDefaultValue(value);
-    }
+    public void setValue(@Nullable String value) {setDefaultValue(value);}
 
     //
     // builder

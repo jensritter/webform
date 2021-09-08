@@ -32,9 +32,7 @@ class FArrayTest extends JsonTester {
 
     @Test
     public void setValue() {
-        assertThrows(IllegalStateException.class, () -> {
-            element.value(Arrays.asList("1"));
-        });
+        assertThrows(IllegalStateException.class, () -> element.value(Arrays.asList("1")));
 
     }
 

@@ -17,13 +17,13 @@ import java.util.Optional;
  * <p>
  * Nur eine teilmenge von Properties werden direkt nach Json gemappt. Viele Properties werden via JsonForm zu einem ElementForm umgewandelt
  * <p>
- * https://jsonform.github.io/jsonform/playground/index.html?example=schema-basic
  * https://github.com/jsonform/jsonform
  * <p>
- * TODO: https://github.com/jsonform/jsonform/wiki#multiple-options-the-checkboxes-type
- * TODO: https://github.com/jsonform/jsonform/wiki#a-list-of-radio-buttons-the-radios-type
- * TODO: https://github.com/jsonform/jsonform/wiki#group-of-buttons-the-actions-type
+ * https://jsonform.github.io/jsonform/playground/index.html?example=schema-basic
+ * <p>
  * https://github.com/jsonform/jsonform/wiki#common-schema-properties
+ * <p>
+ * TODO: https://github.com/jsonform/jsonform/wiki#multiple-options-the-checkboxes-type
  *
  * @author Jens Ritter on 29/08/2021.
  * @see JsonForm

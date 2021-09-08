@@ -56,12 +56,8 @@ class JsonFormTest {
     @Test
     void addDuplicate() {
         form.add("name", new FString("label"));
-        assertThrows(IllegalArgumentException.class, () -> {
-            form.add("name", new FDate("anotther"));
-        });
-        assertThrows(IllegalArgumentException.class, () -> {
-            form.add("name", new FString("label"));
-        });
+        assertThrows(IllegalArgumentException.class, () -> form.add("name", new FDate("anotther")));
+        assertThrows(IllegalArgumentException.class, () -> form.add("name", new FString("label")));
     }
 
 

@@ -19,9 +19,7 @@ public class FObject extends ElementSchema<Object> {
 
     @Override
     protected void parseForm(JsonNode schemaElement, JsonNode formElement, Optional<JsonNode> defaultValueNode) {
-        defaultValueNode.ifPresent(k -> {
-            setDefaultValue(k);
-        });
+        defaultValueNode.ifPresent(k -> setDefaultValue(k));
         throw new IllegalStateException("unimplemented: ");
     }
 
