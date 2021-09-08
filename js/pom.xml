@@ -10,7 +10,7 @@
         <version>1.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>webforms-js</artifactId>
+    <artifactId>webform-js</artifactId>
 
     <build>
         <plugins>

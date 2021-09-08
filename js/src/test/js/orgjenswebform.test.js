@@ -43,7 +43,7 @@ let webform;
 beforeEach(() => {
     // reset HTML-page
     document.body.innerHTML = "<html lang='en'><body><form id='formid'></form></body>";
-    webform = require('../../main/resources/META-INF/resources/webjars/webforms-js/1.0-SNAPSHOT/orgjenswebform.js');
+    webform = require('../../main/resources/META-INF/resources/webjars/webform-js/1.0-SNAPSHOT/orgjenswebform.js');
 });
 
 
@@ -56,7 +56,7 @@ beforeEach(() => {
 
 function loadJsonText() {
     const fs = require("fs");
-    const txt = fs.readFileSync("../example/src/test/resources/org/jens/webforms/example/controller/api.json");
+    const txt = fs.readFileSync("../example/src/test/resources/org/jens/webform/example/controller/api.json");
     expect(txt).toContain(125); // ascii f. {
     return txt;
 }

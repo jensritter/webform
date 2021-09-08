@@ -34,6 +34,11 @@
             <artifactId>webform</artifactId>
             <version>${project.version}</version>
         </dependency>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>webform-js</artifactId>
+            <version>${project.version}</version>
+        </dependency>
 
         <!-- BaseWeb -->
         <dependency>

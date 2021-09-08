@@ -1,6 +1,6 @@
 /*
 
-<script type="text/javascript" th:src="@{/webjars/webforms-js/webforms.js}"></script>
+<script type="text/javascript" th:src="@{/webjars/webform-js/webform.js}"></script>
 
  */
 if (typeof (orgjenswebform) === "undefined") {

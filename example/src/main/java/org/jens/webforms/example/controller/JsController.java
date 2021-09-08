@@ -24,7 +24,7 @@ public class JsController {
         return "json";
     }
 
-    @ModelAttribute("jsonform")
+    @ModelAttribute("webform")
     public WebForm json() {
         List<String> orte = Arrays.asList(
             "Hannover", "Goslar", "Bad Tölz", "Hamburg"
