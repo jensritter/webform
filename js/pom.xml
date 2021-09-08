@@ -5,8 +5,8 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <artifactId>webforms-parent</artifactId>
-        <groupId>org.jens.webforms</groupId>
+        <artifactId>webform-parent</artifactId>
+        <groupId>org.jens.webform</groupId>
         <version>1.0-SNAPSHOT</version>
     </parent>
 

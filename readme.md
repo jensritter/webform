@@ -9,7 +9,7 @@ uses jsonform https://github.com/jsonform/jsonform to display bootstrap-forms to
 ### Add Dependency
 
     <dependency>
-        <groupId>org.jens.webforms</groupId>
+        <groupId>org.jens.webform</groupId>
         <artifactId>webforms</artifactId>
         <version>1.0-SNAPSHOT</version>
     </dependency>
