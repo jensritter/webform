@@ -1,4 +1,4 @@
-package org.jens.webforms.example.config;
+package org.jens.webform.example.config;
 
 import org.springframework.context.annotation.Configuration;
 

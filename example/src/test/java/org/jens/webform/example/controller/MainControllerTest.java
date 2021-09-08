@@ -1,9 +1,9 @@
-package org.jens.webforms.example.controller;
+package org.jens.webform.example.controller;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.jens.shorthand.io.IOHelper;
-import org.jens.webforms.example.MyMockRunner;
+import org.jens.webform.example.MyMockRunner;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MvcResult;

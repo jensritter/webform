@@ -1,4 +1,4 @@
-package org.jens.webforms.example.controller;
+package org.jens.webform.example.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;

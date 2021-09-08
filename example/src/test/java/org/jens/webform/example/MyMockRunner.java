@@ -1,8 +1,8 @@
-package org.jens.webforms.example;
+package org.jens.webform.example;
 
 import org.jens.shorthand.spring.test.annotation.ShorthandTestWebMock;
-import org.jens.webforms.example.MySpringRunner.SpringRunnerConfig;
-import org.jens.webforms.example.config.MvcConfig;
+import org.jens.webform.example.MySpringRunner.SpringRunnerConfig;
+import org.jens.webform.example.config.MvcConfig;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;

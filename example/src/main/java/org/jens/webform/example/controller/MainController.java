@@ -1,4 +1,4 @@
-package org.jens.webforms.example.controller;
+package org.jens.webform.example.controller;
 
 
 import org.jens.webforms.FBoolean;

@@ -1,6 +1,6 @@
-package org.jens.webforms.example.config;
+package org.jens.webform.example.config;
 
-import org.jens.webforms.example.controller.IndexController;
+import org.jens.webform.example.controller.IndexController;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;

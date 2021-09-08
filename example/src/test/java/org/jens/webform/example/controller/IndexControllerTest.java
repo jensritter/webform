@@ -1,6 +1,6 @@
-package org.jens.webforms.example.controller;
+package org.jens.webform.example.controller;
 
-import org.jens.webforms.example.MyMockRunner;
+import org.jens.webform.example.MyMockRunner;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.MediaType;
 import org.springframework.restdocs.mockmvc.MockMvcRestDocumentation;

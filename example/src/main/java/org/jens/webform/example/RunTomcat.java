@@ -1,7 +1,7 @@
-package org.jens.webforms.example;
+package org.jens.webform.example;
 
-import org.jens.webforms.example.config.AppConfig;
-import org.jens.webforms.example.config.MvcConfig;
+import org.jens.webform.example.config.AppConfig;
+import org.jens.webform.example.config.MvcConfig;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 import org.springframework.context.annotation.Configuration;
