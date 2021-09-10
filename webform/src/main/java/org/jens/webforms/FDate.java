@@ -1,7 +1,6 @@
 
 package org.jens.webforms;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.JsonNode;
 import org.jetbrains.annotations.Nullable;
 import org.slf4j.Logger;
@@ -20,6 +19,8 @@ import java.util.Optional;
  */
 public class FDate extends ElementSchema<LocalDate> {
     private final Logger logger = LoggerFactory.getLogger(FDate.class);
+
+    protected FDate() {}
 
     /**
      * Formatter, welches von Chrome+Firefox als gültiges Datum anerkannt werden
@@ -54,11 +55,15 @@ public class FDate extends ElementSchema<LocalDate> {
         });
     }
 
+    @Override
+    void buildSchema(JsonSchema jsonSchema) {
+
+    }
+
     //
     // beans
     //
 
-    @JsonIgnore
     @Nullable
     public LocalDate getValue() {
         Object defaultValue = getDefaultValue();

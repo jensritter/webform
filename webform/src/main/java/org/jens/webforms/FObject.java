@@ -8,6 +8,10 @@ import java.util.Optional;
  * @author Jens Ritter on 29/08/2021.
  */
 public class FObject extends ElementSchema<Object> {
+    protected FObject() {}
+
+    ;
+
     public FObject(String label) {
         super(FormType.FormObject, label);
     }
@@ -21,6 +25,11 @@ public class FObject extends ElementSchema<Object> {
     protected void parseForm(JsonNode schemaElement, JsonNode formElement, Optional<JsonNode> defaultValueNode) {
         defaultValueNode.ifPresent(k -> setDefaultValue(k));
         throw new IllegalStateException("unimplemented: ");
+    }
+
+    @Override
+    void buildSchema(JsonSchema jsonSchema) {
+
     }
 
 

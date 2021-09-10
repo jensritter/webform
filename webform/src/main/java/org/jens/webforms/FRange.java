@@ -1,6 +1,5 @@
 package org.jens.webforms;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.JsonNode;
 
 import java.util.Optional;
@@ -15,6 +14,10 @@ public class FRange extends FInteger {
     private int formStep;
     private boolean formIndicator;
 
+    protected FRange() {}
+
+    ;
+
     public FRange(String label) {super(label);}
 
     @Override
@@ -23,6 +26,12 @@ public class FRange extends FInteger {
         element.setType("range");
         element.setStep(formStep);
         element.setIndicator(formIndicator);
+    }
+
+    @Override
+    void buildSchema(JsonSchema jsonSchema) {
+        jsonSchema.setMinimum(this.minimum);
+        jsonSchema.setMaximum(this.maximum);
     }
 
     @Override
@@ -59,12 +68,10 @@ public class FRange extends FInteger {
 
     public void setMaximum(int maximum) {this.maximum = maximum;}
 
-    @JsonIgnore
     public int getFormStep() {return formStep;}
 
     public void setFormStep(int formStep) {this.formStep = formStep;}
 
-    @JsonIgnore
     public boolean isFormIndicator() {return formIndicator;}
 
     public void setFormIndicator(boolean formIndicator) {this.formIndicator = formIndicator;}

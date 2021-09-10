@@ -13,15 +13,15 @@ import static org.assertj.core.api.Assertions.assertThat;
 /**
  * @author Jens Ritter on 07/09/2021.
  */
-class WebFormParserTest {
+class JsonFormParserTest {
 
     @BeforeEach
     public void setUpForm() {
-        webForm = new WebForm();
+        webForm = new WebFormBuilder();
         parser = new WebFormParser();
     }
 
-    WebForm webForm;
+    WebFormBuilder webForm;
     WebFormParser parser;
 
     @Test
@@ -40,7 +40,7 @@ class WebFormParserTest {
             new FTextArea("welcome")
         );
         for(ElementSchema<?> loop : elementSchemas) {
-            webForm = new WebForm();
+            webForm = new WebFormBuilder();
 
             loop
                 .placeholder("placeholder")
@@ -55,7 +55,7 @@ class WebFormParserTest {
                 .readOnly(true);
             webForm.add("welcome", loop);
 
-            Map<String, ElementSchema<?>> elements = parser.parseElements(webForm.toString());
+            Map<String, ElementSchema<?>> elements = parser.parseElements(webForm.toJson());
             assertThat(elements).hasSize(1);
             assertThat(elements).containsOnlyKeys("welcome");
 
@@ -79,7 +79,7 @@ class WebFormParserTest {
     @Test
     public void testBoolean() throws JsonProcessingException {
         webForm.add("bool", new FBoolean("title").inlineTitle("inlineTitle").value(true));
-        Map<String, ElementSchema<?>> elements = parser.parseElements(webForm.toString());
+        Map<String, ElementSchema<?>> elements = parser.parseElements(webForm.toJson());
 
         assertThat(elements).containsOnlyKeys("bool");
         ElementSchema<?> bool = elements.get("bool");

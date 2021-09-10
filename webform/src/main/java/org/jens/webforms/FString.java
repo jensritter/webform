@@ -1,6 +1,5 @@
 package org.jens.webforms;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.JsonNode;
 import org.jetbrains.annotations.Nullable;
 
@@ -10,6 +9,9 @@ import java.util.Optional;
  * @author Jens Ritter on 29/08/2021.
  */
 public class FString extends ElementSchema<String> {
+
+    protected FString() {}
+
     public FString(String label) {
         super(FormType.FormString, label);
     }
@@ -20,6 +22,11 @@ public class FString extends ElementSchema<String> {
     }
 
     @Override
+    void buildSchema(JsonSchema jsonSchema) {
+
+    }
+
+    @Override
     protected void buildForm(ElementForm element) {
         // Default-Value not needed
     }
@@ -27,7 +34,6 @@ public class FString extends ElementSchema<String> {
 
     // bean
 
-    @JsonIgnore
     @Nullable
     public String getValue() {
         return getDefaultValue() != null ? (String) getDefaultValue() : null;

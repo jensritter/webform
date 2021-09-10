@@ -1,7 +1,6 @@
 
 package org.jens.webforms;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.JsonNode;
 import org.jetbrains.annotations.Nullable;
 
@@ -13,6 +12,8 @@ import java.util.Optional;
 public class FBoolean extends ElementSchema<Boolean> {
 
     private @Nullable String inlineTitle;
+
+    protected FBoolean() {}
 
     public FBoolean(String label) {
         super(FormType.FormBoolean, label);
@@ -36,7 +37,11 @@ public class FBoolean extends ElementSchema<Boolean> {
         defaultValueNode.ifPresent(k -> value(k.asBoolean()));
     }
 
-    @JsonIgnore
+    @Override
+    void buildSchema(JsonSchema jsonSchema) {
+
+    }
+
     public boolean getValue() {
         return getDefaultValue() != null ? (Boolean) getDefaultValue() : false;
     }
@@ -49,7 +54,6 @@ public class FBoolean extends ElementSchema<Boolean> {
         return this;
     }
 
-    @JsonIgnore // not in Schema
     @Nullable
     public String getInlineTitle() {return inlineTitle;}
 

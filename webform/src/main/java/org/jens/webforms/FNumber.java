@@ -1,7 +1,6 @@
 
 package org.jens.webforms;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.JsonNode;
 import org.jetbrains.annotations.Nullable;
 
@@ -11,6 +10,10 @@ import java.util.Optional;
  * @author Jens Ritter on 29/08/2021.
  */
 public class FNumber extends ElementSchema<Number> {
+    protected FNumber() {}
+
+    ;
+
     public FNumber(String label) {
         super(FormType.FormNumber, label);
     }
@@ -26,13 +29,17 @@ public class FNumber extends ElementSchema<Number> {
         defaultValueNode.ifPresent(k -> setValue(k.asDouble()));
     }
 
+    @Override
+    void buildSchema(JsonSchema jsonSchema) {
+
+    }
+
     //
     // beans
     //
 
     public void setValue(@Nullable Number number) {setDefaultValue(number);}
 
-    @JsonIgnore
     @Nullable
     public Number getValue() {
         return (Number) getDefaultValue();

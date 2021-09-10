@@ -16,11 +16,11 @@ import java.util.Map;
  * https://github.com/jsonform/jsonform/wiki#generic-group-the-section-type
  *
  * @author Jens Ritter on 05/09/2021.
- * @see WebForm
+ * @see WebFormBuilder
  */
 @JsonInclude(Include.NON_DEFAULT)
 @SuppressWarnings("NegativelyNamedBooleanVariable")
-public class ElementForm extends ElementFormAbstract {
+public class ElementForm extends JsonForm {
     private final String key;
 
     private boolean notitle;

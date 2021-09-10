@@ -1,9 +1,10 @@
 package org.jens.webforms;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.fasterxml.jackson.annotation.JsonValue;
 import com.fasterxml.jackson.databind.JsonNode;
 import org.jetbrains.annotations.Nullable;
@@ -26,14 +27,27 @@ import java.util.Optional;
  * TODO: https://github.com/jsonform/jsonform/wiki#multiple-options-the-checkboxes-type
  *
  * @author Jens Ritter on 29/08/2021.
- * @see WebForm
+ * @see WebFormBuilder
  */
 @SuppressWarnings({"NegativelyNamedBooleanVariable", "WeakerAccess"})
 @JsonInclude(Include.NON_DEFAULT)
+@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "typ")
+@JsonSubTypes({
+    @JsonSubTypes.Type(value = FArray.class, name = "FArray"),
+    @JsonSubTypes.Type(value = FBoolean.class, name = "FBoolean"),
+    @JsonSubTypes.Type(value = FComboBox.class, name = "FComboBox"),
+    @JsonSubTypes.Type(value = FDate.class, name = "FDate"),
+    @JsonSubTypes.Type(value = FInteger.class, name = "FInteger"),
+    @JsonSubTypes.Type(value = FNumber.class, name = "FNumber"),
+    @JsonSubTypes.Type(value = FObject.class, name = "FObject"),
+    @JsonSubTypes.Type(value = FRange.class, name = "FRange"),
+    @JsonSubTypes.Type(value = FString.class, name = "FString"),
+    @JsonSubTypes.Type(value = FTextArea.class, name = "FTextArea"),
+})
 public abstract class ElementSchema<T> {
     private final Logger logger = LoggerFactory.getLogger(ElementSchema.class);
 
-    private final FormType type;
+    private FormType type;
 
     private String title;
     private boolean required;
@@ -74,6 +88,10 @@ public abstract class ElementSchema<T> {
         public String toString() {
             return name;
         }
+    }
+
+    public ElementSchema() {
+
     }
 
     protected ElementSchema(FormType type, String label) {
@@ -134,7 +152,7 @@ public abstract class ElementSchema<T> {
 
         setRequired(parseValueAsBoolean(schemaElement, "required"));
         setDescription(parseValueAsString(schemaElement, "description"));
-//        setDefaultValue(getValueAsString(schemaElement, "default"));
+//        setDefaultValue(getValueAsString(schemaElement, "default"));  - every type must parse the given defaultValue
         setNotitle(parseValueAsBoolean(formElement, "notitle"));
         setDisabled(parseValueAsBoolean(formElement, "disabled"));
         setReadonly(parseValueAsBoolean(formElement, "readonly"));
@@ -144,6 +162,19 @@ public abstract class ElementSchema<T> {
         setAppend(parseValueAsString(formElement, "append"));
         setPlaceholder(parseValueAsString(formElement, "placeholder"));
     }
+
+    JsonSchema buildDefaultSchema() {
+        JsonSchema jsonSchema = new JsonSchema();
+        jsonSchema.setType(this.type.toString());
+        jsonSchema.setTitle(this.title);
+        jsonSchema.setRequired(this.required);
+        jsonSchema.setDescription(this.description);
+        jsonSchema.setDefaultValue(this.defaultValue);
+
+        return jsonSchema;
+    }
+
+    abstract void buildSchema(JsonSchema jsonSchema);
 
     //
     // Helper-methods
@@ -165,6 +196,8 @@ public abstract class ElementSchema<T> {
     //
     // bean-methods
     //
+
+    public void setType(FormType value) {this.type = value;}
 
     public FormType getType() {return type;}
 
@@ -189,10 +222,8 @@ public abstract class ElementSchema<T> {
         return this;
     }
 
-    @JsonIgnore // property not in schema
     public boolean isNoTitle() {return this.notitle;}
 
-    @JsonIgnore // Property not in schema
     @Nullable
     public String getHtmlClass() {return htmlClass;}
 
@@ -200,36 +231,30 @@ public abstract class ElementSchema<T> {
 
     public void setNotitle(boolean value) {this.notitle = value;}
 
-    @JsonIgnore // Property not in schema
     @Nullable
     public String getFieldHtmlClass() {return fieldHtmlClass;}
 
     public void setFieldHtmlClass(@Nullable String fieldHtmlClass) {this.fieldHtmlClass = fieldHtmlClass;}
 
-    @JsonIgnore // Property not in schema
     @Nullable
     public String getPrepend() {return prepend;}
 
     public void setPrepend(@Nullable String prepend) {this.prepend = prepend;}
 
-    @JsonIgnore // Property not in schema
     @Nullable
     public String getAppend() {return append;}
 
     public void setAppend(@Nullable String append) {this.append = append;}
 
-    @JsonIgnore // Property not in schema
     @Nullable
     public String getPlaceholder() {return placeholder;}
 
     public void setPlaceholder(@Nullable String placeholder) {this.placeholder = placeholder;}
 
-    @JsonIgnore // Property not in schema
     public boolean isDisabled() {return disabled;}
 
     public void setDisabled(boolean disabled) {this.disabled = disabled;}
 
-    @JsonIgnore // Property not in schema
     public boolean isReadonly() {return readonly;}
 
     public void setReadonly(boolean readonly) {this.readonly = readonly;}

@@ -11,11 +11,11 @@ import static org.assertj.core.api.Assertions.assertThat;
 class ElementFormButtonTest {
 
     public static final String BUTTON_FORM = "{\"type\":\"number\",\"key\":\"name\"}";
-    WebForm form;
+    WebFormBuilder form;
 
     @BeforeEach
     public void setupElement() {
-        form = new WebForm();
+        form = new WebFormBuilder();
     }
 
     @SuppressWarnings("JsonStandardCompliance")
@@ -26,7 +26,7 @@ class ElementFormButtonTest {
         assertThat(button.getTitle()).isEqualTo("Cancel");
         assertThat(button.getType()).isEqualTo("button");
 
-        String s = form.toString();
+        String s = form.toJson();
         assertThat(s).isEqualTo("{\"schema\":{},\"form\":[" +
             "{\"type\":\"button\",\"title\":\"Cancel\"}," +
             "{\"type\":\"submit\",\"title\":\"Submit\"}" +

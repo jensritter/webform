@@ -1,96 +1,24 @@
 package org.jens.webforms;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import org.jens.webforms.ElementFormButton.ButtonType;
-
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
-import java.util.Objects;
-import java.util.Optional;
 
 /**
- * Json-Response für Controller, damit JS daraus ein Formular baut.
+ * Pojo für JSON
  *
- * @author Jens Ritter on 29/08/2021.
+ * @author Jens Ritter on 10/09/2021.
  */
-public class WebForm {
-    private final ObjectMapper objectMapper = new ObjectMapper();
-    private final Map<String, ElementSchema<?>> schema = new LinkedHashMap<>();
-    private final Collection<ElementFormButton> buttons = new ArrayList<>();
-    private String titleSubmit = "Submit";
+public final class WebForm {
+    private final Map<String, JsonSchema> schema;
+    private final List<JsonForm> jsonForm;
 
-    /**
-     * Add another Control to the current Form.
-     * <p>
-     * Does throw IllegalArgumentException, if the name already exists in the current form.
-     *
-     * @param name Name of the Control
-     * @param control Control
-     */
-    public WebForm add(String name, ElementSchema<?> control) {
-        if(this.schema.containsKey(name)) {
-            throw new IllegalArgumentException("Duplicate 'name' for Control");
-        }
-        this.schema.put(name, control);
-        return this;
+    public WebForm(Map<String, JsonSchema> schema, List<JsonForm> jsonForm) {
+        this.schema = Collections.unmodifiableMap(schema);
+        this.jsonForm = Collections.unmodifiableList(jsonForm);
     }
 
-    @JsonProperty("form")
-    public List<ElementFormAbstract> getForm() {
-        List<ElementFormAbstract> result = new ArrayList<>();
+    public Map<String, JsonSchema> getSchema() {return schema;}
 
-        for(Entry<String, ElementSchema<?>> entry : schema.entrySet()) {
-            final ElementForm element = new ElementForm(entry.getKey()); // entry.getValue().getTitle()
-            ElementSchema<?> elementSchema = entry.getValue();
-            elementSchema.buildDefaultForm(element);
-            elementSchema.buildForm(element);
-            result.add(element);
-        }
-        if(noSubmitButtonPresent()) {
-            // add a Submitbutton last
-            buttons.add(new ElementFormButton(ButtonType.submit, titleSubmit));
-        }
-        result.addAll(buttons);
-        return result;
-    }
-
-    private boolean noSubmitButtonPresent() {
-        Optional<ElementFormButton> any = buttons.stream()
-            .filter(it -> Objects.equals(it.getType(), ButtonType.submit.toString()))
-            .findAny();
-        return any.isEmpty();
-    }
-
-    @JsonProperty("schema")
-    public Map<String, ElementSchema<?>> getSchema() {return Collections.unmodifiableMap(schema);}
-
-    @JsonIgnore
-    public String getTitleSubmit() {return titleSubmit;}
-
-    public void setTitleSubmit(String titleSubmit) {this.titleSubmit = titleSubmit;}
-
-
-    /** Damit man WebForm in eine Webseite als "json" einbetten kann **/
-    @Override
-    public String toString() {
-        try {
-            return objectMapper.writeValueAsString(this);
-        } catch(JsonProcessingException e) {
-            return "{\"error\": \"" + e + "\"}";
-        }
-    }
-
-    public ElementFormButton addButton(String id, String title) {
-        ElementFormButton button = new ElementFormButton(ButtonType.button, title);
-        this.buttons.add(button);
-        return button;
-    }
+    public List<JsonForm> getForm() {return jsonForm;}
 }

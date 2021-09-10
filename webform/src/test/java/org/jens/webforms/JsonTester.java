@@ -2,14 +2,13 @@ package org.jens.webforms;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.ObjectWriter;
 import org.junit.jupiter.api.BeforeAll;
 
 /**
  * @author Jens Ritter on 05/09/2021.
  */
 public abstract class JsonTester {
-    protected static ObjectWriter objectWriter;
+    protected static ObjectMapper objectMapper;
 
 
     static final String PLAIN_FORM = "{\"key\":\"name\"}";
@@ -18,19 +17,35 @@ public abstract class JsonTester {
 
     @BeforeAll
     public static void setupObjectWriter() {
-        ObjectMapper objectMapper = new ObjectMapper();
-        objectWriter = objectMapper.writer();
+        objectMapper = new ObjectMapper();
     }
 
-    String toJson(Object obj) throws JsonProcessingException {
-        return objectWriter.writeValueAsString(obj).replace("\r", "");
+    String toSchemaJson(ElementSchema<?> obj) throws JsonProcessingException {
+        JsonSchema test = new WebFormBuilder()
+            .add("name", obj)
+            .toWebForm()
+            .getSchema()
+            .values().iterator().next();
+
+        return objectMapper.writeValueAsString(test).replace("\r", "");
     }
 
     String toFormJson(ElementSchema<?> item) throws JsonProcessingException {
-        ElementForm form = new ElementForm("name");
-        item.buildDefaultForm(form);
-        item.buildForm(form);
-        return toJson(form);
+        JsonForm test = new WebFormBuilder()
+            .add("name", item)
+            .toWebForm()
+            .getForm()
+            .iterator().next();
+        return objectMapper.writeValueAsString(test).replace("\r", "");
+    }
+
+    <K extends ElementSchema<?>> K reconvert(K element) throws JsonProcessingException {
+        WebFormBuilder name = new WebFormBuilder().add("name", element);
+        String s = objectMapper.writeValueAsString(name);
+        WebFormBuilder builder = objectMapper.readValue(s, WebFormBuilder.class);
+        ElementSchema<?> next = builder.getElements().values().iterator().next();
+        return (K) next;
+
     }
 
     abstract void testJson() throws JsonProcessingException;

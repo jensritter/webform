@@ -26,14 +26,14 @@ class FComboBoxTest extends JsonTester {
     @Override
     @Test
     public void testJson() throws JsonProcessingException {
-        assertThat(toJson(element)).isEqualTo(PLAIN_SCHEMA);
+        assertThat(toSchemaJson(element)).isEqualTo(PLAIN_SCHEMA);
         assertThat(toFormJson(element)).isEqualTo(PLAIN_FORM);
     }
 
     @Test
     void getEnums() throws JsonProcessingException {
         element.selectionValue("10", "wert");
-        assertThat(toJson(element)).isEqualTo("{\"type\":\"string\",\"title\":\"label\",\"enum\":[\"10\"]}");
+        assertThat(toSchemaJson(element)).isEqualTo("{\"type\":\"string\",\"title\":\"label\",\"enum\":[\"10\"]}");
         assertThat(toFormJson(element)).isEqualTo("{\"key\":\"name\",\"titleMap\":{\"10\":\"wert\"}}");
     }
 
@@ -41,14 +41,17 @@ class FComboBoxTest extends JsonTester {
     void value() throws JsonProcessingException {
         element.selectionValue("10", "wert")
             .value("10");
-        assertThat(toJson(element)).isEqualTo("{\"type\":\"string\",\"title\":\"label\",\"default\":\"10\",\"enum\":[\"10\"]}");
+        assertThat(toSchemaJson(element)).isEqualTo("{\"type\":\"string\",\"title\":\"label\",\"default\":\"10\",\"enum\":[\"10\"]}");
         assertThat(toFormJson(element)).isEqualTo("{\"key\":\"name\",\"titleMap\":{\"10\":\"wert\"}}");
+
+        assertThat(toSchemaJson(reconvert(element))).isEqualTo(toSchemaJson(element));
+        assertThat(toFormJson(reconvert(element))).isEqualTo(toFormJson(element));
     }
 
     @Test
     public void testContructor() {
         FComboBox label = new FComboBox("label");
-        assertThat(label.getEnums()).isEmpty();
+        assertThat(label.getSelectionValues()).isEmpty();
         assertThat(label.getTitle()).isEqualTo("label");
         assertThat(label.getDefaultValue()).isNull();
     }
@@ -61,7 +64,7 @@ class FComboBoxTest extends JsonTester {
 
         assertThat(label.getSelectionValues()).containsOnlyKeys("0", "1");
         assertThat(label.getSelectionValues()).containsExactlyInAnyOrderEntriesOf(Map.of("0", "one", "1", "two"));
-        assertThat(label.getEnums()).containsExactly("0", "1");
+        assertThat(label.getSelectionValues()).containsOnlyKeys("0", "1");
     }
 
     @Test
@@ -71,12 +74,12 @@ class FComboBoxTest extends JsonTester {
         assertThat(label.getDefaultValue()).isNull();
 
         assertThat(label.getSelectionValues()).containsExactlyEntriesOf(Map.of("one", "haus", "two", "auto"));
-        assertThat(label.getEnums()).containsExactlyInAnyOrder("one", "two");
+        assertThat(label.getSelectionValues()).containsOnlyKeys("one", "two");
     }
 
     @Test
     void setSelectionValues() {
-        element.setSelectionValues(Arrays.asList("one", "two"));
+        element.setSelectionValuesWithIndex(Arrays.asList("one", "two"));
         assertThat(element.getSelectionValues()).containsAllEntriesOf(Map.of("0", "one", "1", "two"));
     }
 
@@ -97,7 +100,7 @@ class FComboBoxTest extends JsonTester {
         element.selectionValue("one", "haus").selectionValue("two", "auto")
             .viewAsRadios(true);
         assertTrue(element.isViewAsRadios());
-        assertThat(toJson(element)).isEqualTo("{\"type\":\"string\",\"title\":\"label\",\"enum\":[\"one\",\"two\"]}");
+        assertThat(toSchemaJson(element)).isEqualTo("{\"type\":\"string\",\"title\":\"label\",\"enum\":[\"one\",\"two\"]}");
         assertThat(toFormJson(element)).isEqualTo("{\"type\":\"radios\",\"key\":\"name\",\"titleMap\":{\"two\":\"auto\",\"one\":\"haus\"}}");
     }
 

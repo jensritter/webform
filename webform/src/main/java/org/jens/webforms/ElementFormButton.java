@@ -5,14 +5,14 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonValue;
 
 /**
- * Form-Buttons
+ * JsonForm-Buttons
  * https://github.com/jsonform/jsonform/wiki#fields-buttonss
  * https://github.com/jsonform/jsonform/wiki#group-of-buttons-the-actions-type
  *
  * @author Jens Ritter on 05/09/2021.
  */
 @JsonInclude(Include.NON_DEFAULT)
-public class ElementFormButton extends ElementFormAbstract {
+public class ElementFormButton extends JsonForm {
 
     private final ButtonType type;
     private final String title;

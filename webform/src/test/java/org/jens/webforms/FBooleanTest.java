@@ -23,27 +23,30 @@ class FBooleanTest extends JsonTester {
     @Override
     @Test
     public void testJson() throws JsonProcessingException {
-        assertThat(toJson(element)).isEqualTo(PLAIN_SCHEMA);
+        assertThat(toSchemaJson(element)).isEqualTo(PLAIN_SCHEMA);
         assertThat(toFormJson(element)).isEqualTo(PLAIN_FORM);
+
+        assertThat(toSchemaJson(reconvert(element))).isEqualTo(toSchemaJson(element));
+        assertThat(toFormJson(reconvert(element))).isEqualTo(toFormJson(element));
     }
 
     @Test
     public void setValue() throws JsonProcessingException {
         element.value(true);
 
-        assertThat(toJson(element)).isEqualTo("{\"type\":\"boolean\",\"title\":\"label\",\"default\":true}");
+        assertThat(toSchemaJson(element)).isEqualTo("{\"type\":\"boolean\",\"title\":\"label\",\"default\":true}");
         assertThat(toFormJson(element)).isEqualTo(PLAIN_FORM);
 
         element.value(false);
 
-        assertThat(toJson(element)).isEqualTo("{\"type\":\"boolean\",\"title\":\"label\",\"default\":false}");
+        assertThat(toSchemaJson(element)).isEqualTo("{\"type\":\"boolean\",\"title\":\"label\",\"default\":false}");
         assertThat(toFormJson(element)).isEqualTo(PLAIN_FORM);
     }
 
     @Test
     void setInlineTitle() throws JsonProcessingException {
         element.inlineTitle("inlineTitle");
-        assertThat(toJson(element)).isEqualTo(PLAIN_SCHEMA);
+        assertThat(toSchemaJson(element)).isEqualTo(PLAIN_SCHEMA);
         assertThat(toFormJson(element)).isEqualTo("{\"key\":\"name\",\"inlinetitle\":\"inlineTitle\"}");
     }
 

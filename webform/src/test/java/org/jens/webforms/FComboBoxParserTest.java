@@ -43,10 +43,10 @@ class FComboBoxParserTest extends JsonParser<FComboBox> {
     @Test
     void comboBoxOhneWerteIstWieFString() throws JsonProcessingException {
         FComboBox box = new FComboBox("box");
-        WebForm webForm = new WebForm();
+        WebFormBuilder webForm = new WebFormBuilder();
         webForm.add("box", box);
         WebFormParser parser = new WebFormParser();
-        Map<String, ElementSchema<?>> parsed = parser.parseElements(webForm.toString());
+        Map<String, ElementSchema<?>> parsed = parser.parseElements(webForm.toJson());
         assertThat(parsed).containsOnlyKeys("box");
         ElementSchema<?> box1 = parsed.get("box");
         assertThat(box1).isInstanceOf(FString.class);

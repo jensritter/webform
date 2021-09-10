@@ -23,14 +23,16 @@ class FNumberTest extends JsonTester {
     @Override
     @Test
     public void testJson() throws JsonProcessingException {
-        assertThat(toJson(element)).isEqualTo(NUMBER_SCHEMA);
+        assertThat(toSchemaJson(element)).isEqualTo(NUMBER_SCHEMA);
         assertThat(toFormJson(element)).isEqualTo(PLAIN_FORM);
+        assertThat(toSchemaJson(reconvert(element))).isEqualTo(toSchemaJson(element));
+        assertThat(toFormJson(reconvert(element))).isEqualTo(toFormJson(element));
     }
 
     @Test
     public void value() throws JsonProcessingException {
         element.value(10.1D);
-        assertThat(toJson(element)).isEqualTo("{\"type\":\"number\",\"title\":\"label\",\"default\":10.1}");
+        assertThat(toSchemaJson(element)).isEqualTo("{\"type\":\"number\",\"title\":\"label\",\"default\":10.1}");
         assertThat(toFormJson(element)).isEqualTo(PLAIN_FORM);
     }
 }

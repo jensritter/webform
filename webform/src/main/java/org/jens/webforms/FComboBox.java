@@ -1,7 +1,5 @@
 package org.jens.webforms;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.JsonNode;
 import org.jetbrains.annotations.Nullable;
 import org.slf4j.Logger;
@@ -26,6 +24,9 @@ public class FComboBox extends ElementSchema<String> {
     private final Map<String, String> selectionValues = new LinkedHashMap<>();
     private boolean viewAsRadios;
 
+    protected FComboBox() {}
+
+    ;
 
     public FComboBox(String label) {
         super(FormType.FormString, label);
@@ -74,6 +75,11 @@ public class FComboBox extends ElementSchema<String> {
         }
     }
 
+    @Override
+    void buildSchema(JsonSchema jsonSchema) {
+        jsonSchema.setEnum(this.selectionValues.keySet());
+    }
+
     private static Map<String, String> buildWithIndex(Collection<String> werte) {
         Map<String, String> result = new LinkedHashMap<>();
         Iterator<String> iterator = werte.iterator();
@@ -84,7 +90,6 @@ public class FComboBox extends ElementSchema<String> {
         return result;
     }
 
-    @JsonIgnore
     @Nullable
     public String getValue() {
         return getDefaultValue() != null ? (String) getDefaultValue() : null;
@@ -103,10 +108,7 @@ public class FComboBox extends ElementSchema<String> {
     // Beans
     //
 
-    @JsonProperty("enum")
-    public Collection<String> getEnums() {return selectionValues.keySet();}
-
-    public void setSelectionValues(Collection<String> werte) {
+    public void setSelectionValuesWithIndex(Collection<String> werte) {
         this.selectionValues.clear();
         this.selectionValues.putAll(buildWithIndex(werte));
     }
@@ -118,12 +120,10 @@ public class FComboBox extends ElementSchema<String> {
 
     public void addSelectionValue(String id, String value) {this.selectionValues.put(id, value);}
 
-    @JsonIgnore // not in schema
     public Map<String, String> getSelectionValues() {
         return Collections.unmodifiableMap(this.selectionValues);
     }
 
-    @JsonIgnore // not in schema
     public boolean isViewAsRadios() {return viewAsRadios;}
 
 
@@ -135,7 +135,7 @@ public class FComboBox extends ElementSchema<String> {
 
 
     public FComboBox selectionValues(Collection<String> werte) {
-        setSelectionValues(werte);
+        setSelectionValuesWithIndex(werte);
         return this;
     }
 

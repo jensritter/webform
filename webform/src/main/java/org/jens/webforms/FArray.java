@@ -10,6 +10,11 @@ import java.util.Optional;
  * @author Jens Ritter on 29/08/2021.
  */
 public class FArray extends ElementSchema<List<String>> {
+
+    protected FArray() {}
+
+    ;
+
     public FArray(String label) {
         super(FormType.FormArray, label);
     }
@@ -25,6 +30,11 @@ public class FArray extends ElementSchema<List<String>> {
         defaultValueNode.ifPresent(k -> {
             setDefaultValue(k);
         });
+    }
+
+    @Override
+    void buildSchema(JsonSchema jsonSchema) {
+
     }
 
     @Override

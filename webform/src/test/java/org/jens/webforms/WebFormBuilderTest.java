@@ -5,31 +5,26 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.util.List;
-
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
 
 /**
  * @author Jens Ritter on 05/09/2021.
  */
-class WebFormTest {
+class WebFormBuilderTest {
 
-    WebForm form;
+    WebFormBuilder form;
 
     @BeforeEach
     public void setUp() {
-        form = new WebForm();
+        form = new WebFormBuilder();
     }
 
     @Test
     void getForm() throws JsonProcessingException {
         form.add("name", new FString("Name"));
         ObjectMapper mapper = new ObjectMapper();
-        String json = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(form)
+        String json = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(form.toWebForm())
             .replace("\r", "");
         assertThat(json).isEqualTo("{\n" +
             "  \"schema\" : {\n" +
@@ -50,7 +45,7 @@ class WebFormTest {
     @Test
     public void testToString() {
         form.add("name", new FString("Name"));
-        assertThat(form.toString()).isEqualTo("{\"schema\":{\"name\":{\"type\":\"string\",\"title\":\"Name\"}},\"form\":[{\"key\":\"name\"},{\"type\":\"submit\",\"title\":\"Submit\"}]}");
+        assertThat(form.toJson()).isEqualTo("{\"schema\":{\"name\":{\"type\":\"string\",\"title\":\"Name\"}},\"form\":[{\"key\":\"name\"},{\"type\":\"submit\",\"title\":\"Submit\"}]}");
     }
 
     @Test
@@ -62,18 +57,22 @@ class WebFormTest {
 
     @Test
     void testAddBuilderPattern() {
-        WebForm add = form.add("name", new FString("label"));
-        assertThat(add.toString()).isEqualTo(form.toString());
+        WebFormBuilder add = form.add("name", new FString("label"));
+        assertThat(add.toJson()).isEqualTo(form.toJson());
     }
 
 
     @Test
-    void getSchema() {
-        FString mock = mock(FString.class);
-        form.add("item", mock);
-        List<ElementFormAbstract> form = this.form.getForm();
+    public void testBuilderIsNowJsonFaehig() throws JsonProcessingException {
+        WebFormBuilder builder = new WebFormBuilder();
+        builder.add("name", new FString("name"));
+        builder.add("bool", new FBoolean("name").inlineTitle("inline"));
 
-        verify(mock).buildForm(any(ElementForm.class));
+        ObjectMapper objectMapper = new ObjectMapper();
+        String s = objectMapper.writeValueAsString(builder);
+        WebFormBuilder reread = objectMapper.readValue(s, WebFormBuilder.class);
+
+        assertThat(reread.toJson()).isEqualTo(builder.toJson());
     }
 
 

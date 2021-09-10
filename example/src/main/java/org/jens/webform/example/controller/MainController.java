@@ -6,6 +6,7 @@ import org.jens.webforms.FComboBox;
 import org.jens.webforms.FDate;
 import org.jens.webforms.FString;
 import org.jens.webforms.WebForm;
+import org.jens.webforms.WebFormBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -38,17 +39,17 @@ public class MainController {
             "Hannover", "Goslar", "Bad Tölz", "Hamburg"
         );
 
+        WebFormBuilder builder = new WebFormBuilder()
+            .titleSubmit("Submit");
 
-        WebForm response = new WebForm();
-        response.setTitleSubmit("Submit");
-        response.add("name", new FString("Name").description("description-2").required(true));
-        response.add("vorname", new FString("Vorname").description("description-3"));
-        response.add("strasse", new FString("Straße").description("description-4"));
-        response.add("birthday", new FDate("Geburtstag").description("description-5"));
-        response.add("heute", new FBoolean("Ist es heute", "ja/nein").description("description-6"));
-        response.add("ort", new FComboBox("Orte", orte).description("description-1"));
+        builder.add("name", new FString("Name").description("description-2").required(true));
+        builder.add("vorname", new FString("Vorname").description("description-3"));
+        builder.add("strasse", new FString("Straße").description("description-4"));
+        builder.add("birthday", new FDate("Geburtstag").description("description-5"));
+        builder.add("heute", new FBoolean("Ist es heute", "ja/nein").description("description-6"));
+        builder.add("ort", new FComboBox("Orte", orte).description("description-1"));
 
-        return response;
+        return builder.toWebForm();
     }
 
     @PostMapping("/api/form")

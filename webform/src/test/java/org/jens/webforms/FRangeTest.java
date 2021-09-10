@@ -23,14 +23,16 @@ class FRangeTest extends JsonTester {
     @Override
     @Test
     public void testJson() throws JsonProcessingException {
-        assertThat(toJson(element)).isEqualTo(RANGE_SCHEMA);
+        assertThat(toSchemaJson(element)).isEqualTo(RANGE_SCHEMA);
         assertThat(toFormJson(element)).isEqualTo(RANGE_FORM);
+        assertThat(toSchemaJson(reconvert(element))).isEqualTo(toSchemaJson(element));
+        assertThat(toFormJson(reconvert(element))).isEqualTo(toFormJson(element));
     }
 
     @Test
     public void setValue() throws JsonProcessingException {
         element.value(10);
-        assertThat(toJson(element)).isEqualTo("{\"type\":\"integer\",\"title\":\"label\",\"default\":10}");
+        assertThat(toSchemaJson(element)).isEqualTo("{\"type\":\"integer\",\"title\":\"label\",\"default\":10}");
         assertThat(toFormJson(element)).isEqualTo(RANGE_FORM);
     }
 
@@ -38,7 +40,7 @@ class FRangeTest extends JsonTester {
     public void setMinMax() throws JsonProcessingException {
         element.minimum(10).maximum(20);
 
-        assertThat(toJson(element)).isEqualTo("{\"type\":\"integer\",\"title\":\"label\",\"minimum\":10,\"maximum\":20}");
+        assertThat(toSchemaJson(element)).isEqualTo("{\"type\":\"integer\",\"title\":\"label\",\"minimum\":10,\"maximum\":20}");
         assertThat(toFormJson(element)).isEqualTo(RANGE_FORM);
 
         assertThat(element.getMinimum()).isEqualTo(10);
@@ -48,7 +50,7 @@ class FRangeTest extends JsonTester {
     @Test
     public void setFormStep() throws JsonProcessingException {
         element.formStep(10);
-        assertThat(toJson(element)).isEqualTo(RANGE_SCHEMA);
+        assertThat(toSchemaJson(element)).isEqualTo(RANGE_SCHEMA);
         assertThat(toFormJson(element)).isEqualTo("{\"type\":\"range\",\"key\":\"name\",\"step\":10}");
 
     }
@@ -56,7 +58,7 @@ class FRangeTest extends JsonTester {
     @Test
     public void setFormIndicator() throws JsonProcessingException {
         element.formIndicator(true);
-        assertThat(toJson(element)).isEqualTo(RANGE_SCHEMA);
+        assertThat(toSchemaJson(element)).isEqualTo(RANGE_SCHEMA);
         assertThat(toFormJson(element)).isEqualTo("{\"type\":\"range\",\"key\":\"name\",\"indicator\":true}");
 
     }

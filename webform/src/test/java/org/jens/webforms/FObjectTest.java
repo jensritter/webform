@@ -26,8 +26,10 @@ class FObjectTest extends JsonTester {
     @Override
     @Test
     public void testJson() throws JsonProcessingException {
-        assertThat(toJson(element)).isEqualTo(PLAIN_SCHEMA);
+        assertThat(toSchemaJson(element)).isEqualTo(PLAIN_SCHEMA);
         assertThat(toFormJson(element)).isEqualTo(PLAIN_FORM);
+        assertThat(toSchemaJson(reconvert(element))).isEqualTo(toSchemaJson(element));
+        assertThat(toFormJson(reconvert(element))).isEqualTo(toFormJson(element));
     }
 
     @Test

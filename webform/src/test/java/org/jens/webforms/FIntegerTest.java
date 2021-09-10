@@ -22,14 +22,16 @@ public class FIntegerTest extends JsonTester {
     @Override
     @Test
     public void testJson() throws JsonProcessingException {
-        assertThat(toJson(element)).isEqualTo(INTEGER_SCHEMA);
+        assertThat(toSchemaJson(element)).isEqualTo(INTEGER_SCHEMA);
         assertThat(toFormJson(element)).isEqualTo(PLAIN_FORM);
+        assertThat(toSchemaJson(reconvert(element))).isEqualTo(toSchemaJson(element));
+        assertThat(toFormJson(reconvert(element))).isEqualTo(toFormJson(element));
     }
 
     @Test
     public void value() throws JsonProcessingException {
         element.value(100);
-        assertThat(toJson(element)).isEqualTo("{\"type\":\"integer\",\"title\":\"label\",\"default\":100}");
+        assertThat(toSchemaJson(element)).isEqualTo("{\"type\":\"integer\",\"title\":\"label\",\"default\":100}");
         assertThat(toFormJson(element)).isEqualTo(PLAIN_FORM);
     }
 }

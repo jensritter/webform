@@ -12,11 +12,11 @@ import static org.assertj.core.api.Assertions.assertThat;
 public abstract class JsonParser<T extends ElementSchema<?>> {
 
     T parseElement(ElementSchema<?> origElement) throws JsonProcessingException {
-        WebForm webForm = new WebForm();
+        WebFormBuilder webForm = new WebFormBuilder();
         WebFormParser parser = new WebFormParser();
 
         webForm.add("element", origElement);
-        Map<String, ElementSchema<?>> parsedMap = parser.parseElements(webForm.toString());
+        Map<String, ElementSchema<?>> parsedMap = parser.parseElements(webForm.toJson());
 
         assertThat(parsedMap).containsOnlyKeys("element");
         ElementSchema<?> element = parsedMap.get("element");
