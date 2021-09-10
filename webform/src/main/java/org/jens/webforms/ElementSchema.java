@@ -3,8 +3,6 @@ package org.jens.webforms;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonSubTypes;
-import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.fasterxml.jackson.annotation.JsonValue;
 import com.fasterxml.jackson.databind.JsonNode;
 import org.jetbrains.annotations.Nullable;
@@ -31,19 +29,6 @@ import java.util.Optional;
  */
 @SuppressWarnings({"NegativelyNamedBooleanVariable", "WeakerAccess"})
 @JsonInclude(Include.NON_DEFAULT)
-@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "typ")
-@JsonSubTypes({
-    @JsonSubTypes.Type(value = FArray.class, name = "FArray"),
-    @JsonSubTypes.Type(value = FBoolean.class, name = "FBoolean"),
-    @JsonSubTypes.Type(value = FComboBox.class, name = "FComboBox"),
-    @JsonSubTypes.Type(value = FDate.class, name = "FDate"),
-    @JsonSubTypes.Type(value = FInteger.class, name = "FInteger"),
-    @JsonSubTypes.Type(value = FNumber.class, name = "FNumber"),
-    @JsonSubTypes.Type(value = FObject.class, name = "FObject"),
-    @JsonSubTypes.Type(value = FRange.class, name = "FRange"),
-    @JsonSubTypes.Type(value = FString.class, name = "FString"),
-    @JsonSubTypes.Type(value = FTextArea.class, name = "FTextArea"),
-})
 public abstract class ElementSchema<T> {
     private final Logger logger = LoggerFactory.getLogger(ElementSchema.class);
 

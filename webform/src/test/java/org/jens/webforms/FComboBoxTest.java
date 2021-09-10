@@ -44,8 +44,6 @@ class FComboBoxTest extends JsonTester {
         assertThat(toSchemaJson(element)).isEqualTo("{\"type\":\"string\",\"title\":\"label\",\"default\":\"10\",\"enum\":[\"10\"]}");
         assertThat(toFormJson(element)).isEqualTo("{\"key\":\"name\",\"titleMap\":{\"10\":\"wert\"}}");
 
-        assertThat(toSchemaJson(reconvert(element))).isEqualTo(toSchemaJson(element));
-        assertThat(toFormJson(reconvert(element))).isEqualTo(toFormJson(element));
     }
 
     @Test

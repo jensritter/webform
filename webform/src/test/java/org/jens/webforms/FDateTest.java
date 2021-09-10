@@ -26,8 +26,6 @@ class FDateTest extends JsonTester {
     public void testJson() throws JsonProcessingException {
         assertThat(toSchemaJson(element)).isEqualTo(PLAIN_SCHEMA);
         assertThat(toFormJson(element)).isEqualTo(DATE_FORM);
-        assertThat(toSchemaJson(reconvert(element))).isEqualTo(toSchemaJson(element));
-        assertThat(toFormJson(reconvert(element))).isEqualTo(toFormJson(element));
     }
 
     @Test

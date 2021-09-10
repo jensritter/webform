@@ -25,8 +25,6 @@ class FNumberTest extends JsonTester {
     public void testJson() throws JsonProcessingException {
         assertThat(toSchemaJson(element)).isEqualTo(NUMBER_SCHEMA);
         assertThat(toFormJson(element)).isEqualTo(PLAIN_FORM);
-        assertThat(toSchemaJson(reconvert(element))).isEqualTo(toSchemaJson(element));
-        assertThat(toFormJson(reconvert(element))).isEqualTo(toFormJson(element));
     }
 
     @Test

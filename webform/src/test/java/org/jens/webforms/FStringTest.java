@@ -24,8 +24,6 @@ class FStringTest extends JsonTester {
 
         assertThat(toSchemaJson(element)).isEqualTo(PLAIN_SCHEMA);
         assertThat(toFormJson(element)).isEqualTo(PLAIN_FORM);
-        assertThat(toSchemaJson(reconvert(element))).isEqualTo(toSchemaJson(element));
-        assertThat(toFormJson(reconvert(element))).isEqualTo(toFormJson(element));
     }
 
     @Test

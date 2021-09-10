@@ -39,15 +39,6 @@ public abstract class JsonTester {
         return objectMapper.writeValueAsString(test).replace("\r", "");
     }
 
-    <K extends ElementSchema<?>> K reconvert(K element) throws JsonProcessingException {
-        WebFormBuilder name = new WebFormBuilder().add("name", element);
-        String s = objectMapper.writeValueAsString(name);
-        WebFormBuilder builder = objectMapper.readValue(s, WebFormBuilder.class);
-        ElementSchema<?> next = builder.getElements().values().iterator().next();
-        return (K) next;
-
-    }
-
     abstract void testJson() throws JsonProcessingException;
 
 

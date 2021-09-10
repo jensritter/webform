@@ -25,8 +25,6 @@ class FRangeTest extends JsonTester {
     public void testJson() throws JsonProcessingException {
         assertThat(toSchemaJson(element)).isEqualTo(RANGE_SCHEMA);
         assertThat(toFormJson(element)).isEqualTo(RANGE_FORM);
-        assertThat(toSchemaJson(reconvert(element))).isEqualTo(toSchemaJson(element));
-        assertThat(toFormJson(reconvert(element))).isEqualTo(toFormJson(element));
     }
 
     @Test

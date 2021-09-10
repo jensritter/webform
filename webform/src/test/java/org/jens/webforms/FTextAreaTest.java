@@ -26,8 +26,6 @@ class FTextAreaTest extends JsonTester {
 
         assertThat(toSchemaJson(element)).isEqualTo(PLAIN_SCHEMA);
         assertThat(toFormJson(element)).isEqualTo(FORM_TEXTAREA);
-        assertThat(toSchemaJson(reconvert(element))).isEqualTo(toSchemaJson(element));
-        assertThat(toFormJson(reconvert(element))).isEqualTo(toFormJson(element));
     }
 
     @Test
