@@ -5,9 +5,9 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.List;
 
 /**
  * Pojo für JSON
@@ -26,7 +26,7 @@ public final class JsonSchema {
     private int maxLength; //TODO: implement maxLength
 
     // f. FComboBox
-    private final Set<String> enumValues = new HashSet<>();
+    private final List<String> enumValues = new ArrayList<>();
     // f. FRange
     private int minimum = 0;
     private int maximum = 0;
@@ -55,13 +55,13 @@ public final class JsonSchema {
 
     public void setDescription(@Nullable String description) {this.description = description;}
 
-    public void setEnum(Set<String> keySet) {
+    public void setEnum(List<String> keySet) {
         this.enumValues.clear();
         this.enumValues.addAll(keySet);
     }
 
     @JsonProperty("enum")
-    public Set<String> getEnum() {return Collections.unmodifiableSet(this.enumValues);}
+    public List<String> getEnum() {return Collections.unmodifiableList(this.enumValues);}
 
     public int getMaxLength() {return maxLength;}
 

@@ -5,6 +5,7 @@ import org.jetbrains.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Iterator;
@@ -77,7 +78,7 @@ public class FComboBox extends ElementSchema<String> {
 
     @Override
     void buildSchema(JsonSchema jsonSchema) {
-        jsonSchema.setEnum(this.selectionValues.keySet());
+        jsonSchema.setEnum(new ArrayList<>(this.selectionValues.keySet()));
     }
 
     private static Map<String, String> buildWithIndex(Collection<String> werte) {

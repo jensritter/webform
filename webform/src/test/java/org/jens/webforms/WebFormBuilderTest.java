@@ -61,19 +61,4 @@ class WebFormBuilderTest {
         assertThat(add.toJson()).isEqualTo(form.toJson());
     }
 
-
-    @Test
-    public void testBuilderIsNowJsonFaehig() throws JsonProcessingException {
-        WebFormBuilder builder = new WebFormBuilder();
-        builder.add("name", new FString("name"));
-        builder.add("bool", new FBoolean("name").inlineTitle("inline"));
-
-        ObjectMapper objectMapper = new ObjectMapper();
-        String s = objectMapper.writeValueAsString(builder);
-        WebFormBuilder reread = objectMapper.readValue(s, WebFormBuilder.class);
-
-        assertThat(reread.toJson()).isEqualTo(builder.toJson());
-    }
-
-
 }
