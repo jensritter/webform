@@ -96,42 +96,42 @@ class ElementJsonSchemaTest extends JsonTester {
     void setHtmlClass() throws JsonProcessingException {
         element.htmlClass("plain");
         assertThat(toSchemaJson(element)).isEqualTo(PLAIN_SCHEMA);
-        assertThat(toFormJson(element)).isEqualTo("{\"key\":\"name\",\"htmlClass\":\"plain\"}");
+        assertThat(toFormJson(element)).isEqualTo("{\"htmlClass\":\"plain\",\"key\":\"name\"}");
     }
 
     @Test
     void setFieldHtmlClass() throws JsonProcessingException {
         element.fieldHtmlClass("plain");
         assertThat(toSchemaJson(element)).isEqualTo(PLAIN_SCHEMA);
-        assertThat(toFormJson(element)).isEqualTo("{\"key\":\"name\",\"fieldHtmlClass\":\"plain\"}");
+        assertThat(toFormJson(element)).isEqualTo("{\"fieldHtmlClass\":\"plain\",\"key\":\"name\"}");
     }
 
     @Test
     void setPrepend() throws JsonProcessingException {
         element.prepend("prepend");
         assertThat(toSchemaJson(element)).isEqualTo(PLAIN_SCHEMA);
-        assertThat(toFormJson(element)).isEqualTo("{\"key\":\"name\",\"prepend\":\"prepend\"}");
+        assertThat(toFormJson(element)).isEqualTo("{\"prepend\":\"prepend\",\"key\":\"name\"}");
     }
 
     @Test
     void setPlaceholder() throws JsonProcessingException {
         element.placeholder("placeholder");
         assertThat(toSchemaJson(element)).isEqualTo(PLAIN_SCHEMA);
-        assertThat(toFormJson(element)).isEqualTo("{\"key\":\"name\",\"placeholder\":\"placeholder\"}");
+        assertThat(toFormJson(element)).isEqualTo("{\"placeholder\":\"placeholder\",\"key\":\"name\"}");
     }
 
     @Test
     void setDisabled() throws JsonProcessingException {
         element.disabled(true);
         assertThat(toSchemaJson(element)).isEqualTo(PLAIN_SCHEMA);
-        assertThat(toFormJson(element)).isEqualTo("{\"key\":\"name\",\"disabled\":true}");
+        assertThat(toFormJson(element)).isEqualTo("{\"disabled\":true,\"key\":\"name\"}");
     }
 
     @Test
     void setReadonly() throws JsonProcessingException {
         element.readOnly(true);
         assertThat(toSchemaJson(element)).isEqualTo(PLAIN_SCHEMA);
-        assertThat(toFormJson(element)).isEqualTo("{\"key\":\"name\",\"readonly\":true}");
+        assertThat(toFormJson(element)).isEqualTo("{\"readonly\":true,\"key\":\"name\"}");
     }
 
     @Test

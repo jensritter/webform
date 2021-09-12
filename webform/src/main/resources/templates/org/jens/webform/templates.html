@@ -6,7 +6,7 @@
     <script type="text/javascript" th:src="@{/webjars/underscore/underscore-min.js}"></script>
     <script type="text/javascript" th:src="@{/webjars/JSV/lib/jsv.js}"></script>
     <script type="text/javascript" th:src="@{/webjars/jsonform/lib/jsonform.js}"></script>
-    <script th:inline="javascript">
+    <script th:inline="javascript" th:if="${webform}">
         const webform = [(${webform})];
     </script>
 </div>
