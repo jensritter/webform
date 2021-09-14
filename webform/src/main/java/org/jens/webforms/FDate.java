@@ -48,7 +48,7 @@ public class FDate extends ElementSchema<LocalDate> {
         defaultValueNode.ifPresent(k -> {
             try {
                 TemporalAccessor parse = DATE_YYYY_MM_DD.parse(k.asText());
-                setValue(LocalDate.from(parse));
+                setDefaultValue(LocalDate.from(parse));
             } catch(DateTimeParseException e) {
                 logger.warn("Cannot parse Date-Value for {}", schemaElement);
             }
@@ -56,17 +56,16 @@ public class FDate extends ElementSchema<LocalDate> {
     }
 
     @Override
-    void buildSchema(JsonSchema jsonSchema) {
-
-    }
+    void buildSchema(JsonSchema jsonSchema) {}
 
     //
     // beans
     //
 
+    @Override
     @Nullable
-    public LocalDate getValue() {
-        Object defaultValue = getDefaultValue();
+    public LocalDate getDefaultValue() {
+        Object defaultValue = super.getDefaultValue();
         if(defaultValue == null) {return null;}
 
         String stringValue = (String) defaultValue;
@@ -74,11 +73,11 @@ public class FDate extends ElementSchema<LocalDate> {
         return LocalDate.from(parse);
     }
 
-    public void setValue(@Nullable LocalDate date) {
+    public void setDefaultValue(@Nullable LocalDate date) {
         if(date == null) {
-            setDefaultValue(null);
+            super.setDefaultValue(null);
         } else {
-            setDefaultValue(DATE_YYYY_MM_DD.format(date));
+            super.setDefaultValue(DATE_YYYY_MM_DD.format(date));
         }
     }
 
@@ -87,7 +86,7 @@ public class FDate extends ElementSchema<LocalDate> {
     //
     @Override
     public ElementSchema<LocalDate> value(@Nullable LocalDate value) {
-        setValue(value);
+        setDefaultValue(value);
         return this;
     }
 

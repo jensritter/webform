@@ -38,21 +38,13 @@ public class FBoolean extends ElementSchema<Boolean> {
     }
 
     @Override
-    void buildSchema(JsonSchema jsonSchema) {
-
-    }
+    void buildSchema(JsonSchema jsonSchema) {}
 
     public boolean getValue() {
         return getDefaultValue() != null ? (Boolean) getDefaultValue() : false;
     }
 
-    public void setValue(@Nullable Boolean value) {setDefaultValue(value);}
 
-    @Override
-    public ElementSchema<Boolean> value(@Nullable Boolean value) {
-        setValue(value);
-        return this;
-    }
 
     @Nullable
     public String getInlineTitle() {return inlineTitle;}

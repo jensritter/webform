@@ -16,8 +16,6 @@ public class FRange extends FInteger {
 
     protected FRange() {}
 
-    ;
-
     public FRange(String label) {super(label);}
 
     @Override

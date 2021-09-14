@@ -16,7 +16,7 @@ public class FDateParserTest extends JsonParser<FDate> {
     void testParse() throws JsonProcessingException {
         FDate fDate = parseElement(new FDate("title"));
         assertThat(fDate.getTitle()).isEqualTo("title");
-        assertThat(fDate.getValue()).isNull();
+        assertThat(fDate.getDefaultValue()).isNull();
     }
 
     @Test
@@ -24,7 +24,7 @@ public class FDateParserTest extends JsonParser<FDate> {
     void testParseValue() throws JsonProcessingException {
         LocalDate of = LocalDate.of(2021, 12, 31);
         FDate fDate = parseElement(new FDate("title").value(of));
-        assertThat(fDate.getValue()).isEqualTo(of);
+        assertThat(fDate.getDefaultValue()).isEqualTo(of);
     }
 
 }

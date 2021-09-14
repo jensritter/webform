@@ -22,6 +22,6 @@ public class FStringParserTest extends JsonParser<FString> {
     @Override
     void testParseValue() throws JsonProcessingException {
         FString fString = parseElement(new FString("title").value("20"));
-        assertThat(fString.getValue()).isEqualTo("20");
+        assertThat(fString.getDefaultValue()).isEqualTo("20");
     }
 }

@@ -14,7 +14,7 @@ public class FRangeParserTest extends JsonParser<FRange> {
     void testParse() throws JsonProcessingException {
         FRange fRange = parseElement(new FRange("element"));
         assertThat(fRange.getTitle()).isEqualTo("element");
-        assertThat(fRange.getValue()).isNull();
+        assertThat(fRange.getDefaultValue()).isNull();
     }
 
     @Test

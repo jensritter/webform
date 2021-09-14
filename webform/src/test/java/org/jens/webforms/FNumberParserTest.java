@@ -15,7 +15,7 @@ public class FNumberParserTest extends JsonParser<FNumber> {
     void testParse() throws JsonProcessingException {
         FNumber title = parseElement(new FNumber("title"));
         assertThat(title.getTitle()).isEqualTo("title");
-        assertThat(title.getValue()).isNull();
+        assertThat(title.getDefaultValue()).isNull();
     }
 
     @Test

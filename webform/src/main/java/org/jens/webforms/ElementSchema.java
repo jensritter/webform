@@ -109,7 +109,10 @@ public abstract class ElementSchema<T> {
      * @param value
      * @return
      */
-    public abstract ElementSchema<T> value(@Nullable T value);
+    public ElementSchema<T> value(@Nullable T value) {
+        setDefaultValue(value);
+        return this;
+    }
 
     /**
      * Parse the "default"-Value and aother component-specific properties
@@ -202,7 +205,7 @@ public abstract class ElementSchema<T> {
     @Nullable
     public Object getDefaultValue() {return defaultValue;}
 
-    ElementSchema<T> setDefaultValue(@Nullable Object opt) {
+    public ElementSchema<T> setDefaultValue(@Nullable Object opt) {
         this.defaultValue = opt;
         return this;
     }

@@ -4,10 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.util.Arrays;
-
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 
 /**
  * @author Jens Ritter on 07/09/2021.
@@ -30,11 +27,5 @@ class FObjectTest extends JsonTester {
         assertThat(toFormJson(element)).isEqualTo(PLAIN_FORM);
     }
 
-    @Test
-    public void setValue() {
-        assertThrows(IllegalStateException.class, () -> {
-            element.value(Arrays.asList("1"));
-        });
 
-    }
 }

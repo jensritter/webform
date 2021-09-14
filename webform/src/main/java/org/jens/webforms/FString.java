@@ -1,7 +1,6 @@
 package org.jens.webforms;
 
 import com.fasterxml.jackson.databind.JsonNode;
-import org.jetbrains.annotations.Nullable;
 
 import java.util.Optional;
 
@@ -31,24 +30,4 @@ public class FString extends ElementSchema<String> {
         // Default-Value not needed
     }
 
-
-    // bean
-
-    @Nullable
-    public String getValue() {
-        return getDefaultValue() != null ? (String) getDefaultValue() : null;
-    }
-
-    public void setValue(@Nullable String value) {setDefaultValue(value);}
-
-    //
-    // builder
-    //
-
-
-    @Override
-    public FString value(@Nullable String value) {
-        setValue(value);
-        return this;
-    }
 }

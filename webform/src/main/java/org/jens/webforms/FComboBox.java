@@ -1,7 +1,6 @@
 package org.jens.webforms;
 
 import com.fasterxml.jackson.databind.JsonNode;
-import org.jetbrains.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -26,8 +25,6 @@ public class FComboBox extends ElementSchema<String> {
     private boolean viewAsRadios;
 
     protected FComboBox() {}
-
-    ;
 
     public FComboBox(String label) {
         super(FormType.FormString, label);
@@ -90,20 +87,6 @@ public class FComboBox extends ElementSchema<String> {
         }
         return result;
     }
-
-    @Nullable
-    public String getValue() {
-        return getDefaultValue() != null ? (String) getDefaultValue() : null;
-    }
-
-    public void setValue(@Nullable String index) {setDefaultValue(index);}
-
-    @Override
-    public ElementSchema<String> value(@Nullable String index) {
-        setValue(index);
-        return this;
-    }
-
 
     //
     // Beans

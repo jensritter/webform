@@ -28,14 +28,7 @@ public class FObject extends ElementSchema<Object> {
     }
 
     @Override
-    void buildSchema(JsonSchema jsonSchema) {
+    void buildSchema(JsonSchema jsonSchema) {}
 
-    }
-
-
-    @Override
-    public ElementSchema<Object> value(Object value) {
-        throw new IllegalStateException("unimplemented: ");
-    }
 
 }

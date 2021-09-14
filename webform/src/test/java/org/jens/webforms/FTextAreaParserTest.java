@@ -14,13 +14,13 @@ public class FTextAreaParserTest extends JsonParser<FTextArea> {
     void testParse() throws JsonProcessingException {
         FTextArea fTextArea = parseElement(new FTextArea("title"));
         assertThat(fTextArea.getTitle()).isEqualTo("title");
-        assertThat(fTextArea.getValue()).isNull();
+        assertThat(fTextArea.getDefaultValue()).isNull();
     }
 
     @Test
     @Override
     void testParseValue() throws JsonProcessingException {
         FTextArea fTextArea = parseElement(new FTextArea("title").value("20"));
-        assertThat(fTextArea.getValue()).isEqualTo("20");
+        assertThat(fTextArea.getDefaultValue()).isEqualTo("20");
     }
 }

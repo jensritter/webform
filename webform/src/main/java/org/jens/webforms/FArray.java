@@ -1,8 +1,9 @@
 package org.jens.webforms;
 
 import com.fasterxml.jackson.databind.JsonNode;
-import org.jetbrains.annotations.Nullable;
 
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 
@@ -12,8 +13,6 @@ import java.util.Optional;
 public class FArray extends ElementSchema<List<String>> {
 
     protected FArray() {}
-
-    ;
 
     public FArray(String label) {
         super(FormType.FormArray, label);
@@ -28,19 +27,18 @@ public class FArray extends ElementSchema<List<String>> {
     @Override
     protected void parseForm(JsonNode schemaElement, JsonNode formElement, Optional<JsonNode> defaultValueNode) {
         defaultValueNode.ifPresent(k -> {
-            setDefaultValue(k);
+            boolean array = k.isArray();
+            Iterator<JsonNode> iterator = k.iterator();
+            List<String> values = new ArrayList<>();
+            while(iterator.hasNext()) {
+                JsonNode next = iterator.next();
+                values.add(next.asText());
+            }
+            setDefaultValue(values);
         });
     }
 
     @Override
-    void buildSchema(JsonSchema jsonSchema) {
-
-    }
-
-    @Override
-    public ElementSchema<List<String>> value(@Nullable List<String> value) {
-        throw new IllegalStateException("unimplemented: ");
-    }
-
+    void buildSchema(JsonSchema jsonSchema) {}
 
 }
