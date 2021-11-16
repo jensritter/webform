@@ -6,12 +6,12 @@
     <parent>
         <groupId>org.jens.webform</groupId>
         <artifactId>webform-parent</artifactId>
-        <version>1.0</version>
+        <version>1.0.1</version>
     </parent>
 
     <groupId>org.jens.webform</groupId>
     <artifactId>webform</artifactId>
-    <version>1.0</version>
+    <version>1.0.1</version>
 
     <dependencies>
         <dependency>
