@@ -39,7 +39,7 @@
     "express": "^4.17.1",
     "jest": "^27.1.0",
     "jest-junit": "^13.0.0",
-    "node-fetch": "^2.6.1"
+    "node-fetch": "^2.6.7"
   },
   "dependencies": {
     "jsonform": "^2.2.4",
