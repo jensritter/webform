@@ -1,4 +1,5 @@
 # learn-module f. npm+js
+node-verwalter ( für windows ) nvm https://github.com/nvm-sh/nvm
 
 ## NPM und der ganze müll.
 
