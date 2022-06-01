@@ -37,12 +37,12 @@ public class MyMockRunner {
     protected MockMvc mockMvc;
 
     @Test
-    public void testDI() {
+    void testDI() {
         assertNotNull(mockMvc);
     }
 
     @Test
-    public void testGetIndex() throws Exception {
+    void testGetIndex() throws Exception {
         mockMvc.perform(get("/"))
             .andExpect(status().is3xxRedirection());
     }

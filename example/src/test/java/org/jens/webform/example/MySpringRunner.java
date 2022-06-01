@@ -11,6 +11,7 @@ import org.springframework.boot.autoconfigure.jmx.JmxAutoConfiguration;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.context.support.GenericApplicationContext;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -23,6 +24,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 public class MySpringRunner {
 
     @Configuration
+    @EnableWebSecurity
     @EnableAutoConfiguration(exclude = JmxAutoConfiguration.class)
     @Import(AppConfig.class)
     public static class SpringRunnerConfig {
@@ -33,7 +35,7 @@ public class MySpringRunner {
     private GenericApplicationContext ctx;
 
     @Test
-    public void testDI() {
+    void testDI() {
         assertNotNull(ctx);
     }
 
