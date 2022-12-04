@@ -77,7 +77,7 @@ public class FDate extends ElementSchema<LocalDate> {
         if(date == null) {
             super.setDefaultValue(null);
         } else {
-            super.setDefaultValue(DATE_YYYY_MM_DD.format(date));
+            setDefaultValue(DATE_YYYY_MM_DD.format(date));
         }
     }
 

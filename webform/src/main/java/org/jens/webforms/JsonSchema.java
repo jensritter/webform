@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
@@ -14,7 +15,6 @@ import java.util.List;
  *
  * @author Jens Ritter on 10/09/2021.
  */
-@SuppressWarnings("NegativelyNamedBooleanVariable")
 @JsonInclude(Include.NON_DEFAULT)
 public final class JsonSchema {
 
@@ -28,10 +28,10 @@ public final class JsonSchema {
     // f. FComboBox
     private final List<String> enumValues = new ArrayList<>();
     // f. FRange
-    private int minimum = 0;
-    private int maximum = 0;
-    private int exclusiveMinimum = 0;
-    private int exclusiveMaximum = 0;
+    private int minimum;
+    private int maximum;
+    private int exclusiveMinimum;
+    private int exclusiveMaximum;
 
 
     public boolean isRequired() {return required;}
@@ -55,7 +55,7 @@ public final class JsonSchema {
 
     public void setDescription(@Nullable String description) {this.description = description;}
 
-    public void setEnum(List<String> keySet) {
+    public void setEnum(Collection<String> keySet) {
         this.enumValues.clear();
         this.enumValues.addAll(keySet);
     }
