@@ -1,16 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <configuration debug="false">
     <include resource="org/springframework/boot/logging/logback/defaults.xml" />
     <property name="LOG_FILE" value="${LOG_FILE:-${LOG_PATH:-${LOG_TEMP:-${java.io.tmpdir:-/tmp}}/}spring.log}" />
     <include resource="org/springframework/boot/logging/logback/file-appender.xml" />
 
     <appender name="RootConsoleAppender" class="ch.qos.logback.core.ConsoleAppender">
-        <!--
-        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
-            <level>INFO</level>
-        </filter>
-        -->
         <encoder>
             <pattern>%clr(%date{yyyy-MM-dd HH:mm:ss.SSS}){faint} %clr(${LOG_LEVEL_PATTERN:-%5p}) %clr(${PID:- }){magenta} %clr([%thread]){faint} %clr(%logger\(%line\)){cyan}%clr(%marker){faint}:%msg%n${LOG_EXCEPTION_CONVERSION_WORD:-%wEx}</pattern>
             <!--
@@ -19,7 +13,6 @@
             -->
         </encoder>
     </appender>
-
     <!-- logstash-config : ( require  net.logstash.logback:logstash-logback-encoder )
     <springProperty scope="context" name="application" source="spring.application.name" />
     <appender name="logstash" class="net.logstash.logback.appender.LogstashUdpSocketAppender">
@@ -30,18 +23,12 @@
     </appender>
     -->
 
-    <turboFilter class="ch.qos.logback.classic.turbo.MarkerFilter">
-        <Marker>SQL</Marker>
-        <OnMatch>DENY</OnMatch> <!--  ACCEPT|DENY -->
-    </turboFilter>
-
     <!--
         <logger name="org.springframework" level="ERROR" />
     -->
-    <root>
-        <level value="INFO" />
+    <root value="INFO">
         <appender-ref ref="FILE" />
-        <!--        <appender-ref ref="logstash" />-->
+        <!--<appender-ref ref="logstash" />-->
         <appender-ref ref="RootConsoleAppender" />
     </root>
 </configuration>
