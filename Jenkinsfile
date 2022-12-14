@@ -1,3 +1,4 @@
+@Library("jens-pipeline-lib") _
 pipeline {
     agent any
 //    agent { label 'windows' }
@@ -8,30 +9,13 @@ pipeline {
 
     stages {
         stage("build") {
-            stages {
-                stage("build-unix") {
-                    when { expression { return isUnix() } }
-                    steps {
-                        withMaven(
-                		    jdk: "${env.DEFAULT_JDK}", 
-            				maven: "${env.DEFAULT_MAVEN}", 
-                            mavenLocalRepo: '.repository'
-        			    ) {
-                		    sh "mvn clean verify sonar:sonar deploy"
-        			    }
-                    }
-                }
-                stage("build-notunix") {
-                when { expression { return !isUnix() } }
-                    steps {
-                        withMaven(
-                		    jdk: "${env.DEFAULT_JDK}",
-            				maven: "${env.DEFAULT_MAVEN}",
-                            mavenLocalRepo: '.repository'
-        			    ) {
-                		    bat "mvn clean verify sonar:sonar deploy"
-        			    }
-                    }
+            steps {
+                withMaven(
+                    jdk: "${env.DEFAULT_JDK}",
+                    maven: "${env.DEFAULT_MAVEN}",
+                    mavenLocalRepo: '.repository'
+                ) {
+                    jensCommand "mvn clean verify sonar:sonar deploy"
                 }
             }
             post {
