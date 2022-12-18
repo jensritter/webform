@@ -27,7 +27,7 @@ Additional-Dependencies for JavaScript to work:
 
 ### Include into Thymeleaf-Page
 
-    <div th:replace="org/jens/webform/templates :: inline"></div>
+    <div th:replace="~{org/jens/webform/templates :: inline}"></div>
 
 ### Assign to &lt;FORM&gt;-Element
 

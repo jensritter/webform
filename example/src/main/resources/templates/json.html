@@ -1,6 +1,6 @@
 <!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="templates:: head('Index-Page')"></head>
+<head th:replace="~{templates:: head('Index-Page')}"></head>
 <body>
 <div class="container-fluid">
     <div class="page-header">
@@ -13,8 +13,8 @@
 
 </div>
 
-<div th:replace="templates::scripts"></div>
-<div th:replace="org/jens/webform/templates :: inline"></div>
+<div th:replace="~{templates::scripts}"></div>
+<div th:replace="~{org/jens/webform/templates :: inline}"></div>
 <script th:inline="javascript">
     /*<![CDATA[*/
     $(document).ready(() => {
