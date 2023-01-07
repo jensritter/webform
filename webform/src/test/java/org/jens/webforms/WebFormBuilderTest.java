@@ -26,20 +26,21 @@ class WebFormBuilderTest {
         ObjectMapper mapper = new ObjectMapper();
         String json = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(form.toWebForm())
             .replace("\r", "");
-        assertThat(json).isEqualTo("{\n" +
-            "  \"schema\" : {\n" +
-            "    \"name\" : {\n" +
-            "      \"type\" : \"string\",\n" +
-            "      \"title\" : \"Name\"\n" +
-            "    }\n" +
-            "  },\n" +
-            "  \"form\" : [ {\n" +
-            "    \"key\" : \"name\"\n" +
-            "  }, {\n" +
-            "    \"type\" : \"submit\",\n" +
-            "    \"title\" : \"Submit\"\n" +
-            "  } ]\n" +
-            "}");
+        assertThat(json).isEqualTo("""
+            {
+              "schema" : {
+                "name" : {
+                  "type" : "string",
+                  "title" : "Name"
+                }
+              },
+              "form" : [ {
+                "key" : "name"
+              }, {
+                "type" : "submit",
+                "title" : "Submit"
+              } ]
+            }""");
     }
 
     @Test

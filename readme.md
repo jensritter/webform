@@ -11,7 +11,7 @@ uses jsonform https://github.com/jsonform/jsonform to display bootstrap-forms to
     <dependency>
         <groupId>org.jens.webform</groupId>
         <artifactId>webform</artifactId>
-        <version>1.0-SNAPSHOT</version>
+        <version>2.0.0-SNAPSHOT</version>
     </dependency>
 
 Additional-Dependencies for JavaScript to work:
@@ -27,7 +27,7 @@ Additional-Dependencies for JavaScript to work:
 
 ### Include into Thymeleaf-Page
 
-    <div th:replace="org/jens/webform/templates :: inline"></div>
+    <div th:replace="~{org/jens/webform/templates :: inline}"></div>
 
 ### Assign to &lt;FORM&gt;-Element
 
