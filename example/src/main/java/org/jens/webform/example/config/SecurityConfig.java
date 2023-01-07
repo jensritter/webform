@@ -14,7 +14,7 @@ public class SecurityConfig {
 
     @Bean
     SecurityFilterChain web(HttpSecurity http) throws Exception {
-        return ShorthandSecurityDefaults.ignoreUrls(http, "/**");
+        return ShorthandSecurityDefaults.ignoreChain(http, "/**");
     }
 
 }
