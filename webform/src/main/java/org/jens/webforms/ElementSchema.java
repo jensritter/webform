@@ -69,15 +69,14 @@ public abstract class ElementSchema<T> {
             this.name = name;
         }
 
+        @Override
         @JsonValue
         public String toString() {
             return name;
         }
     }
 
-    public ElementSchema() {
-
-    }
+    public ElementSchema() {}
 
     protected ElementSchema(FormType type, String label) {
         this.type = type;

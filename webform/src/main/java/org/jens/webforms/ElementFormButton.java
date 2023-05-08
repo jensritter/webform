@@ -38,6 +38,7 @@ public class ElementFormButton extends JsonForm {
             this.name = name;
         }
 
+        @Override
         @JsonValue
         public String toString() {
             return name;

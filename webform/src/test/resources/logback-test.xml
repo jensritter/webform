@@ -21,12 +21,6 @@ DIESE CONFIG WIRD VON JETTY+TOMCAT VERWENDET !
 
     </appender>
 
-    <turboFilter class="ch.qos.logback.classic.turbo.MarkerFilter">
-        <Marker>SQL</Marker>
-        <OnMatch>ACCEPT</OnMatch>
-        <!--  ACCEPT|DENY -->
-    </turboFilter>
-
     <logger name="org.hibernate.validator" level="WARN" />
     <logger name="org.jboss.logging" level="WARN" />
 
@@ -41,8 +35,7 @@ DIESE CONFIG WIRD VON JETTY+TOMCAT VERWENDET !
     <logger name="org.thymeleaf" level="WARN" />
     <logger name="net.sf.ehcache" level="WARN" />
 
-    <root>
-        <level value="DEBUG" />
+    <root level="DEBUG">
         <appender-ref ref="RootConsoleAppender" />
     </root>
 
