@@ -57,11 +57,6 @@
             <artifactId>spring-restdocs-mockmvc</artifactId>
             <scope>test</scope>
         </dependency>
-        <dependency>
-            <groupId>org.apache.httpcomponents</groupId>
-            <artifactId>httpclient</artifactId>
-            <scope>test</scope>
-        </dependency>
 
         <!-- Security -->
         <dependency>
@@ -88,6 +83,11 @@
         <dependency>
             <groupId>org.webjars.bower</groupId>
             <artifactId>jquery</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-devtools</artifactId>
+            <optional>true</optional>
         </dependency>
     </dependencies>
 
@@ -125,76 +125,4 @@
             </plugin>
         </plugins>
     </build>
-
-    <profiles>
-        <profile>
-            <id>devtools</id>
-            <dependencies>
-                <dependency>
-                    <groupId>org.springframework.boot</groupId>
-                    <artifactId>spring-boot-devtools</artifactId>
-                    <optional>true</optional>
-                </dependency>
-            </dependencies>
-        </profile>
-
-
-        <profile> <!-- aufnehmen in Haupt-Config, sofern AsciiDocs gewünscht werden -->
-            <id>asciidoc</id> <!-- see masterpom für Properties zum überschreiben -->
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.asciidoctor</groupId>
-                        <artifactId>asciidoctor-maven-plugin</artifactId>
-                        <executions>
-                            <execution>
-                                <id>generate-html-docs</id>
-                                <phase>prepare-package</phase> <!-- sofern RestDocs verwendet wird, alternative geht auch generate-resources -->
-                                <goals>
-                                    <goal>process-asciidoc</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                        <configuration>
-                            <backend>html</backend>
-                            <!--<backend>pdf</backend>-->
-
-                            <outputDirectory>${project.build.outputDirectory}/static/docs</outputDirectory>
-                            <!--<sourceDocumentExtensions>asciidoc</sourceDocumentExtensions>-->
-
-                            <attributes>
-                                <!-- Inhaltsverzeichnis -->
-                                <!--<toc2 /> &lt;!&ndash; Html-Menu links &ndash;&gt;-->
-                                <!--<toclevels>4</toclevels> &lt;!&ndash; Max. Tiefe für Inhaltsverzeichnis &ndash;&gt;-->
-                                <!--<numbered /> &lt;!&ndash; Kapitel werden durchnummeriert &ndash;&gt;-->
-
-                                <!-- Font Awesome usage
-                                        Benötigt in der 1. Zeile der .adoc-Datei folgende Anweisung :
-
-                                        :iconfont-remote!:
-
-                                        und neben der WebJars-Dependency für fontawesome diese Config : -->
-                                <!--
-                                    <icons>font</icons>
-                                    <stylesdir>../webjars/fontawesome/css/</stylesdir> &lt;!&ndash; WebJars-Location&ndash;&gt;
-                                -->
-                                <xrefstyle>short</xrefstyle> <!-- // Wie sollen verweise  angezeigt werden ? -->
-
-                                <!-- Deutsch -->
-                                <!--<lang>de</lang>-->
-                                <!--<chapter-label>Kapitel</chapter-label>-->
-                                <!--<section-label>Abschnitt</section-label>-->
-                                <!--<table-label>Tabelle</table-label>-->
-                                <!--<example-caption>Beispiel</example-caption>-->
-                                <!--<figure-caption>Zeichnung</figure-caption>-->
-                                <!--<toc-title>Inhaltsverzeichnis</toc-title>-->
-                                <!--<last-update-label>Zuletzt aktualisiert</last-update-label>-->
-                            </attributes>
-                        </configuration>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-    </profiles>
-
 </project>
