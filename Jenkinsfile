@@ -1,7 +1,7 @@
 @Library("jens-pipeline-lib") _
 pipeline {
-//    agent any
-    agent { label 'linux' }
+    agent any
+//    agent { label 'windows' }
     triggers {
       snapshotDependencies()
       pollSCM '@hourly'
@@ -15,12 +15,13 @@ pipeline {
                     maven: "${env.DEFAULT_MAVEN}",
                     mavenLocalRepo: '.repository'
                 ) {
-                    jensCommand "mvn clean verify sonar:sonar deploy"
+                    jensCommand "mvn clean deploy"
+                    jensCommand "mvn verify sonar:sonar"
                 }
             }
             post {
                 cleanup {
-                 dir('.repository') { deleteDir() } 
+                    dir('.repository') { deleteDir() }
                 }
                 always {
                     recordIssues(tools: [java(), mavenConsole(), /* kotlin() */ ])
