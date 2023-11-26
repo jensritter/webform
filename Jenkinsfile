@@ -16,7 +16,7 @@ pipeline {
                     mavenLocalRepo: '.repository'
                 ) {
                     jensCommand "mvn clean deploy"
-                    jensCommand "mvn verify sonar:sonar"
+                    jensCommand "mvn sonar:sonar"
                 }
             }
             post {
