@@ -15,12 +15,13 @@ pipeline {
                     maven: "${env.DEFAULT_MAVEN}",
                     mavenLocalRepo: '.repository'
                 ) {
-                    jensCommand "mvn clean verify sonar:sonar deploy"
+                    jensCommand "mvn clean deploy"
+                    jensCommand "mvn sonar:sonar"
                 }
             }
             post {
                 cleanup {
-                 dir('.repository') { deleteDir() } 
+                    dir('.repository') { deleteDir() }
                 }
                 always {
                     recordIssues(tools: [java(), mavenConsole(), /* kotlin() */ ])
