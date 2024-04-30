@@ -21,8 +21,10 @@ public final class JsonSchema {
     private String type;
     private String title;
     private boolean required;
-    @Nullable private String description;
-    @Nullable private Object defaultValue;
+    @Nullable
+    private String description;
+    @Nullable
+    private Object defaultValue;
     private int maxLength; //TODO: implement maxLength
 
     // f. FComboBox

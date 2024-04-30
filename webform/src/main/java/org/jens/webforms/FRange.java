@@ -14,7 +14,7 @@ public class FRange extends FInteger {
     private int formStep;
     private boolean formIndicator;
 
-    protected FRange() {}
+    FRange() {}
 
     public FRange(String label) {super(label);}
 
@@ -36,20 +36,20 @@ public class FRange extends FInteger {
     public void parseForm(JsonNode schemaElement, JsonNode formElement, Optional<JsonNode> defaultValueNode) {
         super.parseForm(schemaElement, formElement, defaultValueNode);
         JsonNode nodeMinimum = schemaElement.get("minimum");
-        if(nodeMinimum != null) {
+        if (nodeMinimum != null) {
             setMinimum(nodeMinimum.asInt());
         }
         JsonNode nodeMaximum = schemaElement.get("maximum");
-        if(nodeMaximum != null) {
+        if (nodeMaximum != null) {
             setMaximum(nodeMaximum.asInt());
         }
 
         JsonNode nodeStep = formElement.get("step");
-        if(nodeStep != null) {
+        if (nodeStep != null) {
             setFormStep(nodeStep.asInt());
         }
         JsonNode nodeIndicator = formElement.get("indicator");
-        if(nodeIndicator != null) {
+        if (nodeIndicator != null) {
             setFormIndicator(nodeIndicator.asBoolean());
         }
 

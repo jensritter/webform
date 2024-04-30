@@ -20,7 +20,7 @@ import java.util.Optional;
 public class FDate extends ElementSchema<LocalDate> {
     private final Logger logger = LoggerFactory.getLogger(FDate.class);
 
-    protected FDate() {}
+    FDate() {}
 
     /**
      * Formatter, welches von Chrome+Firefox als gültiges Datum anerkannt werden
@@ -45,11 +45,11 @@ public class FDate extends ElementSchema<LocalDate> {
 
     @Override
     public void parseForm(JsonNode schemaElement, JsonNode formElement, Optional<JsonNode> defaultValueNode) {
-        defaultValueNode.ifPresent(k -> {
+        defaultValueNode.ifPresent(key->{
             try {
-                TemporalAccessor parse = DATE_YYYY_MM_DD.parse(k.asText());
+                TemporalAccessor parse = DATE_YYYY_MM_DD.parse(key.asText());
                 setDefaultValue(LocalDate.from(parse));
-            } catch(DateTimeParseException e) {
+            } catch (DateTimeParseException e) {
                 logger.warn("Cannot parse Date-Value for {}", schemaElement);
             }
         });
@@ -66,15 +66,16 @@ public class FDate extends ElementSchema<LocalDate> {
     @Nullable
     public LocalDate getDefaultValue() {
         Object defaultValue = super.getDefaultValue();
-        if(defaultValue == null) {return null;}
+        if (defaultValue == null) {return null;}
 
         String stringValue = (String) defaultValue;
         TemporalAccessor parse = DATE_YYYY_MM_DD.parse(stringValue);
         return LocalDate.from(parse);
     }
 
+    @SuppressWarnings("MethodOverloadsMethodOfSuperclass")
     public void setDefaultValue(@Nullable LocalDate date) {
-        if(date == null) {
+        if (date == null) {
             super.setDefaultValue(null);
         } else {
             setDefaultValue(DATE_YYYY_MM_DD.format(date));

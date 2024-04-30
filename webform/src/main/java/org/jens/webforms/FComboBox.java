@@ -4,14 +4,8 @@ import com.fasterxml.jackson.databind.JsonNode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Iterator;
-import java.util.LinkedHashMap;
-import java.util.Map;
+import java.util.*;
 import java.util.Map.Entry;
-import java.util.Optional;
 
 /**
  * https://github.com/jsonform/jsonform/wiki#selection-fields
@@ -24,7 +18,7 @@ public class FComboBox extends ElementSchema<String> {
     private final Map<String, String> selectionValues = new LinkedHashMap<>();
     private boolean viewAsRadios;
 
-    protected FComboBox() {}
+    FComboBox() {}
 
     public FComboBox(String label) {
         super(FormType.FormString, label);
@@ -51,7 +45,7 @@ public class FComboBox extends ElementSchema<String> {
 
     @Override
     public void parseForm(JsonNode schemaElement, JsonNode formElement, Optional<JsonNode> defaultValueNode) {
-        defaultValueNode.ifPresent(k -> value(k.asText()));
+        defaultValueNode.ifPresent(key->value(key.asText()));
 
         JsonNode type = formElement.get("type");
         setViewAsRadios(type != null && "radios".equals(type.asText()));

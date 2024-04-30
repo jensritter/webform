@@ -82,11 +82,11 @@ class JsonFormParserTest {
         Map<String, ElementSchema<?>> elements = parser.parseElements(webForm.toJson());
 
         assertThat(elements).containsOnlyKeys("bool");
-        ElementSchema<?> bool = elements.get("bool");
-        assertThat(bool).isNotNull();
+        ElementSchema<?> boolField = elements.get("bool");
+        assertThat(boolField).isNotNull();
 
-        assertThat(bool).isInstanceOf(FBoolean.class);
-        FBoolean fBoolean = (FBoolean) bool;
+        assertThat(boolField).isInstanceOf(FBoolean.class);
+        FBoolean fBoolean = (FBoolean) boolField;
 
         assertThat(fBoolean.getInlineTitle()).isEqualTo("inlineTitle");
         assertThat(fBoolean.getDefaultValue()).isEqualTo(Boolean.TRUE);

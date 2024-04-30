@@ -9,7 +9,7 @@ import java.util.Optional;
  */
 public class FString extends ElementSchema<String> {
 
-    protected FString() {}
+    FString() {}
 
     public FString(String label) {
         super(FormType.FormString, label);
@@ -17,17 +17,14 @@ public class FString extends ElementSchema<String> {
 
     @Override
     public void parseForm(JsonNode schemaElement, JsonNode formElement, Optional<JsonNode> defaultValueNode) {
-        defaultValueNode.ifPresent(k -> setDefaultValue(k.asText()));
+        defaultValueNode.ifPresent(key->setDefaultValue(key.asText()));
     }
 
     @Override
-    void buildSchema(JsonSchema jsonSchema) {
-
-    }
+    void buildSchema(JsonSchema jsonSchema) {}
 
     @Override
     protected void buildForm(ElementForm element) {
-        // Default-Value not needed
     }
 
 }

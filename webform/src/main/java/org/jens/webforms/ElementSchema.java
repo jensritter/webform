@@ -33,21 +33,27 @@ public abstract class ElementSchema<T> {
     private final Logger logger = LoggerFactory.getLogger(ElementSchema.class);
 
     private FormType type;
-
     private String title;
     private boolean required;
-    @Nullable private String description;
-    @Nullable private Object defaultValue;
+    @Nullable
+    private String description;
+    @Nullable
+    private Object defaultValue;
 
     /* form-properties */
     private boolean notitle;
     private boolean disabled;
     private boolean readonly;
-    @Nullable private String htmlClass;
-    @Nullable private String fieldHtmlClass;
-    @Nullable private String prepend;
-    @Nullable private String append;
-    @Nullable private String placeholder;
+    @Nullable
+    private String htmlClass;
+    @Nullable
+    private String fieldHtmlClass;
+    @Nullable
+    private String prepend;
+    @Nullable
+    private String append;
+    @Nullable
+    private String placeholder;
 
 
     /**
@@ -55,7 +61,7 @@ public abstract class ElementSchema<T> {
      *
      * @see <a href="https://github.com/jsonform/jsonform/wiki#schema-supported">https://github.com/jsonform/jsonform/wiki#schema-supported</a>
      */
-    enum FormType {
+    public enum FormType {
         FormString("string"),
         FormNumber("number"),
         FormInteger("integer"),
@@ -76,9 +82,9 @@ public abstract class ElementSchema<T> {
         }
     }
 
-    public ElementSchema() {}
+    ElementSchema() {}
 
-    protected ElementSchema(FormType type, String label) {
+    public ElementSchema(FormType type, String label) {
         this.type = type;
         this.title = label;
     }
@@ -130,7 +136,7 @@ public abstract class ElementSchema<T> {
      */
     void parseFormDefaults(JsonNode schemaElement, JsonNode formElement) {
         String schemaTitle = parseValueAsString(schemaElement, "title");
-        if(schemaTitle != null) {
+        if (schemaTitle != null) {
             setTitle(schemaTitle);
         } else {
             logger.warn("Element does not have a title {}", schemaElement);
@@ -171,9 +177,10 @@ public abstract class ElementSchema<T> {
         return entry != null && entry.asBoolean();
     }
 
-    @Nullable String parseValueAsString(JsonNode node, String key) {
+    @Nullable
+    String parseValueAsString(JsonNode node, String key) {
         JsonNode jsonNode = node.get(key);
-        if(jsonNode != null) {
+        if (jsonNode != null) {
             return jsonNode.asText();
         }
         return null;
@@ -196,7 +203,8 @@ public abstract class ElementSchema<T> {
 
     public boolean isRequired() {return this.required;}
 
-    public @Nullable String getDescription() {return description;}
+    @Nullable
+    public String getDescription() {return description;}
 
     public void setDescription(@Nullable String description) {this.description = description;}
 

@@ -9,7 +9,7 @@ import java.util.Optional;
  * @author Jens Ritter on 29/08/2021.
  */
 public class FNumber extends ElementSchema<Number> {
-    protected FNumber() {}
+    FNumber() {}
 
     public FNumber(String label) {
         super(FormType.FormNumber, label);
@@ -23,7 +23,7 @@ public class FNumber extends ElementSchema<Number> {
 
     @Override
     public void parseForm(JsonNode schemaElement, JsonNode formElement, Optional<JsonNode> defaultValueNode) {
-        defaultValueNode.ifPresent(k -> setDefaultValue(k.asDouble()));
+        defaultValueNode.ifPresent(key->setDefaultValue(key.asDouble()));
     }
 
     @Override

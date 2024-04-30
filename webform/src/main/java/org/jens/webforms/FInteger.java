@@ -9,7 +9,7 @@ import java.util.Optional;
  * @author Jens Ritter on 29/08/2021.
  */
 public class FInteger extends ElementSchema<Integer> {
-    protected FInteger() {}
+    FInteger() {}
 
     public FInteger(String label) {
         super(FormType.FormInteger, label);
@@ -22,7 +22,7 @@ public class FInteger extends ElementSchema<Integer> {
 
     @Override
     protected void parseForm(JsonNode schemaElement, JsonNode formElement, Optional<JsonNode> defaultValueNode) {
-        defaultValueNode.ifPresent(k -> setDefaultValue(k.asInt()));
+        defaultValueNode.ifPresent(key->setDefaultValue(key.asInt()));
     }
 
     @Override

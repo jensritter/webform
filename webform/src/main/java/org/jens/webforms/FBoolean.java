@@ -13,7 +13,7 @@ public class FBoolean extends ElementSchema<Boolean> {
 
     private @Nullable String inlineTitle;
 
-    protected FBoolean() {}
+    FBoolean() {}
 
     public FBoolean(String label) {
         super(FormType.FormBoolean, label);
@@ -34,7 +34,7 @@ public class FBoolean extends ElementSchema<Boolean> {
     public void parseForm(JsonNode schemaElement, JsonNode formElement, Optional<JsonNode> defaultValueNode) {
         // form: {"key":"bool","inlinetitle":"inlinetitle"}
         setInlineTitle(parseValueAsString(formElement, "inlinetitle"));
-        defaultValueNode.ifPresent(k -> value(k.asBoolean()));
+        defaultValueNode.ifPresent(key->value(key.asBoolean()));
     }
 
     @Override
@@ -43,8 +43,6 @@ public class FBoolean extends ElementSchema<Boolean> {
     public boolean getValue() {
         return getDefaultValue() != null ? (Boolean) getDefaultValue() : false;
     }
-
-
 
     @Nullable
     public String getInlineTitle() {return inlineTitle;}

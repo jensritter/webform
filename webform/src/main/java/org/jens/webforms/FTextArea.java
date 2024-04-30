@@ -5,7 +5,7 @@ package org.jens.webforms;
  */
 public class FTextArea extends FString {
 
-    protected FTextArea() {}
+    FTextArea() {}
 
     public FTextArea(String label) {
         super(label);

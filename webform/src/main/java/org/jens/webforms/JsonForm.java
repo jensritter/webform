@@ -14,25 +14,31 @@ import org.jetbrains.annotations.Nullable;
  */
 @JsonInclude(Include.NON_DEFAULT)
 @SuppressWarnings("NegativelyNamedBooleanVariable")
-class JsonForm {
+public class JsonForm {
 
-    @Nullable private String type;
+    @Nullable
+    private String type;
 
-    @Nullable private String append;
+    @Nullable
+    private String append;
 
-    @Nullable private String htmlClass;
+    @Nullable
+    private String htmlClass;
 
-    @Nullable private String fieldHtmlClass;
+    @Nullable
+    private String fieldHtmlClass;
 
     private boolean notitle;
 
-    @Nullable private String prepend;
+    @Nullable
+    private String prepend;
 
     private boolean disabled;
 
     private boolean readonly;
 
-    @Nullable private String placeholder;
+    @Nullable
+    private String placeholder;
 
 
     public @Nullable String getType() {return type;}

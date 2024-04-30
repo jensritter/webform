@@ -24,11 +24,13 @@ public class ElementForm extends JsonForm {
     /* for  FComboBox */
     private final Map<String, String> titleMap = new HashMap<>();
     /* for FBoolean */
-    private @Nullable String inlinetitle;
+    @Nullable
+    private String inlinetitle;
 
     /* for FFange */
     @Nullable
     private Integer step;
+
     private boolean indicator;
 
     ElementForm(String key) {this.key = key;}
@@ -44,7 +46,9 @@ public class ElementForm extends JsonForm {
 
     void setInlineTitle(@Nullable String inlinetitle) {this.inlinetitle = inlinetitle;}
 
-    /** Json-Properties : **/
+    /**
+     * Json-Properties :
+     **/
 
     public String getKey() {return key;}
 
