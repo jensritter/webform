@@ -36,7 +36,7 @@
     "outputName": "jest-junit.xml"
   },
   "devDependencies": {
-    "express": "^4.17.1",
+    "express": "^4.21.0",
     "jest": "^27.1.0",
     "jest-junit": "^13.0.0",
     "node-fetch": "^2.6.7"
