@@ -84,7 +84,7 @@ public abstract class ElementSchema<T> {
 
     ElementSchema() {}
 
-    public ElementSchema(FormType type, String label) {
+    protected ElementSchema(FormType type, String label) {
         this.type = type;
         this.title = label;
     }
