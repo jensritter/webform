@@ -43,7 +43,7 @@ let webform;
 beforeEach(() => {
     // reset HTML-page
     document.body.innerHTML = "<html lang='en'><body><form id='formid'></form></body>";
-    webform = require('../../main/resources/META-INF/resources/webjars/webform-js/1.0-SNAPSHOT/orgjenswebform.js');
+  webform = require('../../main/resources/META-INF/resources/webjars/webform-js/2.0.0-SNAPSHOT/orgjenswebform.js');
 });
 
 
